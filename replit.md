@@ -1,6 +1,6 @@
-# [Project name]
+# Northstar Consulting
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Northstar is a premium, conversion-focused website for an IT services and AI solutions consultancy.
 
 ## Run & Operate
 
@@ -22,23 +22,27 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/northstar-consulting/src/App.tsx` — the complete responsive marketing site and interactions
+- `artifacts/northstar-consulting/src/index.css` — visual tokens, typography, responsive styles, and motion
+- `attached_assets/Pasted-Create-a-premium-world-class-SEO-optimized-website-for-_1786086903550.txt` — original website brief
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The first release is a presentation-first single-page site with no backend dependency.
+- Interactions are intentionally client-side for fast, reliable conversion flows: anchor navigation, forms, theme, FAQ, cookie consent, and mobile menu.
+- SEO metadata and structured data live with the page so the marketing surface is self-contained and easy to publish.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+The site positions Northstar as a trusted digital transformation partner through outcome-led messaging, service and industry exploration, case studies, process transparency, testimonials, FAQs, and consultation CTAs.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Premium, minimal, enterprise-level presentation with restrained blue accents, clear business language, generous whitespace, and strong conversion focus.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- The site is designed to run as the root web artifact and expects its managed workflow to provide `PORT` and `BASE_PATH`.
 
 ## Pointers
 

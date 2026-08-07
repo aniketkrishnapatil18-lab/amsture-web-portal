@@ -1,0 +1,213 @@
+Create a premium, world-class, SEO-optimized website for a modern IT Services and AI Solutions startup.
+
+The website should look like a high-end consulting and technology company, designed to convert visitors into clients.
+
+Design Style:
+- Minimal, elegant, premium
+- Clean white background with subtle blue gradients
+- Enterprise-level UI/UX
+- Modern typography
+- Large whitespace
+- Soft shadows
+- Rounded corners
+- Smooth animations
+- Glassmorphism used sparingly
+- Mobile-first responsive
+- Fast loading
+- Accessibility compliant
+
+The design inspiration should be similar to:
+- Stripe
+- Linear
+- Notion
+- Vercel
+- Framer
+- Apple
+
+Avoid:
+- Generic agency templates
+- Technology logos
+- Developer-focused content
+- Cluttered layouts
+- Overly colorful designs
+- Stock-looking illustrations
+
+The website should focus on business value, trust, professionalism, and conversion.
+
+--------------------------------------------------
+WEBSITE STRUCTURE
+--------------------------------------------------
+
+1. Hero Section
+- Powerful headline focused on business outcomes.
+- Short value proposition explaining how we help businesses grow through digital solutions.
+- Primary CTA: "Book a Free Consultation"
+- Secondary CTA: "View Our Services"
+- Premium abstract illustration or business-themed visual (no coding screens).
+
+2. About Us
+- Company story
+- Vision
+- Mission
+- Core values
+- Why clients choose us
+
+3. Services
+Present services as business solutions, including:
+- Business Websites
+- Custom Business Applications
+- Mobile Applications
+- ERP Solutions
+- CRM Solutions
+- AI Business Automation
+- Process Automation
+- Business Dashboards
+- Digital Transformation
+- Cloud Solutions
+- Software Maintenance & Support
+- Business Consulting
+
+Each service should explain:
+- Business problem
+- Our solution
+- Client benefits
+
+4. Industries We Serve
+- Healthcare
+- Education
+- Manufacturing
+- Retail
+- Hospitality
+- Real Estate
+- Finance
+- Government
+- Logistics
+- Startups
+- NGOs
+- Professional Services
+
+5. Why Choose Us
+Highlight benefits instead of technologies:
+- Client-first approach
+- Transparent communication
+- On-time delivery
+- Scalable solutions
+- Business-focused thinking
+- Quality assurance
+- Long-term partnership
+- Dedicated support
+
+6. Our Process
+Visual timeline:
+Discovery
+↓
+Requirement Analysis
+↓
+Planning
+↓
+Design
+↓
+Development
+↓
+Testing
+↓
+Deployment
+↓
+Support & Continuous Improvement
+
+7. Portfolio
+Modern case study cards with placeholders:
+- Business challenge
+- Solution delivered
+- Results achieved
+
+8. Testimonials
+Professional testimonial cards with ratings and client information.
+
+9. FAQ
+Answer common client questions:
+- Project timelines
+- Pricing approach
+- Support
+- Maintenance
+- Communication process
+
+10. Contact Section
+- Consultation form
+- Email
+- Phone
+- Office address
+- Interactive map
+- Business hours
+
+11. Footer
+- About
+- Services
+- Industries
+- Portfolio
+- Careers
+- Blog
+- Privacy Policy
+- Terms & Conditions
+- Contact
+- Social Media Links
+
+--------------------------------------------------
+SEO REQUIREMENTS
+--------------------------------------------------
+
+Generate:
+- SEO-friendly URLs
+- Optimized page titles
+- Meta descriptions
+- Open Graph tags
+- Twitter Card metadata
+- Structured data (Organization, LocalBusiness, Service, FAQ)
+- XML sitemap support
+- Robots.txt
+- Canonical URLs
+- Breadcrumb navigation
+- Semantic HTML
+- Optimized heading hierarchy (H1–H3)
+- Image alt text
+- Internal linking strategy
+- Fast Core Web Vitals performance
+- Lazy loading for images
+- Optimized image placeholders
+
+--------------------------------------------------
+CONTENT STYLE
+--------------------------------------------------
+
+- Professional
+- Trustworthy
+- Business-focused
+- Clear and concise
+- Human-centered
+- Avoid technical jargon
+- Focus on business outcomes and ROI
+- Write persuasive, conversion-focused copy
+
+--------------------------------------------------
+EXTRA FEATURES
+--------------------------------------------------
+
+- Sticky navigation
+- Smooth scrolling
+- Scroll animations
+- Animated counters
+- Floating CTA button
+- Premium loading animation
+- Dark/Light mode
+- Search functionality
+- Blog section ready
+- Career page ready
+- Newsletter subscription
+- Cookie consent banner
+- WhatsApp floating button
+- Live chat placeholder
+
+--------------------------------------------------
+GOAL
+
+The final website should look like a premium global consulting and digital transformation company that builds trust, ranks well on Google, and converts visitors into qualified leads. Every section should be visually polished, SEO optimized, and designed to encourage visitors to book a consultation or contact the company.
