@@ -33,6 +33,8 @@ import {
   Sun,
   X,
 } from 'lucide-react';
+import roboticsHeroImage from '@assets/generated_images/northstar-robotics-hero.jpg';
+import roboticsDetailImage from '@assets/generated_images/northstar-robotics-detail.jpg';
 import { FormEvent, useEffect, useState } from 'react';
 
 const queryClient = new QueryClient();
@@ -50,9 +52,9 @@ const services = [
   {
     id: 'automation',
     number: '02',
-    label: 'AI & process automation',
+    label: 'AI & intelligent automation',
     title: 'Give good teams their time back.',
-    body: 'Practical AI that removes repetitive work, surfaces better decisions, and stays accountable to your standards.',
+    body: 'Practical AI that reads the work, moves the workflow, and surfaces better decisions while keeping people accountable at the right moments.',
     outcomes: ['Faster response times', 'Consistent, auditable workflows', 'Capacity for higher-value work'],
     icon: BrainCircuit,
   },
@@ -114,7 +116,7 @@ function IconMark() {
 function MetaAndStructuredData() {
   useEffect(() => {
     document.title = 'Northstar — Clearer paths to measurable progress';
-    const description = 'Northstar is a digital transformation partner helping ambitious businesses turn friction into calm, scalable operations.';
+    const description = 'Northstar is a digital transformation, AI and robotics partner helping ambitious businesses turn friction into calm, scalable operations.';
     const setMeta = (name: string, content: string, property = false) => {
       const selector = property ? `meta[property="${name}"]` : `meta[name="${name}"]`;
       let tag = document.head.querySelector(selector) as HTMLMetaElement | null;
@@ -144,7 +146,7 @@ function MetaAndStructuredData() {
     const structuredData = [
       { '@context': 'https://schema.org', '@type': 'Organization', name: 'Northstar Consulting', url: 'https://northstar.consulting/', email: 'hello@northstar.consulting', sameAs: ['https://www.linkedin.com/company/northstar-consulting'] },
       { '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Northstar Consulting', description, address: { '@type': 'PostalAddress', addressLocality: 'Manchester', addressCountry: 'GB' }, openingHours: 'Mo-Fr 09:00-17:30' },
-      { '@context': 'https://schema.org', '@type': 'Service', serviceType: 'Digital transformation consulting', provider: { '@type': 'Organization', name: 'Northstar Consulting' }, areaServed: 'Worldwide' },
+      { '@context': 'https://schema.org', '@type': 'Service', serviceType: 'Digital transformation, AI automation and robotics consulting', description: 'Business-first AI automation, decision intelligence, intelligent document processing, AI copilots and robotics for safer, more consistent operations.', provider: { '@type': 'Organization', name: 'Northstar Consulting' }, areaServed: 'Worldwide' },
       { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })) },
     ];
     let jsonLd = document.getElementById('northstar-jsonld');
@@ -190,7 +192,7 @@ function AbstractNorthstar() {
 
 function Header({ dark, setDark }: { dark: boolean; setDark: (value: boolean) => void }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const links = [['About', '#about'], ['Services', '#services'], ['Approach', '#approach'], ['Proof', '#proof']];
+  const links = [['About', '#about'], ['Services', '#services'], ['AI & Robotics', '#ai'], ['Approach', '#approach'], ['Proof', '#proof']];
   return (
     <header className="sticky top-0 z-50 border-b border-[hsl(var(--border))]/70 bg-[hsl(var(--background))]/80 backdrop-blur-xl">
       <div className="ns-container flex h-[72px] items-center justify-between">
@@ -269,6 +271,7 @@ function Home() {
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a href="#contact" className="ns-btn inline-flex items-center justify-center rounded-full bg-[var(--ink-blue)] px-5 py-3.5 text-sm font-bold text-white shadow-[0_15px_30px_-18px_rgba(23,50,95,.8)] hover:bg-[var(--signal-blue)]" data-testid="link-hero-consultation">Book a free consultation <ArrowUpRight size={16} className="ml-2" /></a>
                 <a href="#services" className="ns-btn inline-flex items-center justify-center rounded-full border border-[var(--line-blue)] bg-white/60 px-5 py-3.5 text-sm font-bold text-[var(--ink-blue)] hover:bg-white dark:bg-slate-900/40 dark:text-blue-100 dark:hover:bg-slate-800" data-testid="link-hero-services">Explore our work <ArrowDownRight size={16} className="ml-2" /></a>
+                 <a href="#ai" className="ns-btn inline-flex items-center justify-center rounded-full border border-[var(--line-blue)] bg-[#edf8f8]/80 px-5 py-3.5 text-sm font-bold text-[var(--ink-blue)] hover:bg-[#dff3f2] dark:bg-slate-900/60 dark:text-blue-100 dark:hover:bg-slate-800" data-testid="link-hero-ai">AI & robotics <ArrowDownRight size={16} className="ml-2" /></a>
               </div>
               <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-[var(--line-blue)] pt-5 text-[11px] font-semibold text-slate-500 dark:text-slate-400"><span className="flex items-center gap-2"><CircleCheck size={14} className="text-[#20aa8c]" /> No hard sell</span><span className="flex items-center gap-2"><CircleCheck size={14} className="text-[#20aa8c]" /> Senior thinking</span><span className="flex items-center gap-2"><CircleCheck size={14} className="text-[#20aa8c]" /> Practical outcomes</span></div>
             </div>
@@ -282,6 +285,39 @@ function Home() {
             {[['01', 'Clarity before complexity', 'We make the important thing obvious.'], ['02', 'Progress you can measure', 'Every decision connects to a meaningful outcome.'], ['03', 'A partner for the long run', 'We stay close enough to make change stick.']].map(([number, title, body]) => <div key={number} className="flex gap-4 sm:justify-center"><span className="font-mono-ns text-[10px] text-[var(--signal-blue)]">{number}</span><div><p className="font-display text-sm font-bold text-[var(--ink-blue)] dark:text-blue-100">{title}</p><p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">{body}</p></div></div>)}
           </div>
         </section>
+
+         <section id="ai" className="ns-section scroll-mt-16 bg-[var(--ink-blue)] text-white" aria-labelledby="ai-heading">
+           <div className="ns-container">
+             <div className="grid items-end gap-8 md:grid-cols-[.82fr_1.18fr]">
+               <div>
+                 <p className="ns-eyebrow text-[#73d8d7]">02 / AI & robotics</p>
+                 <h2 id="ai-heading" className="ns-display mt-5 text-4xl font-extrabold md:text-6xl">Intelligence that <span className="text-[#73d8d7]">earns trust.</span></h2>
+               </div>
+               <p className="max-w-[500px] leading-7 text-blue-100/75">AI should make the business more capable, not less accountable. We connect models, workflows and physical operations to the decisions your people already own.</p>
+             </div>
+             <div className="mt-12 grid gap-7 lg:grid-cols-[1.08fr_.92fr] lg:items-stretch">
+               <figure className="group relative min-h-[360px] overflow-hidden rounded-[28px] border border-white/15 bg-[#0d2342] md:min-h-[500px]">
+                 <img src={roboticsHeroImage} alt="Robotic arm working beside an illuminated operations dashboard in a controlled facility" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center opacity-85 transition-transform duration-700 group-hover:scale-[1.03]" />
+                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,23,44,.04),rgba(7,23,44,.88))]" />
+                 <figcaption className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                   <div className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-[#73d8d7]" /><span className="font-mono-ns text-[9px] tracking-[.16em] text-cyan-100/75">INTELLIGENCE / IN THE FLOW OF WORK</span></div>
+                   <p className="mt-4 max-w-[430px] text-xl font-semibold leading-8 text-white">From the first document to the final movement on the floor, every handoff can become clearer.</p>
+                 </figcaption>
+               </figure>
+               <div className="grid gap-3">
+                 {[
+                   ['01', 'Business automation', 'Remove repetitive coordination so teams can spend more time on judgement and service.'],
+                   ['02', 'Documents & workflows', 'Extract the signal from unstructured information, route it, and keep a human review where it matters.'],
+                   ['03', 'Decision intelligence', 'Turn live operational data into a shared view of what needs attention next.'],
+                   ['04', 'Copilots & physical operations', 'Give people a grounded assistant, and give machines a safer, more consistent role on the floor.'],
+                 ].map(([number, title, body]) => <article key={number} className="border-t border-white/15 py-5">
+                   <div className="flex gap-5"><span className="font-mono-ns text-[10px] text-[#73d8d7]">{number}</span><div><h3 className="font-display text-lg font-bold">{title}</h3><p className="mt-2 max-w-[390px] text-sm leading-6 text-blue-100/65">{body}</p></div></div>
+                 </article>)}
+                 <div className="mt-2 rounded-2xl border border-[#73d8d7]/25 bg-white/[.06] p-5"><div className="flex items-center gap-2 text-sm font-bold text-[#73d8d7]"><ShieldCheck size={16} /> Human review, designed in</div><p className="mt-2 text-xs leading-5 text-blue-100/65">Clear ownership, explainable outputs, and review points matched to risk—not bolted on after launch.</p></div>
+               </div>
+             </div>
+           </div>
+         </section>
 
         <section id="about" className="ns-section scroll-mt-16" aria-labelledby="about-heading">
           <div className="ns-container grid gap-12 md:grid-cols-[.82fr_1.18fr] md:gap-20">
@@ -331,11 +367,22 @@ function Home() {
             <div className="mt-14 grid gap-5 lg:grid-cols-[1.35fr_.65fr]">
               <article className="group relative min-h-[400px] overflow-hidden rounded-[28px] bg-[#172e53] p-7 text-white md:p-10"><div className="absolute right-[-8%] top-[-15%] h-80 w-80 rounded-full border border-cyan-200/20 bg-[radial-gradient(circle,rgba(55,193,209,.26),transparent_64%)]" /><div className="absolute bottom-[-25%] left-[35%] h-72 w-72 rounded-full border border-white/10" /><div className="relative flex h-full flex-col justify-between"><div className="flex items-center justify-between"><span className="rounded-full border border-white/20 px-3 py-1.5 font-mono-ns text-[9px] tracking-widest text-cyan-100">HEALTHCARE / OPERATIONS</span><ArrowUpRight size={18} className="text-[#73d8d7] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></div><div><p className="font-mono-ns text-[10px] text-[#73d8d7]">THE CHALLENGE</p><h3 className="ns-display mt-4 max-w-[510px] text-3xl font-extrabold md:text-4xl">A national care provider made every referral count.</h3><div className="mt-8 grid gap-4 border-t border-white/15 pt-5 sm:grid-cols-3"><div><p className="font-display text-2xl font-extrabold text-[#73d8d7]">-42%</p><p className="mt-1 text-xs text-blue-100/65">time to process a referral</p></div><div><p className="font-display text-2xl font-extrabold text-[#73d8d7]">+18</p><p className="mt-1 text-xs text-blue-100/65">hours back per team / month</p></div><div><p className="font-display text-2xl font-extrabold text-[#73d8d7]">6 wks</p><p className="mt-1 text-xs text-blue-100/65">to first measurable impact</p></div></div></div></div></article>
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1"><article className="rounded-[28px] border border-[var(--line-blue)] bg-white p-7 dark:bg-slate-900"><span className="font-mono-ns text-[9px] tracking-widest text-[var(--signal-blue)]">PROFESSIONAL SERVICES</span><h3 className="mt-10 font-display text-xl font-bold text-[var(--ink-blue)] dark:text-blue-100">From scattered expertise to one confident client journey.</h3><p className="mt-4 text-sm leading-6 text-slate-500 dark:text-slate-400">A connected experience helped a 300-person advisory firm respond with more relevance and less rework.</p><span className="mt-7 flex items-center gap-2 text-sm font-bold text-[var(--signal-blue)]">2.4× faster proposals <ArrowUpRight size={14} /></span></article><article className="rounded-[28px] border border-[var(--line-blue)] bg-white p-7 dark:bg-slate-900"><span className="font-mono-ns text-[9px] tracking-widest text-[var(--signal-blue)]">MANUFACTURING</span><h3 className="mt-10 font-display text-xl font-bold text-[var(--ink-blue)] dark:text-blue-100">A live view of the work made delays visible sooner.</h3><p className="mt-4 text-sm leading-6 text-slate-500 dark:text-slate-400">A shared operational picture gave leaders the confidence to act before small issues became expensive ones.</p><span className="mt-7 flex items-center gap-2 text-sm font-bold text-[var(--signal-blue)]">18% fewer delays <ArrowUpRight size={14} /></span></article></div>
-            </div>
-          </div>
-        </section>
-
-        <section className="ns-section" aria-labelledby="testimonials-heading">
+             </div>
+             <article className="mt-5 grid overflow-hidden rounded-[28px] border border-[var(--line-blue)] bg-white dark:bg-slate-900 md:grid-cols-[.9fr_1.1fr]">
+               <div className="relative min-h-[300px] overflow-hidden">
+                 <img src={roboticsDetailImage} alt="Precision robotic gripper handling a miniature urban model beside an autonomous mobile robot" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
+               </div>
+               <div className="p-7 md:p-10">
+                 <div className="flex items-center justify-between"><span className="font-mono-ns text-[9px] tracking-widest text-[var(--signal-blue)]">PHYSICAL OPERATIONS / CONTROLLED SCALE</span><ArrowUpRight size={18} className="text-[var(--signal-blue)]" /></div>
+                 <h3 className="ns-display mt-10 max-w-[470px] text-3xl font-extrabold text-[var(--ink-blue)] dark:text-blue-100 md:text-4xl">When intelligence leaves the screen, consistency matters even more.</h3>
+                 <p className="mt-5 max-w-[500px] text-sm leading-7 text-slate-600 dark:text-slate-300">We help operations leaders identify where robotics can reduce manual handling, improve safety, and create a more predictable service—without pretending the machine owns the decision.</p>
+                 <div className="mt-8 grid gap-3 border-t border-[var(--line-blue)] pt-5 sm:grid-cols-3"><div><p className="font-display text-lg font-extrabold text-[var(--signal-blue)]">Safer</p><p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">repeatable movement</p></div><div><p className="font-display text-lg font-extrabold text-[var(--signal-blue)]">Steadier</p><p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">operational quality</p></div><div><p className="font-display text-lg font-extrabold text-[var(--signal-blue)]">Visible</p><p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">human ownership</p></div></div>
+               </div>
+             </article>
+           </div>
+         </section>
+ 
+         <section className="ns-section" aria-labelledby="testimonials-heading">
           <div className="ns-container">
             <div className="grid gap-10 md:grid-cols-[.65fr_1.35fr] md:items-end"><div><p className="ns-eyebrow">07 / In their words</p><h2 id="testimonials-heading" className="ns-display mt-5 text-4xl font-extrabold text-[var(--ink-blue)] md:text-5xl">A partner who <span className="text-[var(--signal-blue)]">gets it.</span></h2></div><div className="flex gap-2 text-[#f0ad4f]" aria-label="Five out of five stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span className="ml-2 font-mono-ns text-[10px] tracking-wider text-slate-400">CLIENTS / 2024–25</span></div></div>
             <div className="mt-14 grid gap-5 md:grid-cols-3"><article className="rounded-[24px] border border-[var(--line-blue)] bg-white p-7 dark:bg-slate-900"><Quote size={22} className="text-[var(--signal-blue)]" /><p className="mt-8 text-[17px] leading-7 text-[var(--ink-blue)] dark:text-blue-100">“Northstar gave us the confidence to make a difficult decision. The work was sharp, but the real difference was how understood we felt.”</p><div className="mt-9 border-t border-[var(--line-blue)] pt-4"><p className="font-display text-sm font-bold text-[var(--ink-blue)] dark:text-blue-100">Elena Morris</p><p className="mt-1 text-xs text-slate-500">Chief Operating Officer, Wellstead</p></div></article><article className="rounded-[24px] bg-[var(--ink-blue)] p-7 text-white md:translate-y-[-18px]"><Quote size={22} className="text-[#73d8d7]" /><p className="mt-8 text-[17px] leading-7 text-blue-50">“We stopped talking about transformation as a project. It became a better way of making decisions every week.”</p><div className="mt-9 border-t border-white/15 pt-4"><p className="font-display text-sm font-bold">Marcus Iqbal</p><p className="mt-1 text-xs text-blue-100/60">Managing Director, Kindred Advisory</p></div></article><article className="rounded-[24px] border border-[var(--line-blue)] bg-white p-7 dark:bg-slate-900"><Quote size={22} className="text-[var(--signal-blue)]" /><p className="mt-8 text-[17px] leading-7 text-[var(--ink-blue)] dark:text-blue-100">“The team brought structure without slowing us down. Within a month, our people could see where the business was heading.”</p><div className="mt-9 border-t border-[var(--line-blue)] pt-4"><p className="font-display text-sm font-bold text-[var(--ink-blue)] dark:text-blue-100">James Rowe</p><p className="mt-1 text-xs text-slate-500">Operations Director, Harlow Works</p></div></article></div>
@@ -352,7 +399,7 @@ function Home() {
       </main>
 
       <footer className="border-t border-[var(--line-blue)] pt-12">
-        <div className="ns-container"><div className="grid gap-10 pb-12 md:grid-cols-[1.3fr_.7fr_.7fr_1fr]"><div><a href="#top" className="flex items-center gap-2.5" data-testid="link-footer-brand"><IconMark /><span className="font-display text-[17px] font-extrabold tracking-[-.055em] text-[var(--ink-blue)] dark:text-blue-100">northstar<span className="text-[var(--signal-blue)]">.</span></span></a><p className="mt-5 max-w-[240px] text-sm leading-6 text-slate-500 dark:text-slate-400">A clearer path from business friction to measurable progress.</p><a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="mt-6 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--line-blue)] text-slate-500 hover:text-[var(--signal-blue)]" aria-label="Northstar on LinkedIn" data-testid="link-linkedin"><Linkedin size={14} /></a></div><div><p className="font-mono-ns text-[9px] tracking-widest text-slate-400">EXPLORE</p><div className="mt-5 grid gap-3 text-sm font-semibold text-slate-600 dark:text-slate-300"><a href="#about" data-testid="link-footer-about">About</a><a href="#services" data-testid="link-footer-services">Services</a><a href="#proof" data-testid="link-footer-proof">Selected work</a><a href="#approach" data-testid="link-footer-approach">Our approach</a></div></div><div><p className="font-mono-ns text-[9px] tracking-widest text-slate-400">CONNECT</p><div className="mt-5 grid gap-3 text-sm font-semibold text-slate-600 dark:text-slate-300"><a href="#contact" data-testid="link-footer-contact">Contact</a><a href="#contact" data-testid="link-footer-careers">Careers</a><a href="#contact" data-testid="link-footer-privacy">Privacy</a><a href="#contact" data-testid="link-footer-terms">Terms</a></div></div><div><p className="font-mono-ns text-[9px] tracking-widest text-slate-400">THE NORTHSTAR NOTE</p><p className="mt-5 text-sm leading-6 text-slate-500 dark:text-slate-400">A considered note on making progress in a noisy world. Once a month, never a broadcast.</p>{newsletterSent ? <p className="mt-5 flex items-center gap-2 text-sm font-bold text-[#159b7f]" data-testid="status-newsletter-success"><Check size={15} /> You’re on the list.</p> : <form onSubmit={handleNewsletter} className="mt-5 flex gap-2"><label htmlFor="newsletter-email" className="sr-only">Email address</label><input required id="newsletter-email" type="email" placeholder="you@company.com" className="ns-focus min-w-0 flex-1 rounded-xl border border-[var(--line-blue)] bg-white px-3 py-2.5 text-xs outline-none placeholder:text-slate-400 dark:bg-slate-900" data-testid="input-newsletter-email" /><button type="submit" aria-label="Subscribe to newsletter" className="ns-btn inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--ink-blue)] text-white hover:bg-[var(--signal-blue)]" data-testid="button-newsletter-submit"><ArrowUpRight size={15} /></button></form>}</div></div><div className="flex flex-col gap-3 border-t border-[var(--line-blue)] py-6 text-[11px] text-slate-400 sm:flex-row sm:items-center sm:justify-between"><span>© 2025 Northstar Consulting Ltd.</span><span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#20b694]" /> Calm systems. Meaningful progress.</span></div></div>
+        <div className="ns-container"><div className="grid gap-10 pb-12 md:grid-cols-[1.3fr_.7fr_.7fr_1fr]"><div><a href="#top" className="flex items-center gap-2.5" data-testid="link-footer-brand"><IconMark /><span className="font-display text-[17px] font-extrabold tracking-[-.055em] text-[var(--ink-blue)] dark:text-blue-100">northstar<span className="text-[var(--signal-blue)]">.</span></span></a><p className="mt-5 max-w-[240px] text-sm leading-6 text-slate-500 dark:text-slate-400">A clearer path from business friction to measurable progress.</p><a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="mt-6 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--line-blue)] text-slate-500 hover:text-[var(--signal-blue)]" aria-label="Northstar on LinkedIn" data-testid="link-linkedin"><Linkedin size={14} /></a></div><div><p className="font-mono-ns text-[9px] tracking-widest text-slate-400">EXPLORE</p><div className="mt-5 grid gap-3 text-sm font-semibold text-slate-600 dark:text-slate-300"><a href="#about" data-testid="link-footer-about">About</a><a href="#services" data-testid="link-footer-services">Services</a><a href="#ai" data-testid="link-footer-ai">AI & robotics</a><a href="#proof" data-testid="link-footer-proof">Selected work</a><a href="#approach" data-testid="link-footer-approach">Our approach</a></div></div><div><p className="font-mono-ns text-[9px] tracking-widest text-slate-400">CONNECT</p><div className="mt-5 grid gap-3 text-sm font-semibold text-slate-600 dark:text-slate-300"><a href="#contact" data-testid="link-footer-contact">Contact</a><a href="#contact" data-testid="link-footer-careers">Careers</a><a href="#contact" data-testid="link-footer-privacy">Privacy</a><a href="#contact" data-testid="link-footer-terms">Terms</a></div></div><div><p className="font-mono-ns text-[9px] tracking-widest text-slate-400">THE NORTHSTAR NOTE</p><p className="mt-5 text-sm leading-6 text-slate-500 dark:text-slate-400">A considered note on making progress in a noisy world. Once a month, never a broadcast.</p>{newsletterSent ? <p className="mt-5 flex items-center gap-2 text-sm font-bold text-[#159b7f]" data-testid="status-newsletter-success"><Check size={15} /> You’re on the list.</p> : <form onSubmit={handleNewsletter} className="mt-5 flex gap-2"><label htmlFor="newsletter-email" className="sr-only">Email address</label><input required id="newsletter-email" type="email" placeholder="you@company.com" className="ns-focus min-w-0 flex-1 rounded-xl border border-[var(--line-blue)] bg-white px-3 py-2.5 text-xs outline-none placeholder:text-slate-400 dark:bg-slate-900" data-testid="input-newsletter-email" /><button type="submit" aria-label="Subscribe to newsletter" className="ns-btn inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--ink-blue)] text-white hover:bg-[var(--signal-blue)]" data-testid="button-newsletter-submit"><ArrowUpRight size={15} /></button></form>}</div></div><div className="flex flex-col gap-3 border-t border-[var(--line-blue)] py-6 text-[11px] text-slate-400 sm:flex-row sm:items-center sm:justify-between"><span>© 2025 Northstar Consulting Ltd.</span><span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#20b694]" /> Calm systems. Meaningful progress.</span></div></div>
       </footer>
 
       <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
