@@ -266,24 +266,58 @@ body {
   font-size: 11px; color: #888; margin-top: 4px; font-weight: 500;
 }
 
-/* ── Ticker/Marquee strip ── */
+/* ── Ultra-Premium Ticker/Marquee strip ── */
 .nv-ticker {
-  background: #0a0a0a; padding: 18px 0;
-  overflow: hidden; white-space: nowrap;
+  background: #090d16;
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  border-top: 1px solid rgba(0, 102, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 102, 255, 0.2);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 .dark .nv-ticker { background: #060d1a; }
 .nv-ticker-inner {
-  display: inline-flex; gap: 0; align-items: center;
-  animation: nv-ticker-scroll 32s linear infinite;
+  display: inline-flex;
+  gap: 16px;
+  align-items: center;
+  animation: nv-ticker-scroll 35s linear infinite;
+  will-change: transform;
+}
+.nv-ticker:hover .nv-ticker-inner {
+  animation-play-state: paused;
 }
 .nv-ticker-item {
-  display: inline-flex; align-items: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  padding: 8px 18px;
+  border-radius: 9999px;
+  color: #fff;
   font-family: "Manrope", sans-serif;
-  font-size: 16px; font-weight: 700; color: #fff;
-  padding: 0 24px; white-space: nowrap;
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.nv-ticker-item:hover {
+  background: rgba(0, 102, 255, 0.25);
+  border-color: rgba(0, 212, 232, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3);
 }
 .nv-ticker-sep {
-  color: var(--nv-blue); font-size: 14px; margin: 0 4px; flex-shrink: 0;
+  color: #00d4e8;
+  font-size: 12px;
+  margin-left: 12px;
+  margin-right: 4px;
+  opacity: 0.8;
 }
 @keyframes nv-ticker-scroll {
   0% { transform: translateX(0); }
@@ -738,4 +772,139 @@ body {
 .nv-circuit-line {
   stroke-dasharray: 6 6;
   animation: circuitDash 2s linear infinite;
+}
+
+/* ─── Comprehensive Universal Site-Wide Dark Mode Engine ─── */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #060c19 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Force dark backgrounds on all section tags & container classes */
+html.dark section,
+html.dark .nv-section,
+html.dark .bg-white,
+html.dark .bg-slate-50,
+html.dark .bg-slate-50\/60,
+html.dark .bg-slate-50\/70,
+html.dark .bg-slate-50\/50,
+html.dark .bg-slate-50\/80,
+html.dark .bg-slate-100,
+html.dark .bg-blue-50,
+html.dark .bg-blue-50\/40,
+html.dark .bg-white\/90,
+html.dark .bg-white\/95,
+html.dark .bg-white\/80 {
+  background-color: #08101e !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+}
+
+/* Card Containers & Inner Panels in Dark Mode */
+html.dark [class*="bg-white"],
+html.dark .nv-team-card,
+html.dark .nv-service-card,
+html.dark .nv-stat-card,
+html.dark .nv-testi-card {
+  background-color: #0c1527 !important;
+  background-image: none !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Inner Slate Badges & Blocks */
+html.dark [class*="bg-slate-50"],
+html.dark [class*="bg-slate-100"],
+html.dark [class*="bg-blue-50"] {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #e2e8f0 !important;
+}
+
+/* Gradients in Dark Mode */
+html.dark [class*="bg-gradient-to-b"],
+html.dark [class*="bg-gradient-to-r"],
+html.dark [class*="bg-gradient-to-tr"] {
+  background-image: none !important;
+  background-color: #08101e !important;
+}
+
+/* Text Overrides for Dark Mode */
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6,
+html.dark [class*="text-slate-900"],
+html.dark [class*="text-slate-800"],
+html.dark [class*="text-slate-700"],
+html.dark [class*="text-gray-900"],
+html.dark [class*="text-gray-800"],
+html.dark [class*="text-\[\#0a0a0a\]"] {
+  color: #f8fafc !important;
+}
+
+html.dark p, html.dark span:not([class*="text-blue"]):not([class*="text-amber"]):not([class*="text-red"]):not([class*="text-emerald"]):not([class*="text-cyan"]),
+html.dark [class*="text-slate-600"],
+html.dark [class*="text-slate-500"],
+html.dark [class*="text-slate-400"],
+html.dark [class*="text-gray-600"],
+html.dark [class*="text-gray-500"] {
+  color: #cbd5e1 !important;
+}
+
+/* Borders in Dark Mode */
+html.dark [class*="border-slate-"],
+html.dark [class*="border-gray-"],
+html.dark [class*="border-blue-100"],
+html.dark [class*="border-blue-200"] {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Dark Mode Shadows */
+html.dark .shadow-2xl,
+html.dark .shadow-xl,
+html.dark .shadow-lg,
+html.dark .shadow-md,
+html.dark .shadow-sm,
+html.dark .shadow-xs {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Dark Mode Form Inputs & Selects */
+html.dark input,
+html.dark textarea,
+html.dark select,
+html.dark .nv-input {
+  background-color: #0f192d !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Dark Mode SVG Diagram Styling */
+html.dark text[fill="#0f172a"] {
+  fill: #f8fafc !important;
+}
+
+html.dark text[fill="#334155"] {
+  fill: #e2e8f0 !important;
+}
+
+html.dark text[fill="#64748b"] {
+  fill: #94a3b8 !important;
+}
+
+html.dark circle[fill="#ffffff"] {
+  fill: #0f172a !important;
+}
+
+html.dark rect[fill="#eff6ff"] {
+  fill: #1e293b !important;
+  stroke: #334155 !important;
 }
