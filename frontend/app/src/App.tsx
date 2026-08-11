@@ -1,4 +1,4 @@
-﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
@@ -17,6 +17,7 @@ import aiImage from "@assets/generated_images/nexovate-ai.png";
 import aniketImage from "@assets/generated_images/aniket-patil.jpg";
 import shrutikaImage from "@assets/generated_images/shrutika-salunke.jpg";
 import mayurImage from "@assets/generated_images/mayur-deshmukh.jpg";
+import amstureLogo from "@assets/generated_images/amsture-logo.jpg";
 import { FormEvent, useEffect, useState } from "react";
 
 const queryClient = new QueryClient();
@@ -50,14 +51,14 @@ const industries = [
 const faqs = [
   { q: "How long does a typical project take?", a: "Most engagements run 4–12 weeks depending on scope. Discovery usually takes two weeks, and we share a clear milestone roadmap so you always know what comes next." },
   { q: "How does pricing work?", a: "We offer transparent fixed-scope and retainer models. You receive a detailed proposal with no hidden costs after a free consultation." },
-  { q: "Do you work with our existing team?", a: "Yes. Nexovate works alongside your internal team and existing partners with a clear ownership model from day one." },
+  { q: "Do you work with our existing team?", a: "Yes. Amsture Technologies works alongside your internal team and existing partners with a clear ownership model from day one." },
   { q: "What does post-launch support look like?", a: "Every project includes a handover period and close support. We offer flexible maintenance and continuous improvement plans." },
   { q: "How do you approach AI projects responsibly?", a: "We start with the business goal, not the tool. Every AI workflow is scoped around privacy, review points and explainability." },
   { q: "What happens during the discovery phase?", a: "Discovery is a focused working session to map your friction, understand your priorities and identify the smallest valuable next step." },
 ];
 
 const testimonials = [
-  { quote: "Nexovate gave us the confidence to make a difficult technology decision. The work was sharp, but the real difference was how understood we felt throughout.", name: "Elena Morris", role: "COO, Wellstead Group", stars: 5 },
+  { quote: "Amsture Technologies gave us the confidence to make a difficult technology decision. The work was sharp, but the real difference was how understood we felt throughout.", name: "Elena Morris", role: "COO, Wellstead Group", stars: 5 },
   { quote: "We stopped talking about transformation as a project. It became a better way of making decisions every week. Productivity improved 35% in the first quarter.", name: "Marcus Iqbal", role: "MD, Kindred Advisory", stars: 5, featured: true },
   { quote: "The team brought structure without slowing us down. Within a month our people could see where the business was heading.", name: "Priya Sharma", role: "Operations Director, Harlow Works", stars: 5 },
 ];
@@ -69,18 +70,20 @@ const executiveTeam = [
     role: "Founder & Owner",
     tag: "FOUNDER & OWNER",
     img: aniketImage,
-    bio: "Pioneered Nexovate's founding vision with hands-on expertise in modern software development, cloud infrastructure, and DevOps automation.",
+    bio: "Pioneered Amsture Technologies' founding vision with hands-on expertise in modern software development, cloud infrastructure, and DevOps automation.",
     highlights: ["Software Engineering", "DevOps Specialist", "Cloud Infrastructure"],
     linkedin: "https://linkedin.com",
+    email: "aniket.patil@amsture.com",
   },
   {
     name: "Shrutika Salunke",
     role: "Co-Founder & Frontend Tech Lead",
     tag: "CO-FOUNDER",
     img: shrutikaImage,
-    bio: "Co-founded Nexovate to build high-performance, responsive web applications with expertise in modern UI tools, design systems, and frontend engineering.",
+    bio: "Co-founded Amsture Technologies to build high-performance, responsive web applications with expertise in modern UI tools, design systems, and frontend engineering.",
     highlights: ["Frontend Engineering", "UI Tools Expert", "Software Development"],
     linkedin: "https://linkedin.com",
+    email: "shrutika.salunke@amsture.com",
   },
   {
     name: "Mayur Deshmukh",
@@ -90,6 +93,7 @@ const executiveTeam = [
     bio: "Drives commercial strategy, technology execution, and AI solutions with deep expertise in software development, AI/ML engineering, and Python automation.",
     highlights: ["Software Development", "AI / ML Expert", "Python Specialist"],
     linkedin: "https://linkedin.com",
+    email: "mayur.deshmukh@amsture.com",
   },
 ];
 
@@ -107,29 +111,29 @@ function RoboticsHeaderAnimation() {
           </radialGradient>
         </defs>
 
-        {/* Ambient Radial HUD Glow precisely behind right hero visual */}
-        <circle cx="940" cy="320" r="340" fill="url(#hudGlow)" />
+        {/* Ambient Radial HUD Glow centered behind hero header */}
+        <circle cx="600" cy="320" r="380" fill="url(#hudGlow)" />
 
-        {/* Rotating Outer HUD Ring framing the card */}
-        <g className="nv-robotics-hud-ring-1" style={{ transformOrigin: "940px 320px" }}>
-          <circle cx="940" cy="320" r="280" stroke="#0066ff" strokeWidth="1.5" strokeDasharray="12 8 4 8" opacity="0.5" />
-          <circle cx="940" cy="320" r="255" stroke="#00d4e8" strokeWidth="1" strokeDasharray="40 10 10 10" opacity="0.4" />
-          <circle cx="1220" cy="320" r="5" fill="#0066ff" className="nv-robotics-node" />
-          <circle cx="660" cy="320" r="5" fill="#00d4e8" className="nv-robotics-node" />
+        {/* Rotating Outer HUD Ring */}
+        <g className="nv-robotics-hud-ring-1" style={{ transformOrigin: "600px 320px" }}>
+          <circle cx="600" cy="320" r="300" stroke="#0066ff" strokeWidth="1.5" strokeDasharray="12 8 4 8" opacity="0.5" />
+          <circle cx="600" cy="320" r="270" stroke="#00d4e8" strokeWidth="1" strokeDasharray="40 10 10 10" opacity="0.4" />
+          <circle cx="900" cy="320" r="5" fill="#0066ff" className="nv-robotics-node" />
+          <circle cx="300" cy="320" r="5" fill="#00d4e8" className="nv-robotics-node" />
         </g>
 
         {/* Counter Rotating Mid Ring */}
-        <g className="nv-robotics-hud-ring-2" style={{ transformOrigin: "940px 320px" }}>
-          <circle cx="940" cy="320" r="210" stroke="#0066ff" strokeWidth="2" strokeDasharray="80 30" opacity="0.4" />
-          <circle cx="940" cy="320" r="190" stroke="#00d4e8" strokeWidth="1" strokeDasharray="6 6" opacity="0.5" />
-          <line x1="730" y1="320" x2="1150" y2="320" stroke="#0066ff" strokeWidth="1" opacity="0.25" />
-          <line x1="940" y1="110" x2="940" y2="530" stroke="#0066ff" strokeWidth="1" opacity="0.25" />
+        <g className="nv-robotics-hud-ring-2" style={{ transformOrigin: "600px 320px" }}>
+          <circle cx="600" cy="320" r="220" stroke="#0066ff" strokeWidth="2" strokeDasharray="80 30" opacity="0.4" />
+          <circle cx="600" cy="320" r="195" stroke="#00d4e8" strokeWidth="1" strokeDasharray="6 6" opacity="0.5" />
+          <line x1="380" y1="320" x2="820" y2="320" stroke="#0066ff" strokeWidth="1" opacity="0.25" />
+          <line x1="600" y1="100" x2="600" y2="540" stroke="#0066ff" strokeWidth="1" opacity="0.25" />
         </g>
 
         {/* Inner Fast HUD Target Ring */}
-        <g className="nv-robotics-hud-ring-3" style={{ transformOrigin: "940px 320px" }}>
-          <circle cx="940" cy="320" r="130" stroke="#0066ff" strokeWidth="2" strokeDasharray="20 40 10 30" opacity="0.6" />
-          <circle cx="940" cy="320" r="95" stroke="#00d4e8" strokeWidth="1.5" opacity="0.5" />
+        <g className="nv-robotics-hud-ring-3" style={{ transformOrigin: "600px 320px" }}>
+          <circle cx="600" cy="320" r="140" stroke="#0066ff" strokeWidth="2" strokeDasharray="20 40 10 30" opacity="0.6" />
+          <circle cx="600" cy="320" r="100" stroke="#00d4e8" strokeWidth="1.5" opacity="0.5" />
         </g>
 
         {/* Robotic Circuit Vector Arm Traces */}
@@ -140,19 +144,19 @@ function RoboticsHeaderAnimation() {
           <circle cx="380" cy="240" r="5" fill="#0066ff" className="nv-robotics-node" />
           <circle cx="580" cy="240" r="6" fill="#00d4e8" className="nv-robotics-node" />
 
-          <path d="M160 520 L340 520 L440 400 L680 400" stroke="#00d4e8" strokeWidth="1.5" className="nv-circuit-line" />
-          <circle cx="160" cy="520" r="5" fill="#00d4e8" className="nv-robotics-node" />
-          <circle cx="440" cy="400" r="4" fill="#0066ff" />
-          <circle cx="680" cy="400" r="6" fill="#0066ff" className="nv-robotics-node" />
+          <path d="M620 520 L800 520 L900 400 L1100 400" stroke="#00d4e8" strokeWidth="1.5" className="nv-circuit-line" />
+          <circle cx="620" cy="520" r="5" fill="#00d4e8" className="nv-robotics-node" />
+          <circle cx="900" cy="400" r="4" fill="#0066ff" />
+          <circle cx="1100" cy="400" r="6" fill="#0066ff" className="nv-robotics-node" />
         </g>
 
         {/* Target Reticle Precision Lines */}
         <g opacity="0.75">
-          <path d="M925 305 L935 305 L935 315" stroke="#0066ff" strokeWidth="2" fill="none" />
-          <path d="M955 305 L945 305 L945 315" stroke="#0066ff" strokeWidth="2" fill="none" />
-          <path d="M925 335 L935 335 L935 325" stroke="#0066ff" strokeWidth="2" fill="none" />
-          <path d="M955 335 L945 335 L945 325" stroke="#0066ff" strokeWidth="2" fill="none" />
-          <circle cx="940" cy="320" r="3" fill="#00d4e8" />
+          <path d="M585 305 L595 305 L595 315" stroke="#0066ff" strokeWidth="2" fill="none" />
+          <path d="M615 305 L605 305 L605 315" stroke="#0066ff" strokeWidth="2" fill="none" />
+          <path d="M585 335 L595 335 L595 325" stroke="#0066ff" strokeWidth="2" fill="none" />
+          <path d="M615 335 L605 335 L605 325" stroke="#0066ff" strokeWidth="2" fill="none" />
+          <circle cx="600" cy="320" r="3" fill="#00d4e8" />
         </g>
       </svg>
     </div>
@@ -205,8 +209,21 @@ function useScrollReveal() {
 /* ─── Animated Logo ─── */
 function Logo() {
   return (
-    <a href="#top" className="flex items-center gap-1 text-[20px] font-black tracking-[-0.05em] text-[#0a0a0a] no-underline group">
-      Nexovate<span className="nv-logo-dot">.</span>
+    <a href="#top" className="flex items-center gap-2.5 no-underline shrink-0 group py-0.5">
+      {/* Sleek Official AT Emblem Icon Box */}
+      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-0.5 border border-slate-200/90 shadow-sm flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
+        <img
+          src={amstureLogo}
+          alt="Amsture Technologies Logo"
+          className="w-full h-full object-contain rounded-lg"
+        />
+      </div>
+      {/* Brand Text Name */}
+      <div className="flex items-center gap-1 text-[18px] sm:text-[19px] font-black tracking-tight text-[#0a0a0a] leading-none">
+        <span className="font-extrabold text-[#0a0a0a]">Amsture</span>
+        <span className="text-blue-600 font-extrabold">Technologies</span>
+        <span className="nv-logo-dot text-blue-600">.</span>
+      </div>
     </a>
   );
 }
@@ -222,7 +239,7 @@ function Header() {
     <>
       <header className={`nv-nav-pill ${scrolled ? "scrolled" : ""}`}>
         <Logo />
-        
+
         <nav className="hidden lg:flex items-center gap-7">
           <a href="#about" className="nv-nav-link">About</a>
           <a href="#services" className="nv-nav-link">Services</a>
@@ -268,18 +285,19 @@ function Header() {
               <X size={20} />
             </button>
             <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
-              <Search size={20} className="text-blue-600" />
+              <img src={amstureLogo} alt="Amsture Technologies Logo" className="w-7 h-7 rounded-md object-contain shrink-0 border border-slate-100 shadow-xs" />
+              <Search size={18} className="text-blue-600 shrink-0" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search services, solutions, leadership team..."
+                placeholder="Search Amsture Technologies services, solutions, leadership team..."
                 className="w-full bg-transparent border-none outline-none text-base text-slate-900 placeholder:text-slate-400"
                 autoFocus
               />
             </div>
             <div className="mt-4 text-xs text-slate-400">
-              Popular searches: <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("AI Automation"); setSearchOpen(false); window.location.href="#services"; }}>AI Automation</span>, <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("Leadership"); setSearchOpen(false); window.location.href="#leadership"; }}>Leadership</span>, <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("ERP"); setSearchOpen(false); window.location.href="#services"; }}>ERP Systems</span>
+              Popular searches: <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("AI Automation"); setSearchOpen(false); window.location.href = "#services"; }}>AI Automation</span>, <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("Leadership"); setSearchOpen(false); window.location.href = "#leadership"; }}>Leadership</span>, <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("ERP"); setSearchOpen(false); window.location.href = "#services"; }}>ERP Systems</span>
             </div>
           </div>
         </div>
@@ -334,49 +352,53 @@ function Home() {
       <Header />
 
       <main>
-        {/* ── HERO SECTION WITH HARMONIOUS ROBOTICS ANIMATION ── */}
-        <section className="nv-hero relative overflow-hidden">
+        {/* ── HERO SECTION (CENTERED & PROPER WITHOUT SECOND IMAGE CARD) ── */}
+        <section className="nv-hero relative overflow-hidden min-h-[75vh] flex items-center justify-center pt-28 pb-16">
           {/* Animated Robotics Cybernetic HUD & Circuit Background */}
           <RoboticsHeaderAnimation />
 
           <div className="nv-hero-bg" />
-          <div className="nv-wrap relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              <div className="lg:col-span-7 nv-reveal">
-                <div className="nv-hero-badge bg-white/95 backdrop-blur-md shadow-sm border border-blue-200/80">
-                  <Sparkles size={14} className="text-blue-600" />
-                  <span>IT Services & AI Solutions</span>
-                </div>
-                <h1 className="nv-hero-h1">
-                  Technology that <span className="nv-blue-word">grows</span> your business.
-                </h1>
-                <p className="nv-hero-sub">
-                  We turn complex technology into simple business outcomes — custom software, AI automation and cloud solutions engineered to drive measurable growth and ROI.
-                </p>
-                <div className="flex flex-wrap items-center gap-4">
-                  <a href="#contact" className="nv-cta-primary">
-                    Book a Free Consultation <ArrowRight size={16} />
-                  </a>
-                  <a href="#services" className="nv-cta-secondary">
-                    View Our Services
-                  </a>
-                </div>
+          <div className="nv-wrap relative z-10 max-w-4xl mx-auto text-center">
+            <div className="nv-reveal flex flex-col items-center">
+              <div className="nv-hero-badge bg-white/95 backdrop-blur-md shadow-sm border border-blue-200/80 mb-6 inline-flex">
+                <Sparkles size={14} className="text-blue-600" />
+                <span>IT Services & AI Solutions</span>
               </div>
 
-              <div className="lg:col-span-5 flex justify-center lg:justify-end nv-reveal d2 relative">
-                {/* Glowing Aura Ring around Hero Card */}
-                <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-2xl pointer-events-none scale-110" />
+              <h1 className="nv-hero-h1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0a0a0a] tracking-tight leading-[1.08] mb-6">
+                Technology that <span className="nv-blue-word text-blue-600">grows</span> your business.
+              </h1>
 
-                <div className="nv-hero-img-card shadow-2xl border border-blue-200/60 relative z-10">
-                  {/* Matched 3D Robotics / Cybernetic Hero Asset */}
-                  <img src={heroImage} alt="Nexovate 3D Cybernetic Robotics Interface" className="w-full h-full object-cover" />
-                  <div className="nv-stat-overlay shadow-xl border border-slate-100/90 backdrop-blur-md">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-blue-600 mb-1">
-                      <Activity size={14} className="animate-pulse" /> SYSTEM ACTIVE
-                    </div>
-                    <div className="nv-stat-overlay-num">40%</div>
-                    <div className="nv-stat-overlay-label">Average efficiency gain for our clients</div>
-                  </div>
+              <p className="nv-hero-sub text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8">
+                We turn complex technology into simple business outcomes — custom software, AI automation, and cloud solutions engineered to drive measurable growth and ROI.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+                <a href="#contact" className="nv-cta-primary text-base px-8 py-3.5">
+                  Book a Free Consultation <ArrowRight size={18} />
+                </a>
+                <a href="#services" className="nv-cta-secondary text-base px-8 py-3.5">
+                  View Our Services
+                </a>
+              </div>
+
+              {/* Quick High-Impact Metrics Bar replacing the 2nd image */}
+              <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xl max-w-3xl">
+                <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
+                  <div className="text-2xl font-black text-blue-600">240+</div>
+                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Projects Delivered</div>
+                </div>
+                <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
+                  <div className="text-2xl font-black text-blue-600">98%</div>
+                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Client Retention</div>
+                </div>
+                <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
+                  <div className="text-2xl font-black text-blue-600">40%</div>
+                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Avg Efficiency Gain</div>
+                </div>
+                <div className="p-2 text-center">
+                  <div className="text-2xl font-black text-blue-600">24/7</div>
+                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Proactive Support</div>
                 </div>
               </div>
             </div>
@@ -423,7 +445,7 @@ function Home() {
           <div className="nv-wrap">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
               <div className="lg:col-span-5 nv-reveal">
-                <div className="nv-eyebrow">ABOUT NEXOVATE</div>
+                <div className="nv-eyebrow">ABOUT AMSTURE TECHNOLOGIES</div>
                 <h2 className="nv-section-h2">
                   A partner in your growth, not just a vendor.
                 </h2>
@@ -438,7 +460,7 @@ function Home() {
                   <div>
                     <h3 className="nv-about-title">Our Story</h3>
                     <p className="nv-about-body">
-                      Nexovate began with a simple conviction: technology should serve business outcomes, not the other way around. We've since partnered with growing companies across the globe to turn ambitious ideas into working, revenue-generating systems.
+                      Amsture Technologies began with a simple conviction: technology should serve business outcomes, not the other way around. We've since partnered with growing companies across the globe to turn ambitious ideas into working, revenue-generating systems.
                     </p>
                   </div>
                 </div>
@@ -534,7 +556,7 @@ function Home() {
                 </h2>
               </div>
               <p className="text-[15px] text-[#666] max-w-sm">
-                Meet the founder, co-founder, and CEO building Nexovate's legacy of technology craft and client ROI.
+                Meet the founder, co-founder, and CEO building Amsture Technologies' legacy of technology craft and client ROI.
               </p>
             </div>
 
@@ -573,10 +595,10 @@ function Home() {
                       <Linkedin size={14} /> Connect
                     </a>
                     <a
-                      href="#contact"
+                      href={`mailto:${exec.email}`}
                       className="text-xs font-bold text-slate-500 hover:text-blue-600 inline-flex items-center gap-1"
                     >
-                      <Mail size={14} /> Contact
+                      <Mail size={14} /> {exec.email}
                     </a>
                   </div>
                 </div>
@@ -817,15 +839,15 @@ function Home() {
                 <div className="space-y-5 text-sm text-slate-700 font-medium">
                   <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
                     <Mail size={20} className="text-blue-600 shrink-0" />
-                    <span>hello@nexovate.io</span>
+                    <a href="mailto:support@amsture.com" className="hover:text-blue-600 transition-colors">support@amsture.com</a>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
                     <Phone size={20} className="text-blue-600 shrink-0" />
-                    <span>+1 (415) 555-0142</span>
+                    <a href="tel:+919698681919" className="hover:text-blue-600 transition-colors">+91 9698681919</a>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
                     <MapPin size={20} className="text-blue-600 shrink-0" />
-                    <span>San Francisco & Global HQ</span>
+                    <span>Pune, Maharashtra</span>
                   </div>
                 </div>
               </div>
@@ -898,7 +920,7 @@ function Home() {
             </div>
           </div>
           <div className="pt-8 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>© {new Date().getFullYear()} Nexovate Inc. All rights reserved.</div>
+            <div>© {new Date().getFullYear()} Amsture Technologies Inc. All rights reserved.</div>
             <div className="flex gap-4 font-medium">
               <a href="#" className="hover:text-slate-800">Privacy Policy</a>
               <a href="#" className="hover:text-slate-800">Terms of Service</a>
@@ -909,7 +931,7 @@ function Home() {
 
       {/* ── FLOATING BUTTONS ── */}
       <a
-        href="https://wa.me/14155550142"
+        href="https://wa.me/919698681919"
         target="_blank"
         rel="noreferrer"
         className="nv-float-whatsapp"

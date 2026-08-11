@@ -1,4 +1,4 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -61,7 +61,7 @@
   --app-font-sans: "Manrope", "Inter", system-ui, sans-serif;
   --app-font-mono: "Space Mono", ui-monospace, monospace;
 
-  /* Nexovate design tokens */
+  /* Amsture Technologies design tokens */
   --nv-blue: #0066ff;
   --nv-blue-light: #4d94ff;
   --nv-blue-bg: #e8f0ff;
@@ -128,14 +128,15 @@ body {
 /* ── Floating pill nav ── */
 .nv-nav-pill {
   position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-  z-index: 100; width: calc(100% - 48px); max-width: 960px;
-  background: rgba(255,255,255,0.92);
+  z-index: 100; width: calc(100% - 32px); max-width: 1140px;
+  background: rgba(255,255,255,0.96);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(0,0,0,0.07);
+  border: 1px solid rgba(0,0,0,0.08);
   border-radius: 100px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 10px 16px;
+  padding: 8px 24px;
   display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
   transition: box-shadow 0.3s ease;
 }
 .dark .nv-nav-pill {
