@@ -248,6 +248,7 @@ function Header() {
           <a href="#process" className="nv-nav-link">Process</a>
           <a href="#work" className="nv-nav-link">Work</a>
           <a href="#faq" className="nv-nav-link">FAQ</a>
+          <a href="#contact" className="nv-nav-link">Contact</a>
         </nav>
 
         <div className="flex items-center gap-2.5">
@@ -316,6 +317,7 @@ function Header() {
           <a href="#process" onClick={() => setMobileOpen(false)} className="nv-mobile-link">Process</a>
           <a href="#work" onClick={() => setMobileOpen(false)} className="nv-mobile-link">Work</a>
           <a href="#faq" onClick={() => setMobileOpen(false)} className="nv-mobile-link">FAQ</a>
+          <a href="#contact" onClick={() => setMobileOpen(false)} className="nv-mobile-link font-bold text-blue-600">Contact Us</a>
           <a href="#contact" onClick={() => setMobileOpen(false)} className="nv-cta-primary mt-4">
             Book a Free Consultation <ArrowRight size={16} />
           </a>
@@ -906,20 +908,52 @@ function Home() {
 
       {/* ── FOOTER ── */}
       <footer className="bg-white text-slate-600 py-12 border-t border-slate-200">
-        <div className="nv-wrap">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200">
-            <Logo />
-            <div className="flex flex-wrap gap-6 text-sm font-semibold text-slate-700">
-              <a href="#about" className="hover:text-blue-600 transition-colors">About</a>
-              <a href="#services" className="hover:text-blue-600 transition-colors">Services</a>
-              <a href="#leadership" className="hover:text-blue-600 transition-colors">Leadership</a>
-              <a href="#industries" className="hover:text-blue-600 transition-colors">Industries</a>
-              <a href="#process" className="hover:text-blue-600 transition-colors">Process</a>
-              <a href="#work" className="hover:text-blue-600 transition-colors">Work</a>
-              <a href="#faq" className="hover:text-blue-600 transition-colors">FAQ</a>
+        <div className="nv-wrap space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-slate-200">
+            {/* Brand Column */}
+            <div className="md:col-span-4 space-y-4">
+              <Logo />
+              <p className="text-xs text-slate-500 max-w-sm leading-relaxed">
+                Amsture Technologies is a trusted digital transformation partner engineering custom software, AI automation, and cloud infrastructure.
+              </p>
+            </div>
+
+            {/* Navigation Column */}
+            <div className="md:col-span-4 space-y-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-900">Quick Links</div>
+              <div className="grid grid-cols-2 gap-2 text-xs font-medium text-slate-600">
+                <a href="#about" className="hover:text-blue-600 transition-colors">About Us</a>
+                <a href="#services" className="hover:text-blue-600 transition-colors">Services</a>
+                <a href="#leadership" className="hover:text-blue-600 transition-colors">Leadership</a>
+                <a href="#industries" className="hover:text-blue-600 transition-colors">Industries</a>
+                <a href="#process" className="hover:text-blue-600 transition-colors">Process</a>
+                <a href="#work" className="hover:text-blue-600 transition-colors">Work</a>
+                <a href="#faq" className="hover:text-blue-600 transition-colors">FAQ</a>
+                <a href="#contact" className="hover:text-blue-600 transition-colors font-bold text-blue-600">Contact Us</a>
+              </div>
+            </div>
+
+            {/* Direct Contact Column */}
+            <div className="md:col-span-4 space-y-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-900">Contact Details</div>
+              <div className="space-y-2 text-xs text-slate-600">
+                <div className="flex items-center gap-2">
+                  <Mail size={14} className="text-blue-600 shrink-0" />
+                  <a href="mailto:support@amsture.com" className="hover:text-blue-600 transition-colors">support@amsture.com</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone size={14} className="text-blue-600 shrink-0" />
+                  <a href="tel:+919698681919" className="hover:text-blue-600 transition-colors">+91 9698681919</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin size={14} className="text-blue-600 shrink-0" />
+                  <span>Pune, Maharashtra, India</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="pt-8 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+
+          <div className="pt-2 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>© {new Date().getFullYear()} Amsture Technologies Inc. All rights reserved.</div>
             <div className="flex gap-4 font-medium">
               <a href="#" className="hover:text-slate-800">Privacy Policy</a>
