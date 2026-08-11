@@ -282,56 +282,79 @@ body {
   font-size: 11px; color: #888; margin-top: 4px; font-weight: 500;
 }
 
-/* ── Ultra-Premium Ticker/Marquee strip ── */
+/* ── Ultra-Premium Ticker/Marquee ribbon strip ── */
 .nv-ticker {
-  background: #090d16;
-  padding: 14px 0;
+  background: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 16px 0;
   overflow: hidden;
   white-space: nowrap;
   position: relative;
-  border-top: 1px solid rgba(0, 102, 255, 0.2);
-  border-bottom: 1px solid rgba(0, 102, 255, 0.2);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  border-top: 1px solid rgba(37, 99, 235, 0.15);
+  border-bottom: 1px solid rgba(37, 99, 235, 0.15);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
-.dark .nv-ticker { background: #060d1a; }
+
+.dark .nv-ticker {
+  background: rgba(8, 16, 30, 0.85);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
 .nv-ticker-inner {
   display: inline-flex;
   gap: 16px;
   align-items: center;
-  animation: nv-ticker-scroll 35s linear infinite;
+  animation: nv-ticker-scroll 40s linear infinite;
   will-change: transform;
 }
+
 .nv-ticker:hover .nv-ticker-inner {
   animation-play-state: paused;
 }
+
 .nv-ticker-item {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 102, 255, 0.05);
   backdrop-filter: blur(8px);
   padding: 8px 18px;
   border-radius: 9999px;
-  color: #fff;
+  color: #0f172a;
   font-family: "Manrope", sans-serif;
   font-size: 13.5px;
   font-weight: 700;
   white-space: nowrap;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
-.nv-ticker-item:hover {
-  background: rgba(0, 102, 255, 0.25);
-  border-color: rgba(0, 212, 232, 0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3);
+
+.dark .nv-ticker-item {
+  background: rgba(12, 21, 39, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
 }
+
+.nv-ticker-item:hover {
+  background: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+}
+
+.dark .nv-ticker-item:hover {
+  background: #0f192d;
+  border-color: #3b82f6;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+}
+
 .nv-ticker-sep {
-  color: #00d4e8;
-  font-size: 12px;
-  margin-left: 12px;
+  color: #2563eb;
+  font-size: 11px;
+  margin-left: 8px;
   margin-right: 4px;
   opacity: 0.8;
 }
@@ -850,12 +873,9 @@ html.dark [class*="bg-blue-50"] {
   color: #e2e8f0 !important;
 }
 
-/* Gradients in Dark Mode */
-html.dark [class*="bg-gradient-to-b"],
-html.dark [class*="bg-gradient-to-r"],
-html.dark [class*="bg-gradient-to-tr"] {
-  background-image: none !important;
-  background-color: #08101e !important;
+/* Dark Mode Section Background Overrides */
+html.dark section[class*="bg-gradient-to-b"] {
+  background-image: linear-gradient(to bottom, #060c19, #08101e, #060c19) !important;
 }
 
 /* Text Overrides for Dark Mode */
@@ -931,6 +951,28 @@ html.dark circle[fill="#ffffff"] {
 html.dark rect[fill="#eff6ff"] {
   fill: #1e293b !important;
   stroke: #334155 !important;
+}
+
+/* ─── Animated Flowing Card Border Effect ─── */
+@keyframes flowingCardBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.nv-flowing-card-border {
+  position: relative;
+}
+
+.nv-flowing-card-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6, #00d4e8, #60a5fa, #2563eb);
+  background-size: 300% 300%;
+  animation: flowingCardBorder 3s linear infinite;
+  z-index: -1;
 }
 
 } /* end @layer components */

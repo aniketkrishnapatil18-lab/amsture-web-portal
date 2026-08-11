@@ -228,16 +228,16 @@ const executiveTeam = [
 ];
 
 const tickerData = [
-  { name: "AI Automation & Workflows", icon: BrainCircuit, badge: "HIGH ROI" },
-  { name: "Custom Web Software", icon: Code2, badge: "BESPOKE" },
-  { name: "Enterprise ERP Systems", icon: Database, badge: "CORE OPS" },
-  { name: "Native Mobile Apps", icon: Smartphone, badge: "IOS & ANDROID" },
-  { name: "Business Websites", icon: Globe2, badge: "SEO FIRST" },
-  { name: "Cloud Infrastructure", icon: Cloud, badge: "99.99% UPTIME" },
-  { name: "Tailored CRM Platforms", icon: Users, badge: "SALES BOOST" },
-  { name: "Process Automation", icon: Settings, badge: "WORKFLOWS" },
-  { name: "AI Business Analytics", icon: BarChart3, badge: "REAL-TIME" },
-  { name: "Digital Strategy & Advisory", icon: Compass, badge: "GROWTH" },
+  { name: "AI Automation & Workflows", icon: BrainCircuit, badge: "HIGH ROI", desc: "Autonomous AI agents & LLM task pipelines." },
+  { name: "Custom Web Software", icon: Code2, badge: "BESPOKE", desc: "Tailored enterprise web applications." },
+  { name: "Enterprise ERP Systems", icon: Database, badge: "CORE OPS", desc: "Unified business & operational control." },
+  { name: "Native Mobile Apps", icon: Smartphone, badge: "IOS & ANDROID", desc: "High-performance mobile applications." },
+  { name: "Business Websites", icon: Globe2, badge: "SEO FIRST", desc: "Fast, search-ranked lead generation." },
+  { name: "Cloud Infrastructure", icon: Cloud, badge: "99.99% UPTIME", desc: "DevOps automation & secure hosting." },
+  { name: "Tailored CRM Platforms", icon: Users, badge: "SALES BOOST", desc: "Pipeline management & automated leads." },
+  { name: "Process Automation", icon: Settings, badge: "WORKFLOWS", desc: "Eliminate manual tasks & approvals." },
+  { name: "AI Business Analytics", icon: BarChart3, badge: "REAL-TIME", desc: "Predictive dashboards & live metrics." },
+  { name: "Digital Strategy & Advisory", icon: Compass, badge: "GROWTH", desc: "Tech roadmap planning & execution." },
 ];
 
 /* ─── Refined Robotics Animated HUD Background Component ─── */
@@ -1128,37 +1128,79 @@ function ParallelSDLCSection() {
   );
 }
 
-/* ─── INTERACTIVE SERVICES & SOLUTIONS SECTION ─── */
+/* ─── INTERACTIVE SERVICES & BUSINESS SOLUTIONS SECTION WITH CENTRAL AI ORCHESTRATOR ENGINE ─── */
 function ServicesSection() {
   const [activeCategory, setActiveCategory] = useState<string>("ai");
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [activeConnectedCardIndex, setActiveConnectedCardIndex] = useState<number>(0);
 
   const filteredServices = services.filter((s) => s.category === activeCategory);
 
+  // Dynamic signal node sequence timer to illuminate card borders when signal node arrives (relaxed, smooth pace)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveConnectedCardIndex((prev) => (prev + 1) % Math.max(1, filteredServices.length));
+    }, 4200);
+    return () => clearInterval(interval);
+  }, [filteredServices.length]);
+
   return (
-    <section id="services" className="nv-section bg-gradient-to-b from-slate-50/70 via-white to-slate-50/50 relative overflow-hidden">
+    <section id="services" className="nv-section bg-gradient-to-b from-slate-50/70 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden">
       {/* Background Decorative Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-400/10 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="nv-wrap relative z-10">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6 nv-reveal">
-          <div>
-            <div className="nv-eyebrow flex items-center gap-2">
-              <Sparkles size={14} className="text-blue-600" />
-              <span>BUSINESS SOLUTIONS</span>
+        {/* Central Engine Hub Header */}
+        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-6 nv-reveal">
+          <div className="relative mb-3">
+            <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-xl animate-pulse" />
+            <div className="w-13 h-13 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 relative z-10 border-2 border-white dark:border-slate-800">
+              <Cpu size={24} className="animate-spin-slow text-white" />
             </div>
-            <h2 className="nv-section-h2 max-w-xl mt-2">
-              Technology solutions <span className="text-blue-600">engineered</span> for outcomes.
-            </h2>
           </div>
-          <p className="text-[15px] text-[#555] max-w-sm leading-relaxed">
-            Select a technology domain below to explore our core capabilities. Every solution addresses operational friction and delivers clear ROI.
+
+          <span className="text-[11px] font-extrabold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/60 px-3.5 py-1 rounded-full mb-3">
+            CORE ENGINE · BUSINESS SOLUTIONS
+          </span>
+
+          <h2 className="nv-section-h2 text-[#0a0a0a] dark:text-white">
+            Technology solutions <span className="text-blue-600">engineered</span> for outcomes.
+          </h2>
+          <p className="text-[15px] text-[#555] dark:text-slate-300 max-w-xl leading-relaxed mt-2">
+            Central AI Orchestrator assigns tasks, coordinates intelligent agents across technology domains, and delivers outcome-driven business systems.
           </p>
         </div>
 
-        {/* Filter Category Pills Bar */}
-        <div className="flex flex-wrap items-center justify-start sm:justify-center gap-2.5 mb-10 p-2 bg-white/90 backdrop-blur-md rounded-2xl border border-slate-200/80 shadow-sm max-w-4xl mx-auto">
+        {/* SVG Branching Lines (Connecting Central Engine to Domain Pills) */}
+        <div className="hidden md:block w-full max-w-4xl mx-auto -mb-2 relative z-0">
+          <svg className="w-full h-12 overflow-visible" viewBox="0 0 900 50" fill="none">
+            <path id="sol-path-1" d="M 450 0 C 450 30, 110 15, 110 50" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+            <path d="M 450 0 C 450 30, 110 15, 110 50" stroke="#2563eb" strokeWidth="2" opacity={activeCategory === "ai" ? "1" : "0.3"} />
+
+            <path id="sol-path-2" d="M 450 0 C 450 30, 335 15, 335 50" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+            <path d="M 450 0 C 450 30, 335 15, 335 50" stroke="#2563eb" strokeWidth="2" opacity={activeCategory === "software" ? "1" : "0.3"} />
+
+            <path id="sol-path-3" d="M 450 0 C 450 30, 565 15, 565 50" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+            <path d="M 450 0 C 450 30, 565 15, 565 50" stroke="#2563eb" strokeWidth="2" opacity={activeCategory === "enterprise" ? "1" : "0.3"} />
+
+            <path id="sol-path-4" d="M 450 0 C 450 30, 790 15, 790 50" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+            <path d="M 450 0 C 450 30, 790 15, 790 50" stroke="#2563eb" strokeWidth="2" opacity={activeCategory === "cloud" ? "1" : "0.3"} />
+
+            {/* Signal pulse traveling along vector curve */}
+            <circle r="4" fill="#2563eb">
+              <animateMotion dur="2.2s" repeatCount="indefinite">
+                <mpath href={
+                  activeCategory === "ai" ? "#sol-path-1" :
+                  activeCategory === "software" ? "#sol-path-2" :
+                  activeCategory === "enterprise" ? "#sol-path-3" : "#sol-path-4"
+                } />
+              </animateMotion>
+            </circle>
+          </svg>
+        </div>
+
+        {/* Filter Category Pills Bar (Exact pill style from user screenshot) */}
+        <div className="flex flex-wrap items-center justify-start sm:justify-center gap-2.5 mb-6 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm max-w-4xl mx-auto relative z-10">
           {serviceCategories.map((cat) => {
             const CatIcon = cat.icon;
             const count = services.filter(s => s.category === cat.id).length;
@@ -1172,13 +1214,13 @@ function ServicesSection() {
                 className={`flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
                   isActive
                     ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]"
-                    : "bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
+                    : "bg-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800"
                 }`}
               >
-                <CatIcon size={16} className={isActive ? "text-white" : "text-blue-600"} />
+                <CatIcon size={16} className={isActive ? "text-white" : "text-blue-600 dark:text-blue-400"} />
                 <span>{cat.name}</span>
                 <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
-                  isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"
+                  isActive ? "bg-white/20 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
                 }`}>
                   {count}
                 </span>
@@ -1187,14 +1229,70 @@ function ServicesSection() {
           })}
         </div>
 
-        {/* Animated Services Grid */}
+        {/* SVG Vector Connector Lines (Dynamically matches filteredServices count - 0 extra orphan nodes) */}
+        <div className="hidden md:block w-full max-w-5xl mx-auto -mt-3 mb-3 relative z-0">
+          <svg className="w-full h-10 overflow-visible" viewBox="0 0 1000 40" fill="none">
+            {filteredServices.map((_, idx) => {
+              const cardCount = filteredServices.length;
+              let targetX = 500;
+              if (cardCount === 2) {
+                targetX = idx === 0 ? 250 : 750;
+              } else if (cardCount === 3) {
+                targetX = idx === 0 ? 166 : idx === 1 ? 500 : 833;
+              }
+              const pathD = targetX === 500 ? "M 500 0 L 500 40" : `M 500 0 C 500 20, ${targetX} 10, ${targetX} 40`;
+              const isActiveNode = activeConnectedCardIndex % cardCount === idx;
+
+              return (
+                <g key={`dynamic-path-${activeCategory}-${idx}`}>
+                  <path d={pathD} stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <path
+                    d={pathD}
+                    stroke="#2563eb"
+                    strokeWidth={isActiveNode ? "2.8" : "1.5"}
+                    opacity={isActiveNode ? "1" : "0.2"}
+                    className="transition-all duration-300"
+                  />
+                </g>
+              );
+            })}
+
+            {/* Signal dot flowing synchronously down to the active card */}
+            {filteredServices.length > 0 && (() => {
+              const cardCount = filteredServices.length;
+              const currentActiveIdx = activeConnectedCardIndex % cardCount;
+              let targetX = 500;
+              if (cardCount === 2) {
+                targetX = currentActiveIdx === 0 ? 250 : 750;
+              } else if (cardCount === 3) {
+                targetX = currentActiveIdx === 0 ? 166 : currentActiveIdx === 1 ? 500 : 833;
+              }
+              const activePathD = targetX === 500 ? "M 500 0 L 500 40" : `M 500 0 C 500 20, ${targetX} 10, ${targetX} 40`;
+
+              return (
+                <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
+                  <animateMotion
+                    key={`signal-dot-${activeCategory}-${currentActiveIdx}`}
+                    dur="3.8s"
+                    repeatCount="indefinite"
+                    path={activePathD}
+                  />
+                </circle>
+              );
+            })()}
+          </svg>
+        </div>
+
+        {/* Animated Services Grid with Dynamic Border Illumination on Node Arrival */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10"
         >
           <AnimatePresence mode="popLayout">
-            {filteredServices.map((svc) => {
+            {filteredServices.map((svc, idx) => {
               const Icon = svc.icon;
+              const isConnectedNode = activeConnectedCardIndex === idx;
+
               return (
                 <motion.div
                   key={svc.id}
@@ -1203,8 +1301,24 @@ function ServicesSection() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: 15 }}
                   transition={{ duration: 0.25 }}
-                  className="group relative bg-white border border-slate-200/90 hover:border-blue-500/40 rounded-2xl p-7 shadow-xs hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 flex flex-col justify-between"
+                  onMouseEnter={() => setActiveConnectedCardIndex(idx)}
+                  className={`group relative bg-white dark:bg-slate-900 border-2 rounded-2xl p-7 shadow-xs transition-all duration-300 flex flex-col justify-between ${
+                    isConnectedNode
+                      ? "nv-flowing-card-border border-blue-600 dark:border-blue-500 shadow-2xl shadow-blue-500/25 ring-4 ring-blue-500/20 scale-[1.015]"
+                      : "border-slate-200/90 dark:border-slate-800 hover:border-blue-500/50"
+                  }`}
                 >
+                  {/* Top Glowing Blue Connection Line Accent Bar (Illuminates when signal node arrives) */}
+                  {isConnectedNode && (
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-500 rounded-t-2xl z-10 animate-in fade-in duration-300" />
+                  )}
+
+                  {/* Connected Node Pulse Badge at Card Top Center (Reflects vector line arrival) */}
+                  <div className={`hidden md:flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 shadow-md shadow-blue-500/60 absolute -top-2.5 left-1/2 -translate-x-1/2 z-20 transition-all duration-200 ${
+                    isConnectedNode ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                  }`}>
+                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+                  </div>
                   <div>
                     {/* Top Header Card Info */}
                     <div className="flex items-center justify-between mb-5">
@@ -1375,6 +1489,7 @@ function ServicesSection() {
 /* ─── Main Page ─── */
 function Home() {
   const [activeIndustry, setActiveIndustry] = useState(industries[0].name);
+  const [isIndAutoPlaying, setIsIndAutoPlaying] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [formSent, setFormSent] = useState(false);
   const [cookieClosed, setCookieClosed] = useState(false);
@@ -1384,6 +1499,19 @@ function Home() {
   useEffect(() => {
     document.documentElement.classList.remove("dark");
   }, []);
+
+  // Automatic rotation for "INDUSTRIES WE SERVE" section without requiring manual clicks
+  useEffect(() => {
+    if (!isIndAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveIndustry((prev) => {
+        const currentIndex = industries.findIndex((ind) => ind.name === prev);
+        const nextIndex = (currentIndex + 1) % industries.length;
+        return industries[nextIndex].name;
+      });
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isIndAutoPlaying]);
 
   const handleForm = (e: FormEvent) => {
     e.preventDefault();
@@ -1423,7 +1551,7 @@ function Home() {
                 We turn complex technology into simple business outcomes — custom software, AI automation, and cloud solutions engineered to drive measurable growth and ROI.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+              <div className="flex flex-wrap items-center justify-center gap-4">
                 <a href="#contact" className="nv-cta-primary text-base px-8 py-3.5">
                   Book a Free Consultation <ArrowRight size={18} />
                 </a>
@@ -1431,48 +1559,84 @@ function Home() {
                   View Our Services
                 </a>
               </div>
-
-              {/* Quick High-Impact Metrics Bar replacing the 2nd image */}
-              <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xl max-w-3xl">
-                <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
-                  <div className="text-2xl font-black text-blue-600">15+</div>
-                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Projects Delivered</div>
-                </div>
-                <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
-                  <div className="text-2xl font-black text-blue-600">100%</div>
-                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Client Satisfaction</div>
-                </div>
-                <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
-                  <div className="text-2xl font-black text-blue-600">35%</div>
-                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Avg Efficiency Gain</div>
-                </div>
-                <div className="p-2 text-center">
-                  <div className="text-2xl font-black text-blue-600">24/7</div>
-                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Proactive Support</div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
-        {/* ── ULTRA-PREMIUM ANIMATED FEATURE TICKER STRIP ── */}
-        <section className="nv-ticker">
-          <div className="nv-ticker-inner">
-            {[...tickerData, ...tickerData, ...tickerData].map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div key={idx} className="nv-ticker-item">
-                  <div className="w-6 h-6 rounded-lg bg-blue-500/20 text-cyan-400 flex items-center justify-center shrink-0 border border-blue-400/30">
-                    <Icon size={13} />
-                  </div>
-                  <span>{item.name}</span>
-                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-blue-500/20 text-cyan-300 border border-cyan-400/30 tracking-wider">
-                    {item.badge}
-                  </span>
-                  <span className="nv-ticker-sep">✦</span>
-                </div>
-              );
-            })}
+        {/* ── CORE CAPABILITIES & SOLUTIONS BENTO GRID (STRUCTURED, ELEGANT & ANIMATED) ── */}
+        <section className="py-16 bg-slate-50/90 dark:bg-slate-950 border-y border-slate-200/80 dark:border-slate-800/80 relative z-10 overflow-hidden">
+          <div className="nv-wrap">
+            <div className="text-center max-w-2xl mx-auto mb-12 nv-reveal">
+              <span className="text-[11px] font-extrabold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-50 dark:bg-blue-950/80 border border-blue-200/80 dark:border-blue-800/80 px-4 py-1.5 rounded-full inline-block mb-3">
+                CORE CAPABILITIES & ENGINEERING SERVICES
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                Engineered for operational speed & measurable growth
+              </h3>
+            </div>
+
+            {/* Structured 5-Column Feature Card Grid with Staggered Floating Animations */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-7xl mx-auto">
+              {tickerData.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <motion.a
+                    key={idx}
+                    href="#services"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    animate={{
+                      y: [0, -6, 0],
+                    }}
+                    transition={{
+                      opacity: { duration: 0.4, delay: idx * 0.08 },
+                      y: {
+                        duration: 3.5 + (idx % 3) * 0.5,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut",
+                        delay: idx * 0.25,
+                      },
+                    }}
+                    whileHover={{ scale: 1.03, y: -8 }}
+                    className="group relative bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800/90 hover:border-blue-500 dark:hover:border-blue-500 rounded-2xl p-5 shadow-sm dark:shadow-2xl dark:shadow-black/60 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 flex flex-col justify-between overflow-hidden no-underline"
+                  >
+                    {/* Top Animated Gradient Line Highlight */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-500 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+
+                    {/* Animated Pulsing Signal Corner Accent */}
+                    <div className="absolute -top-10 -right-10 w-20 h-20 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-xl group-hover:bg-blue-500/30 transition-all duration-300" />
+
+                    <div>
+                      {/* Top Row: Icon + Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-3.5 relative z-10">
+                        <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-slate-700/80 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-blue-600 dark:group-hover:text-white group-hover:rotate-6 transition-all duration-300 shadow-2xs">
+                          <Icon size={18} />
+                        </div>
+                        <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/90 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-800/80 tracking-wider">
+                          {item.badge}
+                        </span>
+                      </div>
+
+                      {/* Title & Description */}
+                      <h4 className="text-sm font-black text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug mb-1.5 relative z-10">
+                        {item.name}
+                      </h4>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-300 leading-relaxed font-medium relative z-10">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    {/* Bottom Action Hint */}
+                    <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] font-bold text-slate-400 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors relative z-10">
+                      <span>Explore domain</span>
+                      <ArrowUpRight size={13} className="group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
+                  </motion.a>
+                );
+              })}
+            </div>
           </div>
         </section>
 
@@ -1582,22 +1746,41 @@ function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 nv-reveal d2">
               {executiveTeam.map((exec, idx) => (
-                <div key={idx} className="nv-team-card flex flex-col justify-between">
+                <div key={idx} className="nv-team-card flex flex-col justify-between group rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-blue-500/60 dark:hover:border-blue-500 shadow-sm hover:shadow-xl hover:shadow-blue-500/15 transition-all duration-300">
                   <div>
-                    <div className="nv-team-img-wrap">
-                      <img src={exec.img} alt={exec.name} />
-                      <div className="nv-team-badge">{exec.tag}</div>
+                    {/* Animated Circular Avatar Frame */}
+                    <div className="relative w-44 h-44 mx-auto mb-6">
+                      {/* Outer Rotating Glowing Gradient Ring */}
+                      <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-blue-600 via-cyan-400 to-indigo-600 animate-spin-slow opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 blur-xs" />
+
+                      {/* Ambient Pulsing Glow Backdrop */}
+                      <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-xl group-hover:bg-blue-500/40 transition-all duration-500 animate-pulse" />
+
+                      {/* Inner Circular Image Container */}
+                      <div className="relative w-full h-full rounded-full p-1 bg-white dark:bg-slate-900 border-2 border-white dark:border-slate-800 shadow-xl overflow-hidden z-10">
+                        <img
+                          src={exec.img}
+                          alt={exec.name}
+                          className="w-full h-full rounded-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                        />
+                      </div>
+
+                      {/* Tag Badge Floating Below Avatar */}
+                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-slate-900/90 dark:bg-blue-950/90 backdrop-blur-md text-white text-[10px] font-extrabold uppercase px-3.5 py-1 rounded-full border border-blue-400/40 shadow-md whitespace-nowrap z-20">
+                        {exec.tag}
+                      </div>
                     </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-extrabold text-[#0a0a0a]">{exec.name}</h3>
-                      <div className="text-xs font-bold text-blue-600 mt-1 mb-3">{exec.role}</div>
-                      <p className="text-xs text-slate-500 leading-relaxed mb-4">
+
+                    <div className="text-center pt-2">
+                      <h3 className="text-xl font-extrabold text-[#0a0a0a] dark:text-white group-hover:text-blue-600 transition-colors">{exec.name}</h3>
+                      <div className="text-xs font-bold text-blue-600 dark:text-blue-400 mt-1 mb-3 uppercase tracking-wider">{exec.role}</div>
+                      <p className="text-xs text-slate-500 dark:text-slate-300 leading-relaxed mb-4">
                         {exec.bio}
                       </p>
 
-                      <div className="flex flex-wrap gap-1.5 mb-4">
+                      <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4">
                         {exec.highlights.map((h, i) => (
-                          <span key={i} className="text-[10px] font-bold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md">
+                          <span key={i} className="text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-full border border-slate-200/60 dark:border-slate-700/60">
                             {h}
                           </span>
                         ))}
@@ -1627,15 +1810,44 @@ function Home() {
           </div>
         </section>
 
-        {/* ── INDUSTRIES SECTION ── */}
+        {/* ── INDUSTRIES SECTION (AUTO-ROTATING FEATURES WITHOUT CLICKING) ── */}
         <section id="industries" className="nv-section">
           <div className="nv-wrap">
-            <div className="nv-eyebrow nv-reveal">INDUSTRIES WE SERVE</div>
-            <h2 className="nv-section-h2 mb-12 nv-reveal">
-              Deep industry knowledge, tailored solutions.
-            </h2>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+              <div>
+                <div className="nv-eyebrow nv-reveal">INDUSTRIES WE SERVE</div>
+                <h2 className="nv-section-h2 nv-reveal">
+                  Deep industry knowledge, tailored solutions.
+                </h2>
+              </div>
+
+              {/* Auto-Rotation Control Tag */}
+              <div className="nv-reveal flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsIndAutoPlaying(!isIndAutoPlaying)}
+                  className="inline-flex items-center gap-2 text-xs font-bold px-3.5 py-1.5 rounded-full border border-blue-200 dark:border-slate-700 bg-blue-50/80 dark:bg-slate-800/80 text-blue-700 dark:text-blue-400 hover:scale-105 transition-all shadow-2xs"
+                  title={isIndAutoPlaying ? "Click to pause auto-rotation" : "Click to play auto-rotation"}
+                >
+                  {isIndAutoPlaying ? (
+                    <>
+                      <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+                      <span>Auto-Loading</span>
+                      <Pause size={12} className="ml-1 text-blue-600" />
+                    </>
+                  ) : (
+                    <>
+                      <span className="w-2 h-2 rounded-full bg-slate-400" />
+                      <span>Paused</span>
+                      <Play size={12} className="ml-1 text-slate-500" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start nv-reveal d2">
+              {/* Left Industry Tabs (Highlights active rotating tab) */}
               <div className="lg:col-span-4 flex flex-col gap-2">
                 {industries.map((ind) => {
                   const Icon = ind.icon;
@@ -1644,41 +1856,75 @@ function Home() {
                     <button
                       key={ind.name}
                       type="button"
-                      onClick={() => setActiveIndustry(ind.name)}
-                      className={`nv-industry-tab ${isActive ? "active" : ""}`}
+                      onClick={() => {
+                        setActiveIndustry(ind.name);
+                        setIsIndAutoPlaying(false);
+                      }}
+                      className={`nv-industry-tab relative transition-all duration-300 ${
+                        isActive
+                          ? "active font-bold border-l-4 border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-xs translate-x-1"
+                          : "hover:translate-x-0.5 opacity-80 hover:opacity-100"
+                      }`}
                     >
-                      <Icon size={18} />
-                      {ind.name}
+                      <Icon size={18} className={isActive ? "text-blue-600 dark:text-blue-400" : ""} />
+                      <span className="flex-1 text-left">{ind.name}</span>
+                      {isActive && isIndAutoPlaying && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping" />
+                      )}
                     </button>
                   );
                 })}
               </div>
 
-              <div className="lg:col-span-8 bg-blue-50 border border-blue-100 text-slate-900 rounded-[24px] p-8 md:p-12 relative overflow-hidden min-h-[340px] flex flex-col justify-between shadow-sm">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
-                <div>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md">
-                      <IndIcon size={20} />
-                    </div>
-                    <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">
-                      {currentInd.name} Solutions
-                    </span>
-                  </div>
-                  <p className="text-lg md:text-xl font-semibold leading-relaxed text-slate-800">
-                    {currentInd.body}
-                  </p>
-                </div>
+              {/* Right Feature Display Card (Smoothly rotates with AnimatePresence) */}
+              <div className="lg:col-span-8 bg-blue-50/90 dark:bg-slate-900 border border-blue-100 dark:border-slate-800 text-slate-900 dark:text-slate-100 rounded-[24px] p-8 md:p-12 relative overflow-hidden min-h-[360px] flex flex-col justify-between shadow-md">
+                {/* Top Auto-Rotation Animated Progress Accent Line */}
+                {isIndAutoPlaying && (
+                  <motion.div
+                    key={activeIndustry}
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 3.5, ease: "linear" }}
+                    className="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-400 z-10"
+                  />
+                )}
 
-                <div className="mt-8 pt-8 border-t border-blue-200/60 flex flex-wrap items-end justify-between gap-6">
-                  <div>
-                    <div className="text-4xl font-black text-blue-600">{currentInd.stat}</div>
-                    <div className="text-xs font-semibold text-slate-600 mt-1">{currentInd.label}</div>
-                  </div>
-                  <a href="#contact" className="nv-book-btn">
-                    Get in touch <ArrowUpRight size={14} />
-                  </a>
-                </div>
+                <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/5 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentInd.name}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="flex flex-col justify-between h-full flex-1"
+                  >
+                    <div>
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shrink-0">
+                          <IndIcon size={20} />
+                        </div>
+                        <span className="text-xs font-extrabold tracking-widest text-blue-600 dark:text-blue-400 uppercase">
+                          {currentInd.name} Solutions
+                        </span>
+                      </div>
+                      <p className="text-lg md:text-xl font-semibold leading-relaxed text-slate-800 dark:text-slate-200">
+                        {currentInd.body}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 pt-8 border-t border-blue-200/60 dark:border-slate-800 flex flex-wrap items-end justify-between gap-6">
+                      <div>
+                        <div className="text-4xl font-black text-blue-600 dark:text-blue-400">{currentInd.stat}</div>
+                        <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 mt-1">{currentInd.label}</div>
+                      </div>
+                      <a href="#contact" className="nv-book-btn">
+                        Get in touch <ArrowUpRight size={14} />
+                      </a>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
           </div>
@@ -1727,9 +1973,20 @@ function Home() {
                 </div>
               </div>
 
-              <div className="lg:col-span-6 nv-reveal d2 flex justify-center">
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-xl max-w-md w-full bg-white p-2">
-                  <img src={aiImage} alt="AI automation visual" className="w-full h-auto rounded-xl object-cover" />
+              <div className="lg:col-span-6 nv-reveal d2 flex justify-center items-center">
+                <div className="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto my-4">
+                  {/* Outer Rotating Glowing Gradient Ring */}
+                  <div className="absolute -inset-1.5 rounded-full bg-gradient-to-tr from-blue-600 via-cyan-400 to-indigo-600 animate-spin-slow opacity-85 blur-xs" />
+                  <div className="absolute -inset-4 rounded-full bg-blue-500/20 blur-2xl animate-pulse" />
+
+                  {/* Circular Image Container */}
+                  <div className="relative w-full h-full rounded-full p-1.5 bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-800 shadow-2xl overflow-hidden group">
+                    <img
+                      src={aiImage}
+                      alt="AI automation visual"
+                      className="w-full h-full rounded-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
