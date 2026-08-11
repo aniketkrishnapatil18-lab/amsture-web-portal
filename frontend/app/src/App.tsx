@@ -20,7 +20,7 @@ import shrutikaImage from "@assets/generated_images/shrutika-salunke.jpg";
 import mayurImage from "@assets/generated_images/mayur-deshmukh.jpg";
 import amstureLogo from "@assets/generated_images/amsture-logo.jpg";
 import atOfficialLogo from "@assets/generated_images/at-official-logo.png";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 
 const queryClient = new QueryClient();
 
@@ -259,8 +259,6 @@ function RoboticsHeaderAnimation() {
         <g className="nv-robotics-hud-ring-1" style={{ transformOrigin: "600px 320px" }}>
           <circle cx="600" cy="320" r="300" stroke="#0066ff" strokeWidth="1.5" strokeDasharray="12 8 4 8" opacity="0.5" />
           <circle cx="600" cy="320" r="270" stroke="#00d4e8" strokeWidth="1" strokeDasharray="40 10 10 10" opacity="0.4" />
-          <circle cx="900" cy="320" r="5" fill="#0066ff" className="nv-robotics-node" />
-          <circle cx="300" cy="320" r="5" fill="#00d4e8" className="nv-robotics-node" />
         </g>
 
         {/* Counter Rotating Mid Ring */}
@@ -277,31 +275,145 @@ function RoboticsHeaderAnimation() {
           <circle cx="600" cy="320" r="100" stroke="#00d4e8" strokeWidth="1.5" opacity="0.5" />
         </g>
 
-        {/* Robotic Circuit Vector Arm Traces */}
-        <g opacity="0.55">
-          <path d="M100 140 L280 140 L380 240 L580 240" stroke="#0066ff" strokeWidth="2" className="nv-circuit-line" />
-          <circle cx="100" cy="140" r="5" fill="#0066ff" className="nv-robotics-node" />
-          <circle cx="280" cy="140" r="4" fill="#00d4e8" />
-          <circle cx="380" cy="240" r="5" fill="#0066ff" className="nv-robotics-node" />
-          <circle cx="580" cy="240" r="6" fill="#00d4e8" className="nv-robotics-node" />
-
-          <path d="M620 520 L800 520 L900 400 L1100 400" stroke="#00d4e8" strokeWidth="1.5" className="nv-circuit-line" />
-          <circle cx="620" cy="520" r="5" fill="#00d4e8" className="nv-robotics-node" />
-          <circle cx="900" cy="400" r="4" fill="#0066ff" />
-          <circle cx="1100" cy="400" r="6" fill="#0066ff" className="nv-robotics-node" />
-        </g>
-
         {/* Target Reticle Precision Lines */}
         <g opacity="0.75">
           <path d="M585 305 L595 305 L595 315" stroke="#0066ff" strokeWidth="2" fill="none" />
           <path d="M615 305 L605 305 L605 315" stroke="#0066ff" strokeWidth="2" fill="none" />
           <path d="M585 335 L595 335 L595 325" stroke="#0066ff" strokeWidth="2" fill="none" />
           <path d="M615 335 L605 335 L605 325" stroke="#0066ff" strokeWidth="2" fill="none" />
-          <circle cx="600" cy="320" r="3" fill="#00d4e8" />
         </g>
       </svg>
     </div>
   );
+}
+
+/* ─── Cursor-Reactive Bubble Field (hero background particles that drift toward the pointer) ─── */
+function CursorBubbleField() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const container = canvas?.parentElement;
+    if (!canvas || !container) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const colors = ["#0066ff", "#00d4e8"];
+
+    let width = 0;
+    let height = 0;
+    let particles: {
+      baseX: number; baseY: number; x: number; y: number;
+      r: number; color: string; phase: number; speed: number; drift: number;
+    }[] = [];
+
+    const buildParticles = () => {
+      const count = width < 640 ? 20 : width < 1024 ? 32 : 46;
+      particles = Array.from({ length: count }, () => {
+        const baseX = Math.random() * width;
+        const baseY = Math.random() * height;
+        return {
+          baseX, baseY, x: baseX, y: baseY,
+          r: 2 + Math.random() * 2.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.2 + Math.random() * 0.3,
+          drift: 14 + Math.random() * 18,
+        };
+      });
+    };
+
+    const resize = () => {
+      const rect = container.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildParticles();
+    };
+    resize();
+
+    let clientX = -9999;
+    let clientY = -9999;
+    const handlePointerMove = (e: PointerEvent) => {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    };
+    if (isFinePointer && !prefersReducedMotion) {
+      window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    }
+
+    const INFLUENCE = 170;
+    const PULL = 0.42;
+    let raf = 0;
+    let t = 0;
+
+    const draw = () => {
+      const rect = container.getBoundingClientRect();
+      const mouseX = clientX - rect.left;
+      const mouseY = clientY - rect.top;
+
+      ctx.clearRect(0, 0, width, height);
+      for (const p of particles) {
+        const wanderX = p.baseX + Math.cos(t * 0.01 * p.speed + p.phase) * p.drift;
+        const wanderY = p.baseY + Math.sin(t * 0.013 * p.speed + p.phase) * p.drift;
+
+        let targetX = wanderX;
+        let targetY = wanderY;
+
+        const dx = mouseX - p.x;
+        const dy = mouseY - p.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < INFLUENCE) {
+          const pull = (1 - dist / INFLUENCE) * PULL;
+          targetX = p.x + dx * pull;
+          targetY = p.y + dy * pull;
+        }
+
+        p.x += (targetX - p.x) * 0.08;
+        p.y += (targetY - p.y) * 0.08;
+
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = 0.55;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 8;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
+      t += 1;
+    };
+
+    const loop = () => {
+      draw();
+      raf = requestAnimationFrame(loop);
+    };
+
+    if (prefersReducedMotion) {
+      draw();
+    } else {
+      raf = requestAnimationFrame(loop);
+    }
+
+    window.addEventListener("resize", resize);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", handlePointerMove);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0" aria-hidden="true" />;
 }
 
 /* ─── Hooks ─── */
@@ -359,10 +471,10 @@ function Logo() {
           className="w-full h-full object-contain"
         />
       </div>
-      {/* Brand Text Name - Single crisp presentation */}
-      <div className="flex items-center gap-1 text-[18px] sm:text-[19px] font-black tracking-tight text-[#0a0a0a] leading-none">
-        <span className="font-extrabold text-[#0a0a0a]">Amsture</span>
-        <span className="text-blue-600 font-extrabold">Technologies</span>
+      {/* Brand Text Name - Single crisp presentation. "Technologies" hides on very small screens so the pill nav never overflows. */}
+      <div className="flex items-center gap-1 text-[16px] min-[480px]:text-[18px] sm:text-[19px] font-black tracking-tight text-[#0a0a0a] leading-none min-w-0">
+        <span className="font-extrabold text-[#0a0a0a] truncate">Amsture</span>
+        <span className="text-blue-600 font-extrabold hidden min-[480px]:inline">Technologies</span>
         <span className="nv-logo-dot text-blue-600">.</span>
       </div>
     </a>
@@ -1293,6 +1405,9 @@ function Home() {
           <RoboticsHeaderAnimation />
 
           <div className="nv-hero-bg" />
+
+          {/* Cursor-reactive floating bubble particles */}
+          <CursorBubbleField />
           <div className="nv-wrap relative z-10 max-w-4xl mx-auto text-center">
             <div className="nv-reveal flex flex-col items-center">
               <div className="nv-hero-badge bg-white/95 backdrop-blur-md shadow-sm border border-blue-200/80 mb-6 inline-flex">
@@ -1877,8 +1992,8 @@ function Home() {
         <MessageCircle size={22} />
       </a>
 
-      <a href="#contact" className="nv-float-consult">
-        <Calendar size={15} /> Free Consultation
+      <a href="#contact" className="nv-float-consult" aria-label="Book a free consultation">
+        <Calendar size={15} /> <span className="hidden sm:inline">Free Consultation</span>
       </a>
 
       {!cookieClosed && (

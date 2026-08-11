@@ -111,6 +111,19 @@ body {
 
 .dark body { background-color: hsl(var(--background)); }
 
+/*
+ * Everything below is wrapped in Tailwind's "components" layer so that
+ * Tailwind utility classes (which live in the "utilities" layer, e.g.
+ * `hidden`, `sm:inline-flex`, `lg:hidden`) can always override these
+ * custom .nv-* component styles when both are applied to the same
+ * element. Without this, unlayered CSS here would beat layered
+ * utilities regardless of source order or specificity, silently
+ * breaking any responsive `hidden`/`flex` utility combined with an
+ * .nv-* class (e.g. the header's search/menu buttons never actually
+ * hiding at their intended breakpoints).
+ */
+@layer components {
+
 /* ── Scroll progress ── */
 .nv-progress {
   position: fixed; top: 0; left: 0; height: 2px; z-index: 9999;
@@ -145,6 +158,9 @@ body {
   box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 .nv-nav-pill.scrolled { box-shadow: 0 8px 40px rgba(0,0,0,0.14); }
+@media (max-width: 480px) {
+  .nv-nav-pill { padding: 6px 12px; gap: 10px; }
+}
 
 .nv-nav-link {
   font-size: 13.5px; font-weight: 500;
@@ -559,6 +575,14 @@ body {
   transition: all 0.2s; white-space: nowrap;
 }
 .nv-float-consult:hover { background: #0052cc; transform: translateY(-2px); }
+@media (max-width: 639px) {
+  .nv-float-consult {
+    right: 24px; bottom: 80px;
+    width: 48px; height: 48px;
+    padding: 0; justify-content: center;
+  }
+  .nv-float-whatsapp { bottom: 24px; }
+}
 
 /* ── Cookie banner ── */
 .nv-cookie {
@@ -908,3 +932,5 @@ html.dark rect[fill="#eff6ff"] {
   fill: #1e293b !important;
   stroke: #334155 !important;
 }
+
+} /* end @layer components */
