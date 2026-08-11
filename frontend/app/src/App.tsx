@@ -385,15 +385,15 @@ function Home() {
               {/* Quick High-Impact Metrics Bar replacing the 2nd image */}
               <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xl max-w-3xl">
                 <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
-                  <div className="text-2xl font-black text-blue-600">240+</div>
+                  <div className="text-2xl font-black text-blue-600">15+</div>
                   <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Projects Delivered</div>
                 </div>
                 <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
-                  <div className="text-2xl font-black text-blue-600">98%</div>
-                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Client Retention</div>
+                  <div className="text-2xl font-black text-blue-600">100%</div>
+                  <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Client Satisfaction</div>
                 </div>
                 <div className="p-2 text-center border-r border-slate-100 last:border-r-0">
-                  <div className="text-2xl font-black text-blue-600">40%</div>
+                  <div className="text-2xl font-black text-blue-600">35%</div>
                   <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Avg Efficiency Gain</div>
                 </div>
                 <div className="p-2 text-center">
@@ -421,19 +421,19 @@ function Home() {
           <div className="nv-wrap">
             <div className="nv-stats-grid nv-reveal">
               <div className="nv-stat-card">
-                <div className="nv-stat-num">240+</div>
+                <div className="nv-stat-num">15+</div>
                 <div className="nv-stat-label">Projects delivered</div>
               </div>
               <div className="nv-stat-card">
-                <div className="nv-stat-num">98%</div>
-                <div className="nv-stat-label">Client retention</div>
+                <div className="nv-stat-num">100%</div>
+                <div className="nv-stat-label">Client satisfaction</div>
               </div>
               <div className="nv-stat-card">
-                <div className="nv-stat-num">14</div>
+                <div className="nv-stat-num">6+</div>
                 <div className="nv-stat-label">Industries served</div>
               </div>
               <div className="nv-stat-card">
-                <div className="nv-stat-num">40%</div>
+                <div className="nv-stat-num">35%</div>
                 <div className="nv-stat-label">Avg. efficiency gain</div>
               </div>
             </div>
