@@ -63,7 +63,7 @@ const testimonials = [
   { quote: "The team brought structure without slowing us down. Within a month our people could see where the business was heading.", name: "Priya Sharma", role: "Operations Director, Harlow Works", stars: 5 },
 ];
 
-/* ── EXACTLY THREE LEADERS: ANIKET PATIL (FOUNDER), SHRUTIKA SALUNKE (CO-FOUNDER) & MAYUR DESHMUKH (CEO) ── */
+/* ── EXACTLY THREE LEADERS: ANIKET PATIL (FOUNDER), SHRUTIKA SALUNKE (CEO) & MAYUR DESHMUKH (CO-FOUNDER) ── */
 const executiveTeam = [
   {
     name: "Aniket Patil",
@@ -77,20 +77,20 @@ const executiveTeam = [
   },
   {
     name: "Shrutika Salunke",
-    role: "Co-Founder & Frontend Tech Lead",
-    tag: "CO-FOUNDER",
+    role: "Chief Executive Officer (CEO)",
+    tag: "CEO",
     img: shrutikaImage,
-    bio: "Co-founded Amsture Technologies to build high-performance, responsive web applications with expertise in modern UI tools, design systems, and frontend engineering.",
-    highlights: ["Frontend Engineering", "UI Tools Expert", "Software Development"],
+    bio: "Leads Amsture Technologies as CEO, driving company strategy, operational excellence, high-performance web applications, and UI design systems.",
+    highlights: ["Corporate Leadership", "Frontend Engineering", "Software Development"],
     linkedin: "https://linkedin.com",
     email: "shrutika.salunke@amsture.com",
   },
   {
     name: "Mayur Deshmukh",
-    role: "Chief Executive Officer (CEO)",
-    tag: "CEO",
+    role: "Co-Founder & AI Solutions Lead",
+    tag: "CO-FOUNDER",
     img: mayurImage,
-    bio: "Drives commercial strategy, technology execution, and AI solutions with deep expertise in software development, AI/ML engineering, and Python automation.",
+    bio: "Co-founded Amsture Technologies to drive commercial strategy, technology execution, and AI solutions with deep expertise in software development, AI/ML engineering, and Python automation.",
     highlights: ["Software Development", "AI / ML Expert", "Python Specialist"],
     linkedin: "https://linkedin.com",
     email: "mayur.deshmukh@amsture.com",
