@@ -5,19 +5,57 @@ import NotFound from "@/pages/not-found";
 import { Route, Switch, Router as WouterRouter } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowRight, ArrowUpRight, BarChart3, Bot, BrainCircuit,
-  Check, ChevronDown, Cloud, Compass, FileText, Globe2,
-  Layers3, Linkedin, Mail, MapPin, Menu, MessageCircle,
-  Network, Phone, Plus, Quote, Search, ShieldCheck,
-  Sparkles, Star, Target, TrendingUp, Users, X, Zap,
-  Building2, Code2, Database, Settings, Smartphone, HeartHandshake,
-  Award as Trophy, Calendar, Cpu, Activity, Shield, Play, Pause, Sun, Moon,
+  ArrowRight,
+  ArrowUpRight,
+  BarChart3,
+  Bot,
+  BrainCircuit,
+  Check,
+  ChevronDown,
+  Cloud,
+  Compass,
+  FileText,
+  Globe2,
+  Layers3,
+  Linkedin,
+  Mail,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Network,
+  Phone,
+  Plus,
+  Quote,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  X,
+  Zap,
+  Building2,
+  Code2,
+  Database,
+  Settings,
+  Smartphone,
+  HeartHandshake,
+  Award as Trophy,
+  Calendar,
+  Cpu,
+  Activity,
+  Shield,
+  Play,
+  Pause,
+  Sun,
+  Moon,
 } from "lucide-react";
 import heroImage from "@assets/generated_images/nexovate-hero.png";
 import aiImage from "@assets/generated_images/nexovate-ai.png";
 import aniketImage from "@assets/generated_images/aniket-patil.jpg";
 import shrutikaImage from "@assets/generated_images/shrutika-salunke.jpg";
-import mayurImage from "@assets/generated_images/mayur-deshmukh.jpg";
+import mayurImage from "@assets/generated_images/Mayur-Deshmukh.png";
 import amstureLogo from "@assets/generated_images/amsture-logo.jpg";
 import atOfficialLogo from "@assets/generated_images/at-official-logo.png";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
@@ -52,11 +90,17 @@ const services: ServiceItem[] = [
     icon: BrainCircuit,
     title: "AI Automation & Workflows",
     badge: "HIGH ROI",
-    problem: "Repetitive manual tasks consuming your team's best productive hours.",
-    solution: "Custom AI agents & intelligent automation connected to your software stack.",
+    problem:
+      "Repetitive manual tasks consuming your team's best productive hours.",
+    solution:
+      "Custom AI agents & intelligent automation connected to your software stack.",
     benefit: "80% reduction in processing time & zero human data entry errors.",
-    highlights: ["Custom LLM & Agent Integration", "Automated Document Processing", "Intelligent Triaging"],
-    tech: ["Python", "OpenAI / Claude", "LangChain", "Node.js"]
+    highlights: [
+      "Custom LLM & Agent Integration",
+      "Automated Document Processing",
+      "Intelligent Triaging",
+    ],
+    tech: ["Python", "OpenAI / Claude", "LangChain", "Node.js"],
   },
   {
     id: "process",
@@ -64,11 +108,18 @@ const services: ServiceItem[] = [
     icon: Settings,
     title: "Process Automation & RPA",
     badge: "POPULAR",
-    problem: "Manual, fragmented business processes causing operational delays.",
-    solution: "End-to-end workflow automation mapped directly to your core operations.",
-    benefit: "Fewer operational bottlenecks & 20+ hours saved per employee weekly.",
-    highlights: ["REST API Connectors", "Automated Approval Chains", "Real-Time Triggers"],
-    tech: ["n8n", "Zapier Enterprise", "Node.js", "Python"]
+    problem:
+      "Manual, fragmented business processes causing operational delays.",
+    solution:
+      "End-to-end workflow automation mapped directly to your core operations.",
+    benefit:
+      "Fewer operational bottlenecks & 20+ hours saved per employee weekly.",
+    highlights: [
+      "REST API Connectors",
+      "Automated Approval Chains",
+      "Real-Time Triggers",
+    ],
+    tech: ["n8n", "Zapier Enterprise", "Node.js", "Python"],
   },
   {
     id: "dashboards",
@@ -76,11 +127,18 @@ const services: ServiceItem[] = [
     icon: BarChart3,
     title: "AI Analytics & Dashboards",
     badge: "REAL-TIME",
-    problem: "No real-time visibility into operational KPIs and business health.",
-    solution: "Interactive dashboards surfacing actionable insights with predictive analytics.",
-    benefit: "Faster, data-backed decisions across executive and operations teams.",
-    highlights: ["Live Streamed Metrics", "Predictive Trend Forecasting", "Role-Based Views"],
-    tech: ["Recharts", "PostgreSQL", "React", "TypeScript"]
+    problem:
+      "No real-time visibility into operational KPIs and business health.",
+    solution:
+      "Interactive dashboards surfacing actionable insights with predictive analytics.",
+    benefit:
+      "Faster, data-backed decisions across executive and operations teams.",
+    highlights: [
+      "Live Streamed Metrics",
+      "Predictive Trend Forecasting",
+      "Role-Based Views",
+    ],
+    tech: ["Recharts", "PostgreSQL", "React", "TypeScript"],
   },
   {
     id: "web",
@@ -88,11 +146,17 @@ const services: ServiceItem[] = [
     icon: Globe2,
     title: "Business Websites & Portals",
     badge: "SEO FIRST",
-    problem: "Outdated, slow websites that fail to convert visitors into qualified leads.",
-    solution: "Fast, mobile-optimized, SEO-first websites engineered for business growth.",
+    problem:
+      "Outdated, slow websites that fail to convert visitors into qualified leads.",
+    solution:
+      "Fast, mobile-optimized, SEO-first websites engineered for business growth.",
     benefit: "3x lead conversion boost & top-tier Google search rankings.",
-    highlights: ["Sub-second Page Load Speed", "Schema.org Structured Data", "Conversion-Focused UX"],
-    tech: ["React", "Vite", "TailwindCSS", "TypeScript"]
+    highlights: [
+      "Sub-second Page Load Speed",
+      "Schema.org Structured Data",
+      "Conversion-Focused UX",
+    ],
+    tech: ["React", "Vite", "TailwindCSS", "TypeScript"],
   },
   {
     id: "apps",
@@ -100,11 +164,18 @@ const services: ServiceItem[] = [
     icon: Code2,
     title: "Custom Business Software",
     badge: "TAILORED",
-    problem: "Off-the-shelf software failing to fit your unique operational workflows.",
-    solution: "Bespoke web applications built precisely around your company's rules.",
-    benefit: "Seamless operational scale without costly per-user licensing fees.",
-    highlights: ["Custom Database Architecture", "Granular Access Control", "Scalable REST APIs"],
-    tech: ["Node.js", "Express", "React", "PostgreSQL"]
+    problem:
+      "Off-the-shelf software failing to fit your unique operational workflows.",
+    solution:
+      "Bespoke web applications built precisely around your company's rules.",
+    benefit:
+      "Seamless operational scale without costly per-user licensing fees.",
+    highlights: [
+      "Custom Database Architecture",
+      "Granular Access Control",
+      "Scalable REST APIs",
+    ],
+    tech: ["Node.js", "Express", "React", "PostgreSQL"],
   },
   {
     id: "mobile",
@@ -112,11 +183,17 @@ const services: ServiceItem[] = [
     icon: Smartphone,
     title: "Native Mobile Applications",
     badge: "IOS & ANDROID",
-    problem: "No dedicated mobile application limiting customer reach and access.",
-    solution: "High-performance iOS & Android mobile apps with frictionless UX.",
+    problem:
+      "No dedicated mobile application limiting customer reach and access.",
+    solution:
+      "High-performance iOS & Android mobile apps with frictionless UX.",
     benefit: "Direct customer communication channel & increased engagement.",
-    highlights: ["Cross-Platform Efficiency", "Offline Data Sync", "Push Notification Hub"],
-    tech: ["React Native", "Expo", "TypeScript", "REST APIs"]
+    highlights: [
+      "Cross-Platform Efficiency",
+      "Offline Data Sync",
+      "Push Notification Hub",
+    ],
+    tech: ["React Native", "Expo", "TypeScript", "REST APIs"],
   },
   {
     id: "erp",
@@ -124,11 +201,17 @@ const services: ServiceItem[] = [
     icon: Database,
     title: "Enterprise ERP Systems",
     badge: "CORE OPS",
-    problem: "Disconnected software creating blind spots between inventory, sales & finance.",
-    solution: "Unified ERP connecting operations, inventory, finance & HR in real-time.",
+    problem:
+      "Disconnected software creating blind spots between inventory, sales & finance.",
+    solution:
+      "Unified ERP connecting operations, inventory, finance & HR in real-time.",
     benefit: "Complete operational clarity & automated multi-department sync.",
-    highlights: ["Inventory & Supply Chain", "Automated Financial Billing", "Multi-Location Support"],
-    tech: ["Drizzle ORM", "PostgreSQL", "Express", "TypeScript"]
+    highlights: [
+      "Inventory & Supply Chain",
+      "Automated Financial Billing",
+      "Multi-Location Support",
+    ],
+    tech: ["Drizzle ORM", "PostgreSQL", "Express", "TypeScript"],
   },
   {
     id: "crm",
@@ -136,11 +219,17 @@ const services: ServiceItem[] = [
     icon: Users,
     title: "Custom CRM Platforms",
     badge: "SALES BOOST",
-    problem: "Lead data scattered across spreadsheets and missed deal follow-ups.",
-    solution: "Tailored CRM structured directly around your lead-to-close pipeline.",
+    problem:
+      "Lead data scattered across spreadsheets and missed deal follow-ups.",
+    solution:
+      "Tailored CRM structured directly around your lead-to-close pipeline.",
     benefit: "40% faster proposal cycle & increased customer retention.",
-    highlights: ["Kanban Deal Pipelines", "Automated Email Sequences", "Interaction Timelines"],
-    tech: ["React", "Node.js", "PostgreSQL", "TailwindCSS"]
+    highlights: [
+      "Kanban Deal Pipelines",
+      "Automated Email Sequences",
+      "Interaction Timelines",
+    ],
+    tech: ["React", "Node.js", "PostgreSQL", "TailwindCSS"],
   },
   {
     id: "cloud",
@@ -148,11 +237,17 @@ const services: ServiceItem[] = [
     icon: Cloud,
     title: "Cloud & DevOps Infrastructure",
     badge: "99.9% UPTIME",
-    problem: "Scaling server infrastructure is slow, vulnerable, and expensive.",
-    solution: "Modern cloud migration, serverless architecture, and CI/CD pipelines.",
+    problem:
+      "Scaling server infrastructure is slow, vulnerable, and expensive.",
+    solution:
+      "Modern cloud migration, serverless architecture, and CI/CD pipelines.",
     benefit: "99.99% uptime, robust enterprise security & lower hosting costs.",
-    highlights: ["Automated Deployments", "Containerized Architecture", "24/7 Health Monitoring"],
-    tech: ["Docker", "AWS", "GitHub Actions", "Nginx"]
+    highlights: [
+      "Automated Deployments",
+      "Containerized Architecture",
+      "24/7 Health Monitoring",
+    ],
+    tech: ["Docker", "AWS", "GitHub Actions", "Nginx"],
   },
   {
     id: "transformation",
@@ -160,37 +255,123 @@ const services: ServiceItem[] = [
     icon: Compass,
     title: "Digital Transformation & Strategy",
     badge: "STRATEGIC",
-    problem: "Fragmented tech stack creating internal friction and slow execution.",
-    solution: "Senior strategic advisory connecting technology investments directly to ROI.",
-    benefit: "A streamlined tech roadmap & elimination of redundant software spend.",
-    highlights: ["Tech Architecture Audit", "Legacy Modernization Plan", "Security Compliance"],
-    tech: ["Enterprise Blueprints", "ROI Metrics", "Security Standards"]
+    problem:
+      "Fragmented tech stack creating internal friction and slow execution.",
+    solution:
+      "Senior strategic advisory connecting technology investments directly to ROI.",
+    benefit:
+      "A streamlined tech roadmap & elimination of redundant software spend.",
+    highlights: [
+      "Tech Architecture Audit",
+      "Legacy Modernization Plan",
+      "Security Compliance",
+    ],
+    tech: ["Enterprise Blueprints", "ROI Metrics", "Security Standards"],
   },
 ];
 
 const industries = [
-  { name: "Healthcare", icon: HeartHandshake, stat: "31%", label: "less admin time", body: "Give care teams more time for patients and less time on paperwork with intelligent systems built for compliance and speed." },
-  { name: "Education", icon: FileText, stat: "43k", label: "hours returned annually", body: "Streamline enrolment, learning management and reporting so your institution can focus on student outcomes." },
-  { name: "Manufacturing", icon: Layers3, stat: "18%", label: "fewer production delays", body: "Connect the shop floor to the boardroom with live operational data and automated quality control." },
-  { name: "Retail", icon: Sparkles, stat: "26%", label: "more repeat customers", body: "Personalise every customer experience while streamlining your inventory, loyalty and operations." },
-  { name: "Real Estate", icon: Building2, stat: "2.1x", label: "faster deal closings", body: "Digitise your property pipeline from first enquiry to signed contract with intelligent CRM and document workflows." },
-  { name: "Finance", icon: TrendingUp, stat: "40%", label: "faster reporting", body: "Build compliant, intelligent systems your clients trust with their money — from onboarding to reporting." },
-  { name: "Professional Services", icon: Network, stat: "2.4x", label: "faster proposals", body: "From scattered expertise to one confident client journey — with connected CRM, proposals and delivery tracking." },
+  {
+    name: "Healthcare",
+    icon: HeartHandshake,
+    stat: "31%",
+    label: "less admin time",
+    body: "Give care teams more time for patients and less time on paperwork with intelligent systems built for compliance and speed.",
+  },
+  {
+    name: "Education",
+    icon: FileText,
+    stat: "43k",
+    label: "hours returned annually",
+    body: "Streamline enrolment, learning management and reporting so your institution can focus on student outcomes.",
+  },
+  {
+    name: "Manufacturing",
+    icon: Layers3,
+    stat: "18%",
+    label: "fewer production delays",
+    body: "Connect the shop floor to the boardroom with live operational data and automated quality control.",
+  },
+  {
+    name: "Retail",
+    icon: Sparkles,
+    stat: "26%",
+    label: "more repeat customers",
+    body: "Personalise every customer experience while streamlining your inventory, loyalty and operations.",
+  },
+  {
+    name: "Real Estate",
+    icon: Building2,
+    stat: "2.1x",
+    label: "faster deal closings",
+    body: "Digitise your property pipeline from first enquiry to signed contract with intelligent CRM and document workflows.",
+  },
+  {
+    name: "Finance",
+    icon: TrendingUp,
+    stat: "40%",
+    label: "faster reporting",
+    body: "Build compliant, intelligent systems your clients trust with their money — from onboarding to reporting.",
+  },
+  {
+    name: "Professional Services",
+    icon: Network,
+    stat: "2.4x",
+    label: "faster proposals",
+    body: "From scattered expertise to one confident client journey — with connected CRM, proposals and delivery tracking.",
+  },
 ];
 
 const faqs = [
-  { q: "How long does a typical project take?", a: "Most engagements run 4–12 weeks depending on scope. Discovery usually takes two weeks, and we share a clear milestone roadmap so you always know what comes next." },
-  { q: "How does pricing work?", a: "We offer transparent fixed-scope and retainer models. You receive a detailed proposal with no hidden costs after a free consultation." },
-  { q: "Do you work with our existing team?", a: "Yes. Amsture Technologies works alongside your internal team and existing partners with a clear ownership model from day one." },
-  { q: "What does post-launch support look like?", a: "Every project includes a handover period and close support. We offer flexible maintenance and continuous improvement plans." },
-  { q: "How do you approach AI projects responsibly?", a: "We start with the business goal, not the tool. Every AI workflow is scoped around privacy, review points and explainability." },
-  { q: "What happens during the discovery phase?", a: "Discovery is a focused working session to map your friction, understand your priorities and identify the smallest valuable next step." },
+  {
+    q: "How long does a typical project take?",
+    a: "Most engagements run 4–12 weeks depending on scope. Discovery usually takes two weeks, and we share a clear milestone roadmap so you always know what comes next.",
+  },
+  {
+    q: "How does pricing work?",
+    a: "We offer transparent fixed-scope and retainer models. You receive a detailed proposal with no hidden costs after a free consultation.",
+  },
+  {
+    q: "Do you work with our existing team?",
+    a: "Yes. Amsture Technologies works alongside your internal team and existing partners with a clear ownership model from day one.",
+  },
+  {
+    q: "What does post-launch support look like?",
+    a: "Every project includes a handover period and close support. We offer flexible maintenance and continuous improvement plans.",
+  },
+  {
+    q: "How do you approach AI projects responsibly?",
+    a: "We start with the business goal, not the tool. Every AI workflow is scoped around privacy, review points and explainability.",
+  },
+  {
+    q: "What happens during the discovery phase?",
+    a: "Discovery is a focused working session to map your friction, understand your priorities and identify the smallest valuable next step.",
+  },
 ];
 
 const testimonials = [
-  { quote: "Amsture Technologies gave us the confidence to make a difficult technology decision. The work was sharp, but the real difference was how understood we felt throughout.", name: "Elena Morris", role: "COO, Wellstead Group", stars: 5 },
-  { quote: "We stopped talking about transformation as a project. It became a better way of making decisions every week. Productivity improved 35% in the first quarter.", name: "Marcus Iqbal", role: "MD, Kindred Advisory", stars: 5, featured: true },
-  { quote: "The team brought structure without slowing us down. Within a month our people could see where the business was heading.", name: "Priya Sharma", role: "Operations Director, Harlow Works", stars: 5 },
+  {
+    quote:
+      "Amsture Technologies gave us the confidence to make a difficult technology decision. The work was sharp, but the real difference was how understood we felt throughout.",
+    name: "Elena Morris",
+    role: "COO, Wellstead Group",
+    stars: 5,
+  },
+  {
+    quote:
+      "We stopped talking about transformation as a project. It became a better way of making decisions every week. Productivity improved 35% in the first quarter.",
+    name: "Marcus Iqbal",
+    role: "MD, Kindred Advisory",
+    stars: 5,
+    featured: true,
+  },
+  {
+    quote:
+      "The team brought structure without slowing us down. Within a month our people could see where the business was heading.",
+    name: "Priya Sharma",
+    role: "Operations Director, Harlow Works",
+    stars: 5,
+  },
 ];
 
 /* ── EXACTLY THREE LEADERS: ANIKET PATIL (FOUNDER), SHRUTIKA SALUNKE (CEO) & MAYUR DESHMUKH (CO-FOUNDER) ── */
@@ -201,7 +382,11 @@ const executiveTeam = [
     tag: "FOUNDER & OWNER",
     img: aniketImage,
     bio: "Pioneered Amsture Technologies' founding vision with hands-on expertise in modern software development, cloud infrastructure, and DevOps automation.",
-    highlights: ["Software Engineering", "DevOps Specialist", "Cloud Infrastructure"],
+    highlights: [
+      "Software Engineering",
+      "DevOps Specialist",
+      "Cloud Infrastructure",
+    ],
     linkedin: "https://linkedin.com",
     email: "aniket.patil@amsture.com",
   },
@@ -211,7 +396,11 @@ const executiveTeam = [
     tag: "CEO",
     img: shrutikaImage,
     bio: "Leads Amsture Technologies as CEO, driving company strategy, operational excellence, high-performance web applications, and UI design systems.",
-    highlights: ["Corporate Leadership", "Frontend Engineering", "Software Development"],
+    highlights: [
+      "Corporate Leadership",
+      "Frontend Engineering",
+      "Software Development",
+    ],
     linkedin: "https://linkedin.com",
     email: "shrutika.salunke@amsture.com",
   },
@@ -228,23 +417,325 @@ const executiveTeam = [
 ];
 
 const tickerData = [
-  { name: "AI Automation & Workflows", icon: BrainCircuit, badge: "HIGH ROI", desc: "Autonomous AI agents & LLM task pipelines." },
-  { name: "Custom Web Software", icon: Code2, badge: "BESPOKE", desc: "Tailored enterprise web applications." },
-  { name: "Enterprise ERP Systems", icon: Database, badge: "CORE OPS", desc: "Unified business & operational control." },
-  { name: "Native Mobile Apps", icon: Smartphone, badge: "IOS & ANDROID", desc: "High-performance mobile applications." },
-  { name: "Business Websites", icon: Globe2, badge: "SEO FIRST", desc: "Fast, search-ranked lead generation." },
-  { name: "Cloud Infrastructure", icon: Cloud, badge: "99.99% UPTIME", desc: "DevOps automation & secure hosting." },
-  { name: "Tailored CRM Platforms", icon: Users, badge: "SALES BOOST", desc: "Pipeline management & automated leads." },
-  { name: "Process Automation", icon: Settings, badge: "WORKFLOWS", desc: "Eliminate manual tasks & approvals." },
-  { name: "AI Business Analytics", icon: BarChart3, badge: "REAL-TIME", desc: "Predictive dashboards & live metrics." },
-  { name: "Digital Strategy & Advisory", icon: Compass, badge: "GROWTH", desc: "Tech roadmap planning & execution." },
+  {
+    name: "AI Automation & Workflows",
+    icon: BrainCircuit,
+    badge: "HIGH ROI",
+    desc: "Autonomous AI agents & LLM task pipelines.",
+  },
+  {
+    name: "Custom Web Software",
+    icon: Code2,
+    badge: "BESPOKE",
+    desc: "Tailored enterprise web applications.",
+  },
+  {
+    name: "Enterprise ERP Systems",
+    icon: Database,
+    badge: "CORE OPS",
+    desc: "Unified business & operational control.",
+  },
+  {
+    name: "Native Mobile Apps",
+    icon: Smartphone,
+    badge: "IOS & ANDROID",
+    desc: "High-performance mobile applications.",
+  },
+  {
+    name: "Business Websites",
+    icon: Globe2,
+    badge: "SEO FIRST",
+    desc: "Fast, search-ranked lead generation.",
+  },
+  {
+    name: "Cloud Infrastructure",
+    icon: Cloud,
+    badge: "99.99% UPTIME",
+    desc: "DevOps automation & secure hosting.",
+  },
+  {
+    name: "Tailored CRM Platforms",
+    icon: Users,
+    badge: "SALES BOOST",
+    desc: "Pipeline management & automated leads.",
+  },
+  {
+    name: "Process Automation",
+    icon: Settings,
+    badge: "WORKFLOWS",
+    desc: "Eliminate manual tasks & approvals.",
+  },
+  {
+    name: "AI Business Analytics",
+    icon: BarChart3,
+    badge: "REAL-TIME",
+    desc: "Predictive dashboards & live metrics.",
+  },
+  {
+    name: "Digital Strategy & Advisory",
+    icon: Compass,
+    badge: "GROWTH",
+    desc: "Tech roadmap planning & execution.",
+  },
 ];
+
+/* ─── About story panels (used by the animated carousel) ─── */
+const aboutStory = [
+  {
+    tag: "THE BEGINNING",
+    num: "01",
+    title: "We know your business before we write a line.",
+    italic: "Not another dev shop.",
+    stat: "15+ projects delivered",
+    statSub: "for growing businesses worldwide",
+    tone: "light" as const,
+  },
+  {
+    tag: "THE VISION",
+    num: "02",
+    title: "The trusted transformation partner.",
+    italic: "For businesses that refuse to settle.",
+    stat: "100% client satisfaction",
+    statSub: "across every engagement",
+    tone: "tint" as const,
+  },
+  {
+    tag: "THE MISSION",
+    num: "03",
+    title: "Software that removes friction.",
+    italic: "And unlocks real growth.",
+    stat: "35% avg. efficiency gain",
+    statSub: "measured post-launch",
+    tone: "solid" as const,
+  },
+  {
+    tag: "WHY US",
+    num: "GO",
+    title: "Business first. Technology second.",
+    italic: "Transparent. Dependable. Focused.",
+    stat: "6+ industries served",
+    statSub: "and counting",
+    tone: "navy" as const,
+  },
+];
+
+/* ─── About Section Story Carousel (scroll-snap panels, progress bar, dots) ─── */
+function AboutStoryCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const indexRef = useRef(0);
+  const maxIndexRef = useRef(0);
+  const [index, setIndex] = useState(0);
+  const [maxIndex, setMaxIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const scrollToIndex = (i: number) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const clamped = Math.max(0, Math.min(i, maxIndexRef.current));
+    const panelWidth = el.scrollWidth / aboutStory.length;
+    el.scrollTo({ left: clamped * panelWidth, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    // How many panels actually fit on screen determines how many snap
+    // positions are reachable (e.g. 4 panels, 3 visible on desktop = only
+    // 2 valid stops) — without this, scrollToIndex() past the last
+    // reachable stop is silently clamped by the browser and looks "stuck".
+    const computeMaxIndex = () => {
+      const panelWidth = el.scrollWidth / aboutStory.length;
+      const visibleCount = Math.max(1, Math.round(el.clientWidth / panelWidth));
+      const next = Math.max(0, aboutStory.length - visibleCount);
+      maxIndexRef.current = next;
+      setMaxIndex(next);
+    };
+
+    const handleScroll = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      setProgress(maxScroll > 0 ? (el.scrollLeft / maxScroll) * 100 : 0);
+      const panelWidth = el.scrollWidth / aboutStory.length;
+      const newIndex = Math.round(el.scrollLeft / panelWidth);
+      indexRef.current = newIndex;
+      setIndex(newIndex);
+    };
+
+    computeMaxIndex();
+    handleScroll();
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", computeMaxIndex);
+    return () => {
+      el.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", computeMaxIndex);
+    };
+  }, []);
+
+  // Auto-advance to the next reachable card, looping back to the first; pauses on hover.
+  useEffect(() => {
+    if (isHovering) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = setInterval(() => {
+      const next = (indexRef.current + 1) % (maxIndexRef.current + 1);
+      scrollToIndex(next);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [isHovering]);
+
+  const toneBg: Record<string, string> = {
+    light: "bg-white",
+    tint: "bg-blue-50/70",
+    solid: "bg-blue-600",
+    navy: "bg-[#0d2f7a]",
+  };
+  const toneNum: Record<string, string> = {
+    light: "text-blue-600",
+    tint: "text-blue-600",
+    solid: "text-white",
+    navy: "text-white",
+  };
+  const toneBgNum: Record<string, string> = {
+    light: "text-blue-600/[0.06]",
+    tint: "text-blue-600/[0.08]",
+    solid: "text-white/10",
+    navy: "text-white/[0.06]",
+  };
+  const darkTones = ["solid", "navy"];
+
+  return (
+    <div>
+      <div
+        className="rounded-3xl border border-slate-200 overflow-hidden shadow-sm"
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {aboutStory.map((item, idx) => {
+            const isDark = darkTones.includes(item.tone);
+            return (
+              <div
+                key={idx}
+                className={`relative flex-none w-full sm:w-1/2 lg:w-1/3 snap-start overflow-hidden px-8 py-10 sm:px-10 sm:py-12 ${toneBg[item.tone]}`}
+              >
+                <span
+                  className={`absolute -bottom-4 right-4 font-black leading-none select-none pointer-events-none text-[140px] sm:text-[170px] ${toneBgNum[item.tone]}`}
+                >
+                  {item.num}
+                </span>
+
+                <div className="relative z-10">
+                  <div
+                    className={`flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase mb-6 ${
+                      isDark ? "text-blue-100" : "text-slate-500"
+                    }`}
+                  >
+                    <span
+                      className={`w-5 h-px ${isDark ? "bg-blue-200" : "bg-slate-400"}`}
+                    />
+                    {item.tag}
+                  </div>
+
+                  <div
+                    className={`text-6xl font-black tracking-tight mb-8 ${toneNum[item.tone]}`}
+                  >
+                    {item.num}
+                  </div>
+
+                  <p
+                    className={`text-lg font-semibold leading-snug ${isDark ? "text-white" : "text-slate-800"}`}
+                  >
+                    {item.title}
+                    <em
+                      className={`block font-serif italic font-medium mt-1 ${
+                        isDark ? "text-blue-100" : "text-slate-500"
+                      }`}
+                    >
+                      {item.italic}
+                    </em>
+                  </p>
+
+                  <div
+                    className={`mt-10 pt-5 border-t ${isDark ? "border-white/25" : "border-slate-200"}`}
+                  >
+                    <div
+                      className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}
+                    >
+                      {item.stat}
+                    </div>
+                    <div
+                      className={`text-xs mt-0.5 ${isDark ? "text-blue-100" : "text-slate-500"}`}
+                    >
+                      {item.statSub}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-6 h-[3px] w-full bg-slate-100 rounded-full overflow-hidden">
+        <div
+          className="h-full bg-blue-600 transition-[width] duration-200 ease-out"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+
+      <div className="mt-5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              aria-label={`Go to slide ${idx + 1}`}
+              onClick={() => scrollToIndex(idx)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                idx === index ? "w-6 bg-blue-600" : "w-2 bg-slate-300"
+              }`}
+            />
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => scrollToIndex(index - 1)}
+            disabled={index === 0}
+            className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:border-blue-600 hover:text-blue-600 disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 transition-colors"
+          >
+            <ArrowRight size={16} className="rotate-180" />
+          </button>
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => scrollToIndex(index + 1)}
+            disabled={index === maxIndex}
+            className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:border-blue-600 hover:text-blue-600 disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 transition-colors"
+          >
+            <ArrowRight size={16} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /* ─── Refined Robotics Animated HUD Background Component ─── */
 function RoboticsHeaderAnimation() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-40">
-      <svg className="w-full h-full" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        className="w-full h-full"
+        viewBox="0 0 1200 700"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <defs>
           <radialGradient id="hudGlow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#0066ff" stopOpacity="0.3" />
@@ -256,39 +747,142 @@ function RoboticsHeaderAnimation() {
         <circle cx="600" cy="320" r="380" fill="url(#hudGlow)" />
 
         {/* Rotating Outer HUD Ring */}
-        <g className="nv-robotics-hud-ring-1" style={{ transformOrigin: "600px 320px" }}>
-          <circle cx="600" cy="320" r="300" stroke="#0066ff" strokeWidth="1.5" strokeDasharray="12 8 4 8" opacity="0.5" />
-          <circle cx="600" cy="320" r="270" stroke="#00d4e8" strokeWidth="1" strokeDasharray="40 10 10 10" opacity="0.4" />
+        <g
+          className="nv-robotics-hud-ring-1"
+          style={{ transformOrigin: "600px 320px" }}
+        >
+          <circle
+            cx="600"
+            cy="320"
+            r="300"
+            stroke="#0066ff"
+            strokeWidth="1.5"
+            strokeDasharray="12 8 4 8"
+            opacity="0.5"
+          />
+          <circle
+            cx="600"
+            cy="320"
+            r="270"
+            stroke="#00d4e8"
+            strokeWidth="1"
+            strokeDasharray="40 10 10 10"
+            opacity="0.4"
+          />
         </g>
 
         {/* Counter Rotating Mid Ring */}
-        <g className="nv-robotics-hud-ring-2" style={{ transformOrigin: "600px 320px" }}>
-          <circle cx="600" cy="320" r="220" stroke="#0066ff" strokeWidth="2" strokeDasharray="80 30" opacity="0.4" />
-          <circle cx="600" cy="320" r="195" stroke="#00d4e8" strokeWidth="1" strokeDasharray="6 6" opacity="0.5" />
-          <line x1="380" y1="320" x2="820" y2="320" stroke="#0066ff" strokeWidth="1" opacity="0.25" />
-          <line x1="600" y1="100" x2="600" y2="540" stroke="#0066ff" strokeWidth="1" opacity="0.25" />
+        <g
+          className="nv-robotics-hud-ring-2"
+          style={{ transformOrigin: "600px 320px" }}
+        >
+          <circle
+            cx="600"
+            cy="320"
+            r="220"
+            stroke="#0066ff"
+            strokeWidth="2"
+            strokeDasharray="80 30"
+            opacity="0.4"
+          />
+          <circle
+            cx="600"
+            cy="320"
+            r="195"
+            stroke="#00d4e8"
+            strokeWidth="1"
+            strokeDasharray="6 6"
+            opacity="0.5"
+          />
+          <line
+            x1="380"
+            y1="320"
+            x2="820"
+            y2="320"
+            stroke="#0066ff"
+            strokeWidth="1"
+            opacity="0.25"
+          />
+          <line
+            x1="600"
+            y1="100"
+            x2="600"
+            y2="540"
+            stroke="#0066ff"
+            strokeWidth="1"
+            opacity="0.25"
+          />
         </g>
 
         {/* Inner Fast HUD Target Ring */}
-        <g className="nv-robotics-hud-ring-3" style={{ transformOrigin: "600px 320px" }}>
-          <circle cx="600" cy="320" r="140" stroke="#0066ff" strokeWidth="2" strokeDasharray="20 40 10 30" opacity="0.6" />
-          <circle cx="600" cy="320" r="100" stroke="#00d4e8" strokeWidth="1.5" opacity="0.5" />
+        <g
+          className="nv-robotics-hud-ring-3"
+          style={{ transformOrigin: "600px 320px" }}
+        >
+          <circle
+            cx="600"
+            cy="320"
+            r="140"
+            stroke="#0066ff"
+            strokeWidth="2"
+            strokeDasharray="20 40 10 30"
+            opacity="0.6"
+          />
+          <circle
+            cx="600"
+            cy="320"
+            r="100"
+            stroke="#00d4e8"
+            strokeWidth="1.5"
+            opacity="0.5"
+          />
         </g>
 
         {/* Target Reticle Precision Lines */}
         <g opacity="0.75">
-          <path d="M585 305 L595 305 L595 315" stroke="#0066ff" strokeWidth="2" fill="none" />
-          <path d="M615 305 L605 305 L605 315" stroke="#0066ff" strokeWidth="2" fill="none" />
-          <path d="M585 335 L595 335 L595 325" stroke="#0066ff" strokeWidth="2" fill="none" />
-          <path d="M615 335 L605 335 L605 325" stroke="#0066ff" strokeWidth="2" fill="none" />
+          <path
+            d="M585 305 L595 305 L595 315"
+            stroke="#0066ff"
+            strokeWidth="2"
+            fill="none"
+          />
+          <path
+            d="M615 305 L605 305 L605 315"
+            stroke="#0066ff"
+            strokeWidth="2"
+            fill="none"
+          />
+          <path
+            d="M585 335 L595 335 L595 325"
+            stroke="#0066ff"
+            strokeWidth="2"
+            fill="none"
+          />
+          <path
+            d="M615 335 L605 335 L605 325"
+            stroke="#0066ff"
+            strokeWidth="2"
+            fill="none"
+          />
         </g>
       </svg>
     </div>
   );
 }
 
-/* ─── Cursor-Reactive Bubble Field (hero background particles that drift toward the pointer) ─── */
-function CursorBubbleField() {
+/* ─── Cursor-Reactive Bubble Field (hero background particles that hug the text, never behind it) ─── */
+type ExclusionRect = {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+};
+
+function CursorBubbleField({
+  excludeRef,
+}: {
+  excludeRef?: React.RefObject<HTMLElement | null>;
+}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -299,30 +893,104 @@ function CursorBubbleField() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     const isFinePointer = window.matchMedia("(pointer: fine)").matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const colors = ["#0066ff", "#00d4e8"];
+    const colors = ["#5b9dff", "#5ee3f2"];
+    const HALO = 120; // how far the "near the text" band extends beyond the text block
+    const TEXT_PAD = 24; // breathing room kept clear right against the text edges
 
     let width = 0;
     let height = 0;
+    let exclusion: ExclusionRect | null = null;
     let particles: {
-      baseX: number; baseY: number; x: number; y: number;
-      r: number; color: string; phase: number; speed: number; drift: number;
+      baseX: number;
+      baseY: number;
+      x: number;
+      y: number;
+      r: number;
+      color: string;
+      phase: number;
+      speed: number;
+      drift: number;
     }[] = [];
 
+    const getExclusionRect = (): ExclusionRect | null => {
+      const el = excludeRef?.current;
+      if (!el) return null;
+      const elRect = el.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      return {
+        left: elRect.left - containerRect.left - TEXT_PAD,
+        right: elRect.right - containerRect.left + TEXT_PAD,
+        top: elRect.top - containerRect.top - TEXT_PAD,
+        bottom: elRect.bottom - containerRect.top + TEXT_PAD,
+      };
+    };
+
+    // Pushes a point that's inside the text's exclusion box out to its nearest edge,
+    // so particles only ever sit in the halo band around the text, never on top of it.
+    const keepOutsideText = (
+      x: number,
+      y: number,
+    ): { x: number; y: number } => {
+      if (!exclusion) return { x, y };
+      const { left, right, top, bottom } = exclusion;
+      if (x <= left || x >= right || y <= top || y >= bottom) return { x, y };
+      const distLeft = x - left;
+      const distRight = right - x;
+      const distTop = y - top;
+      const distBottom = bottom - y;
+      const minDist = Math.min(distLeft, distRight, distTop, distBottom);
+      if (minDist === distLeft) return { x: left, y };
+      if (minDist === distRight) return { x: right, y };
+      if (minDist === distTop) return { x, y: top };
+      return { x, y: bottom };
+    };
+
+    const sampleNearText = (): { x: number; y: number } => {
+      if (!exclusion)
+        return { x: Math.random() * width, y: Math.random() * height };
+      const outer = {
+        left: Math.max(0, exclusion.left - HALO),
+        right: Math.min(width, exclusion.right + HALO),
+        top: Math.max(0, exclusion.top - HALO),
+        bottom: Math.min(height, exclusion.bottom + HALO),
+      };
+      for (let attempt = 0; attempt < 24; attempt++) {
+        const x = outer.left + Math.random() * (outer.right - outer.left);
+        const y = outer.top + Math.random() * (outer.bottom - outer.top);
+        if (
+          x < exclusion.left ||
+          x > exclusion.right ||
+          y < exclusion.top ||
+          y > exclusion.bottom
+        ) {
+          return { x, y };
+        }
+      }
+      return keepOutsideText(
+        outer.left + Math.random() * (outer.right - outer.left),
+        outer.top + Math.random() * (outer.bottom - outer.top),
+      );
+    };
+
     const buildParticles = () => {
-      const count = width < 640 ? 20 : width < 1024 ? 32 : 46;
+      const count = width < 640 ? 16 : width < 1024 ? 26 : 36;
       particles = Array.from({ length: count }, () => {
-        const baseX = Math.random() * width;
-        const baseY = Math.random() * height;
+        const { x: baseX, y: baseY } = sampleNearText();
         return {
-          baseX, baseY, x: baseX, y: baseY,
+          baseX,
+          baseY,
+          x: baseX,
+          y: baseY,
           r: 2 + Math.random() * 2.5,
           color: colors[Math.floor(Math.random() * colors.length)],
           phase: Math.random() * Math.PI * 2,
           speed: 0.2 + Math.random() * 0.3,
-          drift: 14 + Math.random() * 18,
+          drift: 10 + Math.random() * 12,
         };
       });
     };
@@ -336,9 +1004,13 @@ function CursorBubbleField() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      exclusion = getExclusionRect();
       buildParticles();
     };
     resize();
+    // Re-measure once more after fonts/layout settle, since the text block's
+    // size can still shift slightly right after first paint.
+    const settleTimer = window.setTimeout(resize, 250);
 
     let clientX = -9999;
     let clientY = -9999;
@@ -347,7 +1019,9 @@ function CursorBubbleField() {
       clientY = e.clientY;
     };
     if (isFinePointer && !prefersReducedMotion) {
-      window.addEventListener("pointermove", handlePointerMove, { passive: true });
+      window.addEventListener("pointermove", handlePointerMove, {
+        passive: true,
+      });
     }
 
     const INFLUENCE = 170;
@@ -362,8 +1036,10 @@ function CursorBubbleField() {
 
       ctx.clearRect(0, 0, width, height);
       for (const p of particles) {
-        const wanderX = p.baseX + Math.cos(t * 0.01 * p.speed + p.phase) * p.drift;
-        const wanderY = p.baseY + Math.sin(t * 0.013 * p.speed + p.phase) * p.drift;
+        const wanderX =
+          p.baseX + Math.cos(t * 0.01 * p.speed + p.phase) * p.drift;
+        const wanderY =
+          p.baseY + Math.sin(t * 0.013 * p.speed + p.phase) * p.drift;
 
         let targetX = wanderX;
         let targetY = wanderY;
@@ -377,8 +1053,9 @@ function CursorBubbleField() {
           targetY = p.y + dy * pull;
         }
 
-        p.x += (targetX - p.x) * 0.08;
-        p.y += (targetY - p.y) * 0.08;
+        const kept = keepOutsideText(targetX, targetY);
+        p.x += (kept.x - p.x) * 0.08;
+        p.y += (kept.y - p.y) * 0.08;
 
         ctx.beginPath();
         ctx.fillStyle = p.color;
@@ -408,12 +1085,19 @@ function CursorBubbleField() {
 
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(settleTimer);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", handlePointerMove);
     };
-  }, []);
+  }, [excludeRef]);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0" aria-hidden="true" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 pointer-events-none z-0"
+      aria-hidden="true"
+    />
+  );
 }
 
 /* ─── Hooks ─── */
@@ -422,7 +1106,8 @@ function useScrollProgress() {
   useEffect(() => {
     const update = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
     };
     window.addEventListener("scroll", update, { passive: true });
@@ -441,6 +1126,84 @@ function useScrolled() {
   return scrolled;
 }
 
+function usePastHero() {
+  const [pastHero, setPastHero] = useState(false);
+  useEffect(() => {
+    const update = () => setPastHero(window.scrollY > window.innerHeight - 120);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+  return pastHero;
+}
+
+/* ─── Count-up number (runs once, when the stat scrolls into view) ─── */
+function CountUp({
+  value,
+  duration = 1400,
+}: {
+  value: string;
+  duration?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [display, setDisplay] = useState("0");
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    const match = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
+    const target = match ? parseFloat(match[1]) : 0;
+    const suffix = match ? match[2] : "";
+    const decimals =
+      match && match[1].includes(".") ? match[1].split(".")[1].length : 0;
+
+    const el = ref.current;
+    if (!el) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplay(value);
+      return;
+    }
+
+    const runCountUp = () => {
+      if (hasRun.current) return;
+      hasRun.current = true;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        if (progress < 1) {
+          setDisplay(`${(target * eased).toFixed(decimals)}${suffix}`);
+          requestAnimationFrame(tick);
+        } else {
+          setDisplay(value);
+        }
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) runCountUp();
+        });
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [value, duration]);
+
+  return (
+    <div ref={ref} className="nv-stat-num">
+      {display}
+    </div>
+  );
+}
+
 function useScrollReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -451,7 +1214,7 @@ function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
     );
     const elements = document.querySelectorAll(".nv-reveal");
     elements.forEach((el) => observer.observe(el));
@@ -462,7 +1225,10 @@ function useScrollReveal() {
 /* ─── Animated Logo ─── */
 function Logo() {
   return (
-    <a href="#top" className="flex items-center gap-2.5 no-underline shrink-0 group py-0.5">
+    <a
+      href="#top"
+      className="flex items-center gap-2.5 no-underline shrink-0 group py-0.5"
+    >
       {/* Official Uploaded AT Emblem Logo Mark */}
       <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 border border-slate-200/90 shadow-sm flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
         <img
@@ -474,7 +1240,9 @@ function Logo() {
       {/* Brand Text Name - Single crisp presentation. "Technologies" hides on very small screens so the pill nav never overflows. */}
       <div className="flex items-center gap-1 text-[16px] min-[480px]:text-[18px] sm:text-[19px] font-black tracking-tight text-[#0a0a0a] leading-none min-w-0">
         <span className="font-extrabold text-[#0a0a0a] truncate">Amsture</span>
-        <span className="text-blue-600 font-extrabold hidden min-[480px]:inline">Technologies</span>
+        <span className="text-blue-600 font-extrabold hidden min-[480px]:inline">
+          Technologies
+        </span>
         <span className="nv-logo-dot text-blue-600">.</span>
       </div>
     </a>
@@ -514,14 +1282,30 @@ function Header() {
         <Logo />
 
         <nav className="hidden lg:flex items-center gap-7">
-          <a href="#about" className="nv-nav-link">About</a>
-          <a href="#services" className="nv-nav-link">Services</a>
-          <a href="#leadership" className="nv-nav-link">Leadership</a>
-          <a href="#industries" className="nv-nav-link">Industries</a>
-          <a href="#process" className="nv-nav-link">Process</a>
-          <a href="#work" className="nv-nav-link">Work</a>
-          <a href="#faq" className="nv-nav-link">FAQ</a>
-          <a href="#contact" className="nv-nav-link">Contact</a>
+          <a href="#about" className="nv-nav-link">
+            About
+          </a>
+          <a href="#services" className="nv-nav-link">
+            Services
+          </a>
+          <a href="#leadership" className="nv-nav-link">
+            Leadership
+          </a>
+          <a href="#industries" className="nv-nav-link">
+            Industries
+          </a>
+          <a href="#process" className="nv-nav-link">
+            Process
+          </a>
+          <a href="#work" className="nv-nav-link">
+            Work
+          </a>
+          <a href="#faq" className="nv-nav-link">
+            FAQ
+          </a>
+          <a href="#contact" className="nv-nav-link">
+            Contact
+          </a>
         </nav>
 
         <div className="flex items-center gap-2.5">
@@ -543,9 +1327,15 @@ function Header() {
             title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
           >
             {theme === "light" ? (
-              <Moon size={17} className="text-slate-700 hover:text-blue-600 transition-colors" />
+              <Moon
+                size={17}
+                className="text-slate-700 hover:text-blue-600 transition-colors"
+              />
             ) : (
-              <Sun size={17} className="text-amber-400 hover:text-amber-300 transition-colors" />
+              <Sun
+                size={17}
+                className="text-amber-400 hover:text-amber-300 transition-colors"
+              />
             )}
           </button>
 
@@ -572,7 +1362,11 @@ function Header() {
               <X size={20} />
             </button>
             <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
-              <img src={amstureLogo} alt="Amsture Technologies Logo" className="w-7 h-7 rounded-md object-contain shrink-0 border border-slate-100 shadow-xs" />
+              <img
+                src={amstureLogo}
+                alt="Amsture Technologies Logo"
+                className="w-7 h-7 rounded-md object-contain shrink-0 border border-slate-100 shadow-xs"
+              />
               <Search size={18} className="text-blue-600 shrink-0" />
               <input
                 type="text"
@@ -584,7 +1378,39 @@ function Header() {
               />
             </div>
             <div className="mt-4 text-xs text-slate-400">
-              Popular searches: <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("AI Automation"); setSearchOpen(false); window.location.href = "#services"; }}>AI Automation</span>, <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("Leadership"); setSearchOpen(false); window.location.href = "#leadership"; }}>Leadership</span>, <span className="text-blue-600 font-semibold cursor-pointer" onClick={() => { setSearchQuery("ERP"); setSearchOpen(false); window.location.href = "#services"; }}>ERP Systems</span>
+              Popular searches:{" "}
+              <span
+                className="text-blue-600 font-semibold cursor-pointer"
+                onClick={() => {
+                  setSearchQuery("AI Automation");
+                  setSearchOpen(false);
+                  window.location.href = "#services";
+                }}
+              >
+                AI Automation
+              </span>
+              ,{" "}
+              <span
+                className="text-blue-600 font-semibold cursor-pointer"
+                onClick={() => {
+                  setSearchQuery("Leadership");
+                  setSearchOpen(false);
+                  window.location.href = "#leadership";
+                }}
+              >
+                Leadership
+              </span>
+              ,{" "}
+              <span
+                className="text-blue-600 font-semibold cursor-pointer"
+                onClick={() => {
+                  setSearchQuery("ERP");
+                  setSearchOpen(false);
+                  window.location.href = "#services";
+                }}
+              >
+                ERP Systems
+              </span>
             </div>
           </div>
         </div>
@@ -593,18 +1419,74 @@ function Header() {
       {/* Mobile Navigation Drawer */}
       {mobileOpen && (
         <div className="nv-mobile-menu">
-          <button type="button" onClick={() => setMobileOpen(false)} className="absolute top-6 right-6 nv-icon-btn">
+          <button
+            type="button"
+            onClick={() => setMobileOpen(false)}
+            className="absolute top-6 right-6 nv-icon-btn"
+          >
             <X size={22} />
           </button>
-          <a href="#about" onClick={() => setMobileOpen(false)} className="nv-mobile-link">About</a>
-          <a href="#services" onClick={() => setMobileOpen(false)} className="nv-mobile-link">Services</a>
-          <a href="#leadership" onClick={() => setMobileOpen(false)} className="nv-mobile-link">Leadership</a>
-          <a href="#industries" onClick={() => setMobileOpen(false)} className="nv-mobile-link">Industries</a>
-          <a href="#process" onClick={() => setMobileOpen(false)} className="nv-mobile-link">Process</a>
-          <a href="#work" onClick={() => setMobileOpen(false)} className="nv-mobile-link">Work</a>
-          <a href="#faq" onClick={() => setMobileOpen(false)} className="nv-mobile-link">FAQ</a>
-          <a href="#contact" onClick={() => setMobileOpen(false)} className="nv-mobile-link font-bold text-blue-600">Contact Us</a>
-          <a href="#contact" onClick={() => setMobileOpen(false)} className="nv-cta-primary mt-4">
+          <a
+            href="#about"
+            onClick={() => setMobileOpen(false)}
+            className="nv-mobile-link"
+          >
+            About
+          </a>
+          <a
+            href="#services"
+            onClick={() => setMobileOpen(false)}
+            className="nv-mobile-link"
+          >
+            Services
+          </a>
+          <a
+            href="#leadership"
+            onClick={() => setMobileOpen(false)}
+            className="nv-mobile-link"
+          >
+            Leadership
+          </a>
+          <a
+            href="#industries"
+            onClick={() => setMobileOpen(false)}
+            className="nv-mobile-link"
+          >
+            Industries
+          </a>
+          <a
+            href="#process"
+            onClick={() => setMobileOpen(false)}
+            className="nv-mobile-link"
+          >
+            Process
+          </a>
+          <a
+            href="#work"
+            onClick={() => setMobileOpen(false)}
+            className="nv-mobile-link"
+          >
+            Work
+          </a>
+          <a
+            href="#faq"
+            onClick={() => setMobileOpen(false)}
+            className="nv-mobile-link"
+          >
+            FAQ
+          </a>
+          <a
+            href="#contact"
+            onClick={() => setMobileOpen(false)}
+            className="nv-mobile-link font-bold text-blue-600"
+          >
+            Contact Us
+          </a>
+          <a
+            href="#contact"
+            onClick={() => setMobileOpen(false)}
+            className="nv-cta-primary mt-4"
+          >
             Book a Free Consultation <ArrowRight size={16} />
           </a>
         </div>
@@ -619,17 +1501,83 @@ function ParallelSDLCSection() {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
 
   const sdlcSteps = [
-    { id: 0, node: "req", name: "Requirement", phase: "Sequential", desc: "Capture the product need, business intent & goals in plain language" },
-    { id: 1, node: "und", name: "Understanding", phase: "Sequential", desc: "AI structures intent, extracts goals, and maps system constraints" },
-    { id: 2, node: "lock", name: "Lock Scope", phase: "Sequential", desc: "Freeze core specifications and functional boundaries" },
-    { id: 3, node: "docs", name: "Generate Docs", phase: "Sequential", desc: "Auto-generate PRD, system specs, user stories & schema blueprints" },
-    { id: 4, node: "app", name: "Approve Gate", phase: "Sequential", desc: "Human engineering review & milestone approval gate" },
-    { id: 5, node: "design", name: "Parallel Design", phase: "Parallel · Design", desc: "Concurrent synthesis of System Architecture, DB Schemas, API Specs & UI/UX Design" },
-    { id: 6, node: "build", name: "Parallel Build", phase: "Parallel · Build", desc: "Concurrent code generation, API controllers, and environment configuration" },
-    { id: 7, node: "validate", name: "Parallel Validate", phase: "Parallel · Validate", desc: "Autonomous E2E test suites, peer AI code review, and real-time security audit" },
-    { id: 8, node: "fix", name: "Auto Fix", phase: "Sequential", desc: "Autonomous bug resolution, edge-case handling & optimization" },
-    { id: 9, node: "deploy", name: "Deploy Release", phase: "Sequential", desc: "1-Click CI/CD production release with zero downtime" },
-    { id: 10, node: "maintain", name: "Maintain & Feedback", phase: "Feedback Loop", desc: "Live telemetry monitoring & continuous feedback loop back to Requirements" }
+    {
+      id: 0,
+      node: "req",
+      name: "Requirement",
+      phase: "Sequential",
+      desc: "Capture the product need, business intent & goals in plain language",
+    },
+    {
+      id: 1,
+      node: "und",
+      name: "Understanding",
+      phase: "Sequential",
+      desc: "AI structures intent, extracts goals, and maps system constraints",
+    },
+    {
+      id: 2,
+      node: "lock",
+      name: "Lock Scope",
+      phase: "Sequential",
+      desc: "Freeze core specifications and functional boundaries",
+    },
+    {
+      id: 3,
+      node: "docs",
+      name: "Generate Docs",
+      phase: "Sequential",
+      desc: "Auto-generate PRD, system specs, user stories & schema blueprints",
+    },
+    {
+      id: 4,
+      node: "app",
+      name: "Approve Gate",
+      phase: "Sequential",
+      desc: "Human engineering review & milestone approval gate",
+    },
+    {
+      id: 5,
+      node: "design",
+      name: "Parallel Design",
+      phase: "Parallel · Design",
+      desc: "Concurrent synthesis of System Architecture, DB Schemas, API Specs & UI/UX Design",
+    },
+    {
+      id: 6,
+      node: "build",
+      name: "Parallel Build",
+      phase: "Parallel · Build",
+      desc: "Concurrent code generation, API controllers, and environment configuration",
+    },
+    {
+      id: 7,
+      node: "validate",
+      name: "Parallel Validate",
+      phase: "Parallel · Validate",
+      desc: "Autonomous E2E test suites, peer AI code review, and real-time security audit",
+    },
+    {
+      id: 8,
+      node: "fix",
+      name: "Auto Fix",
+      phase: "Sequential",
+      desc: "Autonomous bug resolution, edge-case handling & optimization",
+    },
+    {
+      id: 9,
+      node: "deploy",
+      name: "Deploy Release",
+      phase: "Sequential",
+      desc: "1-Click CI/CD production release with zero downtime",
+    },
+    {
+      id: 10,
+      node: "maintain",
+      name: "Maintain & Feedback",
+      phase: "Feedback Loop",
+      desc: "Live telemetry monitoring & continuous feedback loop back to Requirements",
+    },
   ];
 
   useEffect(() => {
@@ -642,15 +1590,20 @@ function ParallelSDLCSection() {
 
   const activeStepInfo = sdlcSteps[currentStep];
 
-  const handleNext = () => setCurrentStep((prev) => (prev + 1) % sdlcSteps.length);
-  const handlePrev = () => setCurrentStep((prev) => (prev - 1 + sdlcSteps.length) % sdlcSteps.length);
+  const handleNext = () =>
+    setCurrentStep((prev) => (prev + 1) % sdlcSteps.length);
+  const handlePrev = () =>
+    setCurrentStep((prev) => (prev - 1 + sdlcSteps.length) % sdlcSteps.length);
   const handleSelectStep = (idx: number) => {
     setCurrentStep(idx);
     setIsPlaying(false);
   };
 
   return (
-    <section id="how-it-works" className="py-20 md:py-28 bg-slate-50/60 relative overflow-hidden border-t border-slate-200">
+    <section
+      id="how-it-works"
+      className="py-20 md:py-28 bg-slate-50/60 relative overflow-hidden border-t border-slate-200"
+    >
       <div className="nv-wrap relative z-10 max-w-6xl mx-auto px-4">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 nv-reveal">
@@ -661,7 +1614,8 @@ function ParallelSDLCSection() {
             Parallel, <span className="text-blue-600">not sequential</span>.
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Traditional SDLC is a relay race. Ours is four tracks running at once — directed by a central AI orchestrator, supervised by humans.
+            Traditional SDLC is a relay race. Ours is four tracks running at
+            once — directed by a central AI orchestrator, supervised by humans.
           </p>
         </div>
 
@@ -673,9 +1627,21 @@ function ParallelSDLCSection() {
           {/* Canvas SVG Flow Diagram matching renaissa.ai */}
           <div className="w-full overflow-x-auto select-none py-4">
             <div className="min-w-[980px] max-w-[1200px] mx-auto relative">
-              <svg viewBox="0 0 1420 370" className="w-full h-auto min-w-[980px]" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                viewBox="0 0 1420 370"
+                className="w-full h-auto min-w-[980px]"
+                preserveAspectRatio="xMidYMid meet"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <defs>
-                  <filter id="blueGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <filter
+                    id="blueGlow"
+                    x="-50%"
+                    y="-50%"
+                    width="200%"
+                    height="200%"
+                  >
                     <feGaussianBlur stdDeviation="3" result="b" />
                     <feMerge>
                       <feMergeNode in="b" />
@@ -690,99 +1656,409 @@ function ParallelSDLCSection() {
                   <path id="path-docs-app" d="M 344 180 L 432 180" />
 
                   {/* Approve to Design (4 Parallel Paths) */}
-                  <path id="path-app-sys" d="M 464 168 C 510 168, 540 56, 572 56" />
-                  <path id="path-app-api" d="M 464 174 C 520 174, 550 128, 572 128" />
-                  <path id="path-app-infra" d="M 464 186 C 520 186, 550 200, 572 200" />
-                  <path id="path-app-ui" d="M 464 192 C 510 192, 540 272, 572 272" />
+                  <path
+                    id="path-app-sys"
+                    d="M 464 168 C 510 168, 540 56, 572 56"
+                  />
+                  <path
+                    id="path-app-api"
+                    d="M 464 174 C 520 174, 550 128, 572 128"
+                  />
+                  <path
+                    id="path-app-infra"
+                    d="M 464 186 C 520 186, 550 200, 572 200"
+                  />
+                  <path
+                    id="path-app-ui"
+                    d="M 464 192 C 510 192, 540 272, 572 272"
+                  />
 
                   {/* Design to Build Paths */}
-                  <path id="path-sys-code" d="M 608 56 C 670 56, 710 90, 742 96" />
-                  <path id="path-api-code" d="M 608 128 C 670 128, 710 105, 742 102" />
-                  <path id="path-infra-code" d="M 608 196 C 670 196, 710 130, 742 112" />
-                  <path id="path-infra-infra" d="M 608 206 C 670 206, 710 240, 742 246" />
-                  <path id="path-ui-code" d="M 608 268 C 670 268, 710 140, 742 118" />
-                  <path id="path-ui-infra" d="M 608 276 C 670 276, 710 258, 742 254" />
+                  <path
+                    id="path-sys-code"
+                    d="M 608 56 C 670 56, 710 90, 742 96"
+                  />
+                  <path
+                    id="path-api-code"
+                    d="M 608 128 C 670 128, 710 105, 742 102"
+                  />
+                  <path
+                    id="path-infra-code"
+                    d="M 608 196 C 670 196, 710 130, 742 112"
+                  />
+                  <path
+                    id="path-infra-infra"
+                    d="M 608 206 C 670 206, 710 240, 742 246"
+                  />
+                  <path
+                    id="path-ui-code"
+                    d="M 608 268 C 670 268, 710 140, 742 118"
+                  />
+                  <path
+                    id="path-ui-infra"
+                    d="M 608 276 C 670 276, 710 258, 742 254"
+                  />
 
                   {/* Build to Validate Paths */}
-                  <path id="path-code-test" d="M 778 96 C 830 96, 870 70, 902 70" />
-                  <path id="path-code-rev" d="M 778 108 C 830 108, 870 170, 902 176" />
-                  <path id="path-code-sec" d="M 778 112 C 830 112, 870 260, 902 278" />
-                  <path id="path-infra-test" d="M 778 242 C 830 242, 870 100, 902 80" />
-                  <path id="path-infra-rev" d="M 778 248 C 830 248, 870 200, 902 188" />
-                  <path id="path-infra-sec" d="M 778 256 C 830 256, 870 280, 902 288" />
+                  <path
+                    id="path-code-test"
+                    d="M 778 96 C 830 96, 870 70, 902 70"
+                  />
+                  <path
+                    id="path-code-rev"
+                    d="M 778 108 C 830 108, 870 170, 902 176"
+                  />
+                  <path
+                    id="path-code-sec"
+                    d="M 778 112 C 830 112, 870 260, 902 278"
+                  />
+                  <path
+                    id="path-infra-test"
+                    d="M 778 242 C 830 242, 870 100, 902 80"
+                  />
+                  <path
+                    id="path-infra-rev"
+                    d="M 778 248 C 830 248, 870 200, 902 188"
+                  />
+                  <path
+                    id="path-infra-sec"
+                    d="M 778 256 C 830 256, 870 280, 902 288"
+                  />
 
                   {/* Validate to Fix Paths */}
-                  <path id="path-test-fix" d="M 938 70 C 990 70, 1030 160, 1062 172" />
+                  <path
+                    id="path-test-fix"
+                    d="M 938 70 C 990 70, 1030 160, 1062 172"
+                  />
                   <path id="path-rev-fix" d="M 938 180 L 1062 180" />
-                  <path id="path-sec-fix" d="M 938 290 C 990 290, 1030 200, 1062 188" />
+                  <path
+                    id="path-sec-fix"
+                    d="M 938 290 C 990 290, 1030 200, 1062 188"
+                  />
 
                   {/* Sequential Right */}
                   <path id="path-fix-dep" d="M 1099 180 L 1191 180" />
                   <path id="path-dep-maint" d="M 1229 180 L 1321 180" />
 
                   {/* Feedback Loop */}
-                  <path id="path-maint-loop" d="M 1340 198 C 1340 340, 48 340, 48 198" />
+                  <path
+                    id="path-maint-loop"
+                    d="M 1340 198 C 1340 340, 48 340, 48 198"
+                  />
                 </defs>
 
                 {/* Zone Cards with Blue Theme Colors */}
-                <rect x="520" y="34" width="140" height="282" rx="18" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1" opacity="0.8" />
-                <rect x="700" y="60" width="120" height="230" rx="16" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1" opacity="0.8" />
-                <rect x="860" y="36" width="120" height="290" rx="16" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1" opacity="0.8" />
+                <rect
+                  x="520"
+                  y="34"
+                  width="140"
+                  height="282"
+                  rx="18"
+                  fill="#eff6ff"
+                  stroke="#bfdbfe"
+                  strokeWidth="1"
+                  opacity="0.8"
+                />
+                <rect
+                  x="700"
+                  y="60"
+                  width="120"
+                  height="230"
+                  rx="16"
+                  fill="#eff6ff"
+                  stroke="#bfdbfe"
+                  strokeWidth="1"
+                  opacity="0.8"
+                />
+                <rect
+                  x="860"
+                  y="36"
+                  width="120"
+                  height="290"
+                  rx="16"
+                  fill="#eff6ff"
+                  stroke="#bfdbfe"
+                  strokeWidth="1"
+                  opacity="0.8"
+                />
 
-                <text x="248" y="28" textAnchor="middle" fill="#2563eb" style={{ fontSize: '9px', fontWeight: 800, letterSpacing: '0.14em' }}>SEQUENTIAL</text>
-                <text x="590" y="22" textAnchor="middle" fill="#1d4ed8" style={{ fontSize: '9px', fontWeight: 800, letterSpacing: '0.12em' }}>PARALLEL · DESIGN</text>
-                <text x="760" y="52" textAnchor="middle" fill="#1d4ed8" style={{ fontSize: '9px', fontWeight: 800, letterSpacing: '0.12em' }}>PARALLEL · BUILD</text>
-                <text x="920" y="28" textAnchor="middle" fill="#1d4ed8" style={{ fontSize: '9px', fontWeight: 800, letterSpacing: '0.12em' }}>PARALLEL · VALIDATE</text>
-                <text x="1210" y="28" textAnchor="middle" fill="#2563eb" style={{ fontSize: '9px', fontWeight: 800, letterSpacing: '0.14em' }}>SEQUENTIAL</text>
-                <text x="700" y="358" textAnchor="middle" fill="#94a3b8" style={{ fontSize: '9px', fontWeight: 800, letterSpacing: '0.14em' }}>FEEDBACK LOOP</text>
+                <text
+                  x="248"
+                  y="28"
+                  textAnchor="middle"
+                  fill="#2563eb"
+                  style={{
+                    fontSize: "9px",
+                    fontWeight: 800,
+                    letterSpacing: "0.14em",
+                  }}
+                >
+                  SEQUENTIAL
+                </text>
+                <text
+                  x="590"
+                  y="22"
+                  textAnchor="middle"
+                  fill="#1d4ed8"
+                  style={{
+                    fontSize: "9px",
+                    fontWeight: 800,
+                    letterSpacing: "0.12em",
+                  }}
+                >
+                  PARALLEL · DESIGN
+                </text>
+                <text
+                  x="760"
+                  y="52"
+                  textAnchor="middle"
+                  fill="#1d4ed8"
+                  style={{
+                    fontSize: "9px",
+                    fontWeight: 800,
+                    letterSpacing: "0.12em",
+                  }}
+                >
+                  PARALLEL · BUILD
+                </text>
+                <text
+                  x="920"
+                  y="28"
+                  textAnchor="middle"
+                  fill="#1d4ed8"
+                  style={{
+                    fontSize: "9px",
+                    fontWeight: 800,
+                    letterSpacing: "0.12em",
+                  }}
+                >
+                  PARALLEL · VALIDATE
+                </text>
+                <text
+                  x="1210"
+                  y="28"
+                  textAnchor="middle"
+                  fill="#2563eb"
+                  style={{
+                    fontSize: "9px",
+                    fontWeight: 800,
+                    letterSpacing: "0.14em",
+                  }}
+                >
+                  SEQUENTIAL
+                </text>
+                <text
+                  x="700"
+                  y="358"
+                  textAnchor="middle"
+                  fill="#94a3b8"
+                  style={{
+                    fontSize: "9px",
+                    fontWeight: 800,
+                    letterSpacing: "0.14em",
+                  }}
+                >
+                  FEEDBACK LOOP
+                </text>
 
                 {/* --- RENDER ALL PATHS (Traversed paths stay solid blue as flow progresses) --- */}
                 {/* Left Sequential Paths */}
-                <use href="#path-req-und" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-                <use href="#path-req-und" stroke="#2563eb" strokeWidth={currentStep >= 1 ? "2.5" : "2"} opacity={currentStep >= 0 ? "1" : "0.2"} />
+                <use
+                  href="#path-req-und"
+                  stroke="#cbd5e1"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 3"
+                />
+                <use
+                  href="#path-req-und"
+                  stroke="#2563eb"
+                  strokeWidth={currentStep >= 1 ? "2.5" : "2"}
+                  opacity={currentStep >= 0 ? "1" : "0.2"}
+                />
 
-                <use href="#path-und-lock" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-                <use href="#path-und-lock" stroke="#2563eb" strokeWidth={currentStep >= 2 ? "2.5" : "2"} opacity={currentStep >= 1 ? "1" : "0.2"} />
+                <use
+                  href="#path-und-lock"
+                  stroke="#cbd5e1"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 3"
+                />
+                <use
+                  href="#path-und-lock"
+                  stroke="#2563eb"
+                  strokeWidth={currentStep >= 2 ? "2.5" : "2"}
+                  opacity={currentStep >= 1 ? "1" : "0.2"}
+                />
 
-                <use href="#path-lock-docs" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-                <use href="#path-lock-docs" stroke="#2563eb" strokeWidth={currentStep >= 3 ? "2.5" : "2"} opacity={currentStep >= 2 ? "1" : "0.2"} />
+                <use
+                  href="#path-lock-docs"
+                  stroke="#cbd5e1"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 3"
+                />
+                <use
+                  href="#path-lock-docs"
+                  stroke="#2563eb"
+                  strokeWidth={currentStep >= 3 ? "2.5" : "2"}
+                  opacity={currentStep >= 2 ? "1" : "0.2"}
+                />
 
-                <use href="#path-docs-app" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-                <use href="#path-docs-app" stroke="#2563eb" strokeWidth={currentStep >= 4 ? "2.5" : "2"} opacity={currentStep >= 3 ? "1" : "0.2"} />
+                <use
+                  href="#path-docs-app"
+                  stroke="#cbd5e1"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 3"
+                />
+                <use
+                  href="#path-docs-app"
+                  stroke="#2563eb"
+                  strokeWidth={currentStep >= 4 ? "2.5" : "2"}
+                  opacity={currentStep >= 3 ? "1" : "0.2"}
+                />
 
                 {/* Approve to Design Paths (Step 5) */}
-                <use href="#path-app-sys" stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 5 ? "2" : "1.4"} opacity={currentStep >= 5 ? "1" : "0.3"} />
-                <use href="#path-app-api" stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 5 ? "2" : "1.4"} opacity={currentStep >= 5 ? "1" : "0.3"} />
-                <use href="#path-app-infra" stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 5 ? "2" : "1.4"} opacity={currentStep >= 5 ? "1" : "0.3"} />
-                <use href="#path-app-ui" stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 5 ? "2" : "1.4"} opacity={currentStep >= 5 ? "1" : "0.3"} />
+                <use
+                  href="#path-app-sys"
+                  stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 5 ? "2" : "1.4"}
+                  opacity={currentStep >= 5 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-app-api"
+                  stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 5 ? "2" : "1.4"}
+                  opacity={currentStep >= 5 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-app-infra"
+                  stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 5 ? "2" : "1.4"}
+                  opacity={currentStep >= 5 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-app-ui"
+                  stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 5 ? "2" : "1.4"}
+                  opacity={currentStep >= 5 ? "1" : "0.3"}
+                />
 
                 {/* Design to Build Paths (Step 6) */}
-                <use href="#path-sys-code" stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 6 ? "2" : "1.4"} opacity={currentStep >= 6 ? "1" : "0.3"} />
-                <use href="#path-api-code" stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 6 ? "2" : "1.4"} opacity={currentStep >= 6 ? "1" : "0.3"} />
-                <use href="#path-infra-code" stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 6 ? "2" : "1.4"} opacity={currentStep >= 6 ? "1" : "0.3"} />
-                <use href="#path-infra-infra" stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 6 ? "2" : "1.4"} opacity={currentStep >= 6 ? "1" : "0.3"} />
-                <use href="#path-ui-code" stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 6 ? "2" : "1.4"} opacity={currentStep >= 6 ? "1" : "0.3"} />
-                <use href="#path-ui-infra" stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 6 ? "2" : "1.4"} opacity={currentStep >= 6 ? "1" : "0.3"} />
+                <use
+                  href="#path-sys-code"
+                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
+                  opacity={currentStep >= 6 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-api-code"
+                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
+                  opacity={currentStep >= 6 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-infra-code"
+                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
+                  opacity={currentStep >= 6 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-infra-infra"
+                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
+                  opacity={currentStep >= 6 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-ui-code"
+                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
+                  opacity={currentStep >= 6 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-ui-infra"
+                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
+                  opacity={currentStep >= 6 ? "1" : "0.3"}
+                />
 
                 {/* Build to Validate Paths (Step 7) */}
-                <use href="#path-code-test" stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 7 ? "2" : "1.4"} opacity={currentStep >= 7 ? "1" : "0.3"} />
-                <use href="#path-code-rev" stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 7 ? "2" : "1.4"} opacity={currentStep >= 7 ? "1" : "0.3"} />
-                <use href="#path-code-sec" stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 7 ? "2" : "1.4"} opacity={currentStep >= 7 ? "1" : "0.3"} />
-                <use href="#path-infra-test" stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 7 ? "2" : "1.4"} opacity={currentStep >= 7 ? "1" : "0.3"} />
-                <use href="#path-infra-rev" stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 7 ? "2" : "1.4"} opacity={currentStep >= 7 ? "1" : "0.3"} />
-                <use href="#path-infra-sec" stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 7 ? "2" : "1.4"} opacity={currentStep >= 7 ? "1" : "0.3"} />
+                <use
+                  href="#path-code-test"
+                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
+                  opacity={currentStep >= 7 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-code-rev"
+                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
+                  opacity={currentStep >= 7 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-code-sec"
+                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
+                  opacity={currentStep >= 7 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-infra-test"
+                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
+                  opacity={currentStep >= 7 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-infra-rev"
+                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
+                  opacity={currentStep >= 7 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-infra-sec"
+                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
+                  opacity={currentStep >= 7 ? "1" : "0.3"}
+                />
 
                 {/* Validate to Fix Paths (Step 8) */}
-                <use href="#path-test-fix" stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 8 ? "2" : "1.4"} opacity={currentStep >= 8 ? "1" : "0.3"} />
-                <use href="#path-rev-fix" stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 8 ? "2" : "1.4"} opacity={currentStep >= 8 ? "1" : "0.3"} />
-                <use href="#path-sec-fix" stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 8 ? "2" : "1.4"} opacity={currentStep >= 8 ? "1" : "0.3"} />
+                <use
+                  href="#path-test-fix"
+                  stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 8 ? "2" : "1.4"}
+                  opacity={currentStep >= 8 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-rev-fix"
+                  stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 8 ? "2" : "1.4"}
+                  opacity={currentStep >= 8 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-sec-fix"
+                  stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 8 ? "2" : "1.4"}
+                  opacity={currentStep >= 8 ? "1" : "0.3"}
+                />
 
                 {/* Sequential Right Paths (Step 9 & 10) */}
-                <use href="#path-fix-dep" stroke={currentStep >= 9 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 9 ? "2.5" : "1.4"} opacity={currentStep >= 9 ? "1" : "0.3"} />
-                <use href="#path-dep-maint" stroke={currentStep >= 10 ? "#2563eb" : "#cbd5e1"} strokeWidth={currentStep >= 10 ? "2.5" : "1.4"} opacity={currentStep >= 10 ? "1" : "0.3"} />
+                <use
+                  href="#path-fix-dep"
+                  stroke={currentStep >= 9 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 9 ? "2.5" : "1.4"}
+                  opacity={currentStep >= 9 ? "1" : "0.3"}
+                />
+                <use
+                  href="#path-dep-maint"
+                  stroke={currentStep >= 10 ? "#2563eb" : "#cbd5e1"}
+                  strokeWidth={currentStep >= 10 ? "2.5" : "1.4"}
+                  opacity={currentStep >= 10 ? "1" : "0.3"}
+                />
 
                 {/* Feedback Loop Path */}
-                <use href="#path-maint-loop" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="6 5" opacity="0.85" />
+                <use
+                  href="#path-maint-loop"
+                  stroke="#cbd5e1"
+                  strokeWidth="1.5"
+                  strokeDasharray="6 5"
+                  opacity="0.85"
+                />
 
                 {/* --- SYNCHRONIZED STEP PARTICLES THAT MOVE SEGMENT BY SEGMENT --- */}
                 {currentStep === 0 && (
@@ -923,151 +2199,891 @@ function ParallelSDLCSection() {
 
                 {/* --- ALL 11 CLICKABLE NODES (Cumulative pipeline progression: Reached nodes stay solid blue) --- */}
                 {/* Node 1: Requirement (48, 180) */}
-                <g onClick={() => handleSelectStep(0)} className="cursor-pointer group">
+                <g
+                  onClick={() => handleSelectStep(0)}
+                  className="cursor-pointer group"
+                >
                   <circle
-                    cx="48" cy="180" r="20"
+                    cx="48"
+                    cy="180"
+                    r="20"
                     fill="#ffffff"
                     stroke={currentStep >= 0 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={currentStep === 0 ? "3" : (currentStep > 0 ? "2.2" : "1.2")}
+                    strokeWidth={
+                      currentStep === 0 ? "3" : currentStep > 0 ? "2.2" : "1.2"
+                    }
                     opacity={currentStep >= 0 ? "1" : "0.6"}
                     filter={currentStep === 0 ? "url(#blueGlow)" : undefined}
                     className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
                   />
                   {currentStep === 0 && (
                     <>
-                      <circle cx="48" cy="180" r="26" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />
-                      <circle cx="48" cy="180" r="30" stroke="#2563eb" strokeWidth="1" fill="none" opacity="0.25" />
+                      <circle
+                        cx="48"
+                        cy="180"
+                        r="26"
+                        stroke="#2563eb"
+                        strokeWidth="1.5"
+                        fill="none"
+                        opacity="0.6"
+                        className="animate-ping"
+                      />
+                      <circle
+                        cx="48"
+                        cy="180"
+                        r="30"
+                        stroke="#2563eb"
+                        strokeWidth="1"
+                        fill="none"
+                        opacity="0.25"
+                      />
                     </>
                   )}
-                  <FileText x="39" y="171" size={18} className={`transition-all duration-300 ${currentStep >= 0 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500 group-hover:opacity-100"}`} />
-                  <text x="48" y="218" textAnchor="middle" fill={currentStep >= 0 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 0 ? "1" : "0.7"} style={{ fontSize: currentStep === 0 ? '11.5px' : '10.5px', fontWeight: currentStep >= 0 ? 800 : 500 }} className="transition-all duration-300">Requirement</text>
+                  <FileText
+                    x="39"
+                    y="171"
+                    size={18}
+                    className={`transition-all duration-300 ${currentStep >= 0 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500 group-hover:opacity-100"}`}
+                  />
+                  <text
+                    x="48"
+                    y="218"
+                    textAnchor="middle"
+                    fill={currentStep >= 0 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 0 ? "1" : "0.7"}
+                    style={{
+                      fontSize: currentStep === 0 ? "11.5px" : "10.5px",
+                      fontWeight: currentStep >= 0 ? 800 : 500,
+                    }}
+                    className="transition-all duration-300"
+                  >
+                    Requirement
+                  </text>
                 </g>
 
                 {/* Node 2: Understand (150, 180) */}
-                <g onClick={() => handleSelectStep(1)} className="cursor-pointer group">
+                <g
+                  onClick={() => handleSelectStep(1)}
+                  className="cursor-pointer group"
+                >
                   <circle
-                    cx="150" cy="180" r="20"
+                    cx="150"
+                    cy="180"
+                    r="20"
                     fill="#ffffff"
                     stroke={currentStep >= 1 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={currentStep === 1 ? "3" : (currentStep > 1 ? "2.2" : "1.2")}
+                    strokeWidth={
+                      currentStep === 1 ? "3" : currentStep > 1 ? "2.2" : "1.2"
+                    }
                     opacity={currentStep >= 1 ? "1" : "0.6"}
                     filter={currentStep === 1 ? "url(#blueGlow)" : undefined}
                     className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
                   />
                   {currentStep === 1 && (
                     <>
-                      <circle cx="150" cy="180" r="26" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />
-                      <circle cx="150" cy="180" r="30" stroke="#2563eb" strokeWidth="1" fill="none" opacity="0.25" />
+                      <circle
+                        cx="150"
+                        cy="180"
+                        r="26"
+                        stroke="#2563eb"
+                        strokeWidth="1.5"
+                        fill="none"
+                        opacity="0.6"
+                        className="animate-ping"
+                      />
+                      <circle
+                        cx="150"
+                        cy="180"
+                        r="30"
+                        stroke="#2563eb"
+                        strokeWidth="1"
+                        fill="none"
+                        opacity="0.25"
+                      />
                     </>
                   )}
-                  <Target x="141" y="171" size={18} className={`transition-all duration-300 ${currentStep >= 1 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500 group-hover:opacity-100"}`} />
-                  <text x="150" y="218" textAnchor="middle" fill={currentStep >= 1 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 1 ? "1" : "0.7"} style={{ fontSize: currentStep === 1 ? '11.5px' : '10.5px', fontWeight: currentStep >= 1 ? 800 : 500 }} className="transition-all duration-300">Understand</text>
+                  <Target
+                    x="141"
+                    y="171"
+                    size={18}
+                    className={`transition-all duration-300 ${currentStep >= 1 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500 group-hover:opacity-100"}`}
+                  />
+                  <text
+                    x="150"
+                    y="218"
+                    textAnchor="middle"
+                    fill={currentStep >= 1 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 1 ? "1" : "0.7"}
+                    style={{
+                      fontSize: currentStep === 1 ? "11.5px" : "10.5px",
+                      fontWeight: currentStep >= 1 ? 800 : 500,
+                    }}
+                    className="transition-all duration-300"
+                  >
+                    Understand
+                  </text>
                 </g>
 
                 {/* Node 3: Lock (240, 180) */}
-                <g onClick={() => handleSelectStep(2)} className="cursor-pointer group">
-                  <circle cx="240" cy="180" r="14" fill="#ffffff" stroke={currentStep >= 2 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 2 ? "2.5" : (currentStep > 2 ? "2" : "1.2")} opacity={currentStep >= 2 ? "1" : "0.55"} filter={currentStep === 2 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 2 && <circle cx="240" cy="180" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <ShieldCheck x="233" y="173" size={14} className={`transition-all duration-300 ${currentStep >= 2 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="240" y="212" textAnchor="middle" fill={currentStep >= 2 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 2 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 2 ? 700 : 500 }}>Lock</text>
+                <g
+                  onClick={() => handleSelectStep(2)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="240"
+                    cy="180"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 2 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 2 ? "2.5" : currentStep > 2 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 2 ? "1" : "0.55"}
+                    filter={currentStep === 2 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 2 && (
+                    <circle
+                      cx="240"
+                      cy="180"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <ShieldCheck
+                    x="233"
+                    y="173"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 2 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="240"
+                    y="212"
+                    textAnchor="middle"
+                    fill={currentStep >= 2 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 2 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 2 ? 700 : 500,
+                    }}
+                  >
+                    Lock
+                  </text>
                 </g>
 
                 {/* Node 4: Docs (330, 180) */}
-                <g onClick={() => handleSelectStep(3)} className="cursor-pointer group">
-                  <circle cx="330" cy="180" r="14" fill="#ffffff" stroke={currentStep >= 3 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 3 ? "2.5" : (currentStep > 3 ? "2" : "1.2")} opacity={currentStep >= 3 ? "1" : "0.55"} filter={currentStep === 3 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 3 && <circle cx="330" cy="180" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <FileText x="323" y="173" size={14} className={`transition-all duration-300 ${currentStep >= 3 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="330" y="212" textAnchor="middle" fill={currentStep >= 3 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 3 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 3 ? 700 : 500 }}>Docs</text>
+                <g
+                  onClick={() => handleSelectStep(3)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="330"
+                    cy="180"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 3 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 3 ? "2.5" : currentStep > 3 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 3 ? "1" : "0.55"}
+                    filter={currentStep === 3 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 3 && (
+                    <circle
+                      cx="330"
+                      cy="180"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <FileText
+                    x="323"
+                    y="173"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 3 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="330"
+                    y="212"
+                    textAnchor="middle"
+                    fill={currentStep >= 3 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 3 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 3 ? 700 : 500,
+                    }}
+                  >
+                    Docs
+                  </text>
                 </g>
 
                 {/* Node 5: Approve (448, 180) */}
-                <g onClick={() => handleSelectStep(4)} className="cursor-pointer group">
-                  <circle cx="448" cy="180" r="14" fill="#ffffff" stroke={currentStep >= 4 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 4 ? "2.5" : (currentStep > 4 ? "2" : "1.2")} opacity={currentStep >= 4 ? "1" : "0.55"} filter={currentStep === 4 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 4 && <circle cx="448" cy="180" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Check x="441" y="173" size={14} className={`transition-all duration-300 ${currentStep >= 4 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="448" y="212" textAnchor="middle" fill={currentStep >= 4 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 4 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 4 ? 700 : 500 }}>Approve</text>
+                <g
+                  onClick={() => handleSelectStep(4)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="448"
+                    cy="180"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 4 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 4 ? "2.5" : currentStep > 4 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 4 ? "1" : "0.55"}
+                    filter={currentStep === 4 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 4 && (
+                    <circle
+                      cx="448"
+                      cy="180"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Check
+                    x="441"
+                    y="173"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 4 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="448"
+                    y="212"
+                    textAnchor="middle"
+                    fill={currentStep >= 4 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 4 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 4 ? 700 : 500,
+                    }}
+                  >
+                    Approve
+                  </text>
                 </g>
 
                 {/* --- PARALLEL DESIGN NODES (590, y) --- */}
-                <g onClick={() => handleSelectStep(5)} className="cursor-pointer group">
-                  <circle cx="590" cy="56" r="14" fill="#ffffff" stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 5 ? "2.5" : (currentStep > 5 ? "2" : "1.2")} opacity={currentStep >= 5 ? "1" : "0.55"} filter={currentStep === 5 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 5 && <circle cx="590" cy="56" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Layers3 x="583" y="49" size={14} className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="590" y="82" textAnchor="middle" fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 5 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 5 ? 700 : 500 }}>System</text>
+                <g
+                  onClick={() => handleSelectStep(5)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="590"
+                    cy="56"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 5 ? "2.5" : currentStep > 5 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 5 ? "1" : "0.55"}
+                    filter={currentStep === 5 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 5 && (
+                    <circle
+                      cx="590"
+                      cy="56"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Layers3
+                    x="583"
+                    y="49"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="590"
+                    y="82"
+                    textAnchor="middle"
+                    fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 5 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 5 ? 700 : 500,
+                    }}
+                  >
+                    System
+                  </text>
                 </g>
-                <g onClick={() => handleSelectStep(5)} className="cursor-pointer group">
-                  <circle cx="590" cy="128" r="14" fill="#ffffff" stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 5 ? "2.5" : (currentStep > 5 ? "2" : "1.2")} opacity={currentStep >= 5 ? "1" : "0.55"} filter={currentStep === 5 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 5 && <circle cx="590" cy="128" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Database x="583" y="121" size={14} className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="590" y="154" textAnchor="middle" fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 5 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 5 ? 700 : 500 }}>DB</text>
+                <g
+                  onClick={() => handleSelectStep(5)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="590"
+                    cy="128"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 5 ? "2.5" : currentStep > 5 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 5 ? "1" : "0.55"}
+                    filter={currentStep === 5 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 5 && (
+                    <circle
+                      cx="590"
+                      cy="128"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Database
+                    x="583"
+                    y="121"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="590"
+                    y="154"
+                    textAnchor="middle"
+                    fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 5 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 5 ? 700 : 500,
+                    }}
+                  >
+                    DB
+                  </text>
                 </g>
-                <g onClick={() => handleSelectStep(5)} className="cursor-pointer group">
-                  <circle cx="590" cy="200" r="14" fill="#ffffff" stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 5 ? "2.5" : (currentStep > 5 ? "2" : "1.2")} opacity={currentStep >= 5 ? "1" : "0.55"} filter={currentStep === 5 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 5 && <circle cx="590" cy="200" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Cloud x="583" y="193" size={14} className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="590" y="226" textAnchor="middle" fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 5 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 5 ? 700 : 500 }}>API Infra</text>
+                <g
+                  onClick={() => handleSelectStep(5)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="590"
+                    cy="200"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 5 ? "2.5" : currentStep > 5 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 5 ? "1" : "0.55"}
+                    filter={currentStep === 5 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 5 && (
+                    <circle
+                      cx="590"
+                      cy="200"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Cloud
+                    x="583"
+                    y="193"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="590"
+                    y="226"
+                    textAnchor="middle"
+                    fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 5 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 5 ? 700 : 500,
+                    }}
+                  >
+                    API Infra
+                  </text>
                 </g>
-                <g onClick={() => handleSelectStep(5)} className="cursor-pointer group">
-                  <circle cx="590" cy="272" r="14" fill="#ffffff" stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 5 ? "2.5" : (currentStep > 5 ? "2" : "1.2")} opacity={currentStep >= 5 ? "1" : "0.55"} filter={currentStep === 5 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 5 && <circle cx="590" cy="272" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Globe2 x="583" y="265" size={14} className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="590" y="298" textAnchor="middle" fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 5 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 5 ? 700 : 500 }}>UI</text>
+                <g
+                  onClick={() => handleSelectStep(5)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="590"
+                    cy="272"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 5 ? "2.5" : currentStep > 5 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 5 ? "1" : "0.55"}
+                    filter={currentStep === 5 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 5 && (
+                    <circle
+                      cx="590"
+                      cy="272"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Globe2
+                    x="583"
+                    y="265"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="590"
+                    y="298"
+                    textAnchor="middle"
+                    fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 5 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 5 ? 700 : 500,
+                    }}
+                  >
+                    UI
+                  </text>
                 </g>
 
                 {/* --- PARALLEL BUILD NODES (760, y) --- */}
-                <g onClick={() => handleSelectStep(6)} className="cursor-pointer group">
-                  <circle cx="760" cy="96" r="16" fill="#ffffff" stroke={currentStep >= 6 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 6 ? "2.8" : (currentStep > 6 ? "2.2" : "1.2")} opacity={currentStep >= 6 ? "1" : "0.55"} filter={currentStep === 6 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 6 && <circle cx="760" cy="96" r="22" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Code2 x="751" y="87" size={18} className={`transition-all duration-300 ${currentStep >= 6 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="760" y="128" textAnchor="middle" fill={currentStep >= 6 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 6 ? "1" : "0.65"} style={{ fontSize: '10px', fontWeight: currentStep >= 6 ? 700 : 500 }}>Code</text>
+                <g
+                  onClick={() => handleSelectStep(6)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="760"
+                    cy="96"
+                    r="16"
+                    fill="#ffffff"
+                    stroke={currentStep >= 6 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 6
+                        ? "2.8"
+                        : currentStep > 6
+                          ? "2.2"
+                          : "1.2"
+                    }
+                    opacity={currentStep >= 6 ? "1" : "0.55"}
+                    filter={currentStep === 6 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 6 && (
+                    <circle
+                      cx="760"
+                      cy="96"
+                      r="22"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Code2
+                    x="751"
+                    y="87"
+                    size={18}
+                    className={`transition-all duration-300 ${currentStep >= 6 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="760"
+                    y="128"
+                    textAnchor="middle"
+                    fill={currentStep >= 6 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 6 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: currentStep >= 6 ? 700 : 500,
+                    }}
+                  >
+                    Code
+                  </text>
                 </g>
-                <g onClick={() => handleSelectStep(6)} className="cursor-pointer group">
-                  <circle cx="760" cy="254" r="16" fill="#ffffff" stroke={currentStep >= 6 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 6 ? "2.8" : (currentStep > 6 ? "2.2" : "1.2")} opacity={currentStep >= 6 ? "1" : "0.55"} filter={currentStep === 6 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 6 && <circle cx="760" cy="254" r="22" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Settings x="751" y="245" size={18} className={`transition-all duration-300 ${currentStep >= 6 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="760" y="286" textAnchor="middle" fill={currentStep >= 6 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 6 ? "1" : "0.65"} style={{ fontSize: '10px', fontWeight: currentStep >= 6 ? 700 : 500 }}>Setup</text>
+                <g
+                  onClick={() => handleSelectStep(6)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="760"
+                    cy="254"
+                    r="16"
+                    fill="#ffffff"
+                    stroke={currentStep >= 6 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 6
+                        ? "2.8"
+                        : currentStep > 6
+                          ? "2.2"
+                          : "1.2"
+                    }
+                    opacity={currentStep >= 6 ? "1" : "0.55"}
+                    filter={currentStep === 6 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 6 && (
+                    <circle
+                      cx="760"
+                      cy="254"
+                      r="22"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Settings
+                    x="751"
+                    y="245"
+                    size={18}
+                    className={`transition-all duration-300 ${currentStep >= 6 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="760"
+                    y="286"
+                    textAnchor="middle"
+                    fill={currentStep >= 6 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 6 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: currentStep >= 6 ? 700 : 500,
+                    }}
+                  >
+                    Setup
+                  </text>
                 </g>
 
                 {/* --- PARALLEL VALIDATE NODES (920, y) --- */}
-                <g onClick={() => handleSelectStep(7)} className="cursor-pointer group">
-                  <circle cx="920" cy="70" r="14" fill="#ffffff" stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 7 ? "2.5" : (currentStep > 7 ? "2" : "1.2")} opacity={currentStep >= 7 ? "1" : "0.55"} filter={currentStep === 7 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 7 && <circle cx="920" cy="70" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Check x="913" y="63" size={14} className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="920" y="96" textAnchor="middle" fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 7 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 7 ? 700 : 500 }}>Test</text>
+                <g
+                  onClick={() => handleSelectStep(7)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="920"
+                    cy="70"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 7 ? "2.5" : currentStep > 7 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 7 ? "1" : "0.55"}
+                    filter={currentStep === 7 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 7 && (
+                    <circle
+                      cx="920"
+                      cy="70"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Check
+                    x="913"
+                    y="63"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="920"
+                    y="96"
+                    textAnchor="middle"
+                    fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 7 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 7 ? 700 : 500,
+                    }}
+                  >
+                    Test
+                  </text>
                 </g>
-                <g onClick={() => handleSelectStep(7)} className="cursor-pointer group">
-                  <circle cx="920" cy="180" r="14" fill="#ffffff" stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 7 ? "2.5" : (currentStep > 7 ? "2" : "1.2")} opacity={currentStep >= 7 ? "1" : "0.55"} filter={currentStep === 7 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 7 && <circle cx="920" cy="180" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <FileText x="913" y="173" size={14} className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="920" y="206" textAnchor="middle" fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 7 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 7 ? 700 : 500 }}>Review</text>
+                <g
+                  onClick={() => handleSelectStep(7)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="920"
+                    cy="180"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 7 ? "2.5" : currentStep > 7 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 7 ? "1" : "0.55"}
+                    filter={currentStep === 7 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 7 && (
+                    <circle
+                      cx="920"
+                      cy="180"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <FileText
+                    x="913"
+                    y="173"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="920"
+                    y="206"
+                    textAnchor="middle"
+                    fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 7 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 7 ? 700 : 500,
+                    }}
+                  >
+                    Review
+                  </text>
                 </g>
-                <g onClick={() => handleSelectStep(7)} className="cursor-pointer group">
-                  <circle cx="920" cy="288" r="14" fill="#ffffff" stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 7 ? "2.5" : (currentStep > 7 ? "2" : "1.2")} opacity={currentStep >= 7 ? "1" : "0.55"} filter={currentStep === 7 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 7 && <circle cx="920" cy="288" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <ShieldCheck x="913" y="281" size={14} className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="920" y="314" textAnchor="middle" fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 7 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 7 ? 700 : 500 }}>Secure</text>
+                <g
+                  onClick={() => handleSelectStep(7)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="920"
+                    cy="288"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 7 ? "2.5" : currentStep > 7 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 7 ? "1" : "0.55"}
+                    filter={currentStep === 7 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 7 && (
+                    <circle
+                      cx="920"
+                      cy="288"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <ShieldCheck
+                    x="913"
+                    y="281"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="920"
+                    y="314"
+                    textAnchor="middle"
+                    fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 7 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 7 ? 700 : 500,
+                    }}
+                  >
+                    Secure
+                  </text>
                 </g>
 
                 {/* --- SEQUENTIAL DELIVERY NODES (1080, 1210, 1330) --- */}
-                <g onClick={() => handleSelectStep(8)} className="cursor-pointer group">
-                  <circle cx="1080" cy="180" r="14" fill="#ffffff" stroke={currentStep >= 8 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 8 ? "2.5" : (currentStep > 8 ? "2" : "1.2")} opacity={currentStep >= 8 ? "1" : "0.55"} filter={currentStep === 8 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 8 && <circle cx="1080" cy="180" r="20" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Zap x="1073" y="173" size={14} className={`transition-all duration-300 ${currentStep >= 8 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="1080" y="210" textAnchor="middle" fill={currentStep >= 8 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 8 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 8 ? 700 : 500 }}>Fix</text>
+                <g
+                  onClick={() => handleSelectStep(8)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="1080"
+                    cy="180"
+                    r="14"
+                    fill="#ffffff"
+                    stroke={currentStep >= 8 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 8 ? "2.5" : currentStep > 8 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 8 ? "1" : "0.55"}
+                    filter={currentStep === 8 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 8 && (
+                    <circle
+                      cx="1080"
+                      cy="180"
+                      r="20"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Zap
+                    x="1073"
+                    y="173"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 8 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="1080"
+                    y="210"
+                    textAnchor="middle"
+                    fill={currentStep >= 8 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 8 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 8 ? 700 : 500,
+                    }}
+                  >
+                    Fix
+                  </text>
                 </g>
-                <g onClick={() => handleSelectStep(9)} className="cursor-pointer group">
-                  <circle cx="1210" cy="180" r="15" fill="#ffffff" stroke={currentStep >= 9 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 9 ? "2.5" : (currentStep > 9 ? "2" : "1.2")} opacity={currentStep >= 9 ? "1" : "0.55"} filter={currentStep === 9 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 9 && <circle cx="1210" cy="180" r="21" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <ArrowRight x="1203" y="173" size={14} className={`transition-all duration-300 ${currentStep >= 9 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="1210" y="210" textAnchor="middle" fill={currentStep >= 9 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 9 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 9 ? 700 : 500 }}>Deploy</text>
+                <g
+                  onClick={() => handleSelectStep(9)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="1210"
+                    cy="180"
+                    r="15"
+                    fill="#ffffff"
+                    stroke={currentStep >= 9 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 9 ? "2.5" : currentStep > 9 ? "2" : "1.2"
+                    }
+                    opacity={currentStep >= 9 ? "1" : "0.55"}
+                    filter={currentStep === 9 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 9 && (
+                    <circle
+                      cx="1210"
+                      cy="180"
+                      r="21"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <ArrowRight
+                    x="1203"
+                    y="173"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 9 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="1210"
+                    y="210"
+                    textAnchor="middle"
+                    fill={currentStep >= 9 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 9 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 9 ? 700 : 500,
+                    }}
+                  >
+                    Deploy
+                  </text>
                 </g>
-                <g onClick={() => handleSelectStep(10)} className="cursor-pointer group">
-                  <circle cx="1330" cy="180" r="15" fill="#ffffff" stroke={currentStep >= 10 ? "#2563eb" : "#e2e8f0"} strokeWidth={currentStep === 10 ? "2.5" : (currentStep > 10 ? "2" : "1.2")} opacity={currentStep >= 10 ? "1" : "0.55"} filter={currentStep === 10 ? "url(#blueGlow)" : undefined} className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100" />
-                  {currentStep === 10 && <circle cx="1330" cy="180" r="21" stroke="#2563eb" strokeWidth="1.5" fill="none" opacity="0.6" className="animate-ping" />}
-                  <Activity x="1323" y="173" size={14} className={`transition-all duration-300 ${currentStep >= 10 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`} />
-                  <text x="1330" y="210" textAnchor="middle" fill={currentStep >= 10 ? "#0f172a" : "#94a3b8"} opacity={currentStep >= 10 ? "1" : "0.65"} style={{ fontSize: '9.5px', fontWeight: currentStep >= 10 ? 700 : 500 }}>Maintain</text>
+                <g
+                  onClick={() => handleSelectStep(10)}
+                  className="cursor-pointer group"
+                >
+                  <circle
+                    cx="1330"
+                    cy="180"
+                    r="15"
+                    fill="#ffffff"
+                    stroke={currentStep >= 10 ? "#2563eb" : "#e2e8f0"}
+                    strokeWidth={
+                      currentStep === 10
+                        ? "2.5"
+                        : currentStep > 10
+                          ? "2"
+                          : "1.2"
+                    }
+                    opacity={currentStep >= 10 ? "1" : "0.55"}
+                    filter={currentStep === 10 ? "url(#blueGlow)" : undefined}
+                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
+                  />
+                  {currentStep === 10 && (
+                    <circle
+                      cx="1330"
+                      cy="180"
+                      r="21"
+                      stroke="#2563eb"
+                      strokeWidth="1.5"
+                      fill="none"
+                      opacity="0.6"
+                      className="animate-ping"
+                    />
+                  )}
+                  <Activity
+                    x="1323"
+                    y="173"
+                    size={14}
+                    className={`transition-all duration-300 ${currentStep >= 10 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
+                  />
+                  <text
+                    x="1330"
+                    y="210"
+                    textAnchor="middle"
+                    fill={currentStep >= 10 ? "#0f172a" : "#94a3b8"}
+                    opacity={currentStep >= 10 ? "1" : "0.65"}
+                    style={{
+                      fontSize: "9.5px",
+                      fontWeight: currentStep >= 10 ? 700 : 500,
+                    }}
+                  >
+                    Maintain
+                  </text>
                 </g>
-
               </svg>
             </div>
           </div>
@@ -1089,7 +3105,11 @@ function ParallelSDLCSection() {
                 className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 p-2.5 rounded-full transition-all border border-slate-200 shadow-sm flex items-center justify-center"
                 aria-label={isPlaying ? "Pause" : "Play"}
               >
-                {isPlaying ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
+                {isPlaying ? (
+                  <Pause size={16} />
+                ) : (
+                  <Play size={16} className="ml-0.5" />
+                )}
               </button>
               <button
                 type="button"
@@ -1103,17 +3123,22 @@ function ParallelSDLCSection() {
 
             <div className="text-center max-w-xl">
               <div className="inline-block bg-blue-500/10 text-blue-600 border border-blue-500/20 px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-1.5">
-                AMSTURE FLOW · {activeStepInfo.phase} · STEP {String(currentStep + 1).padStart(2, '0')} OF 11
+                AMSTURE FLOW · {activeStepInfo.phase} · STEP{" "}
+                {String(currentStep + 1).padStart(2, "0")} OF 11
               </div>
               <div className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
-                <span className="text-blue-600 font-extrabold">{activeStepInfo.name}</span> — {activeStepInfo.desc}
+                <span className="text-blue-600 font-extrabold">
+                  {activeStepInfo.name}
+                </span>{" "}
+                — {activeStepInfo.desc}
               </div>
             </div>
 
             <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               {isPlaying ? (
                 <span className="flex items-center gap-1.5 text-blue-600 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-full text-[11px]">
-                  <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> Auto-Playing
+                  <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>{" "}
+                  Auto-Playing
                 </span>
               ) : (
                 <span className="flex items-center gap-1.5 text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full text-[11px]">
@@ -1131,21 +3156,31 @@ function ParallelSDLCSection() {
 /* ─── INTERACTIVE SERVICES & BUSINESS SOLUTIONS SECTION WITH CENTRAL AI ORCHESTRATOR ENGINE ─── */
 function ServicesSection() {
   const [activeCategory, setActiveCategory] = useState<string>("ai");
-  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
-  const [activeConnectedCardIndex, setActiveConnectedCardIndex] = useState<number>(0);
+  const [selectedService, setSelectedService] = useState<ServiceItem | null>(
+    null,
+  );
+  const [activeConnectedCardIndex, setActiveConnectedCardIndex] =
+    useState<number>(0);
 
-  const filteredServices = services.filter((s) => s.category === activeCategory);
+  const filteredServices = services.filter(
+    (s) => s.category === activeCategory,
+  );
 
   // Dynamic signal node sequence timer to illuminate card borders when signal node arrives (relaxed, smooth pace)
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveConnectedCardIndex((prev) => (prev + 1) % Math.max(1, filteredServices.length));
+      setActiveConnectedCardIndex(
+        (prev) => (prev + 1) % Math.max(1, filteredServices.length),
+      );
     }, 4200);
     return () => clearInterval(interval);
   }, [filteredServices.length]);
 
   return (
-    <section id="services" className="nv-section bg-gradient-to-b from-slate-50/70 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden">
+    <section
+      id="services"
+      className="nv-section bg-gradient-to-b from-slate-50/70 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden"
+    >
       {/* Background Decorative Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-400/10 blur-[100px] rounded-full pointer-events-none" />
 
@@ -1164,36 +3199,93 @@ function ServicesSection() {
           </span>
 
           <h2 className="nv-section-h2 text-[#0a0a0a] dark:text-white">
-            Technology solutions <span className="text-blue-600">engineered</span> for outcomes.
+            Technology solutions{" "}
+            <span className="text-blue-600">engineered</span> for outcomes.
           </h2>
           <p className="text-[15px] text-[#555] dark:text-slate-300 max-w-xl leading-relaxed mt-2">
-            Central AI Orchestrator assigns tasks, coordinates intelligent agents across technology domains, and delivers outcome-driven business systems.
+            Central AI Orchestrator assigns tasks, coordinates intelligent
+            agents across technology domains, and delivers outcome-driven
+            business systems.
           </p>
         </div>
 
         {/* SVG Branching Lines (Connecting Central Engine to Domain Pills) */}
         <div className="hidden md:block w-full max-w-4xl mx-auto -mb-2 relative z-0">
-          <svg className="w-full h-12 overflow-visible" viewBox="0 0 900 50" fill="none">
-            <path id="sol-path-1" d="M 450 0 C 450 30, 110 15, 110 50" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-            <path d="M 450 0 C 450 30, 110 15, 110 50" stroke="#2563eb" strokeWidth="2" opacity={activeCategory === "ai" ? "1" : "0.3"} />
+          <svg
+            className="w-full h-12 overflow-visible"
+            viewBox="0 0 900 50"
+            fill="none"
+          >
+            <path
+              id="sol-path-1"
+              d="M 450 0 C 450 30, 110 15, 110 50"
+              stroke="#cbd5e1"
+              strokeWidth="1.5"
+              strokeDasharray="3 3"
+            />
+            <path
+              d="M 450 0 C 450 30, 110 15, 110 50"
+              stroke="#2563eb"
+              strokeWidth="2"
+              opacity={activeCategory === "ai" ? "1" : "0.3"}
+            />
 
-            <path id="sol-path-2" d="M 450 0 C 450 30, 335 15, 335 50" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-            <path d="M 450 0 C 450 30, 335 15, 335 50" stroke="#2563eb" strokeWidth="2" opacity={activeCategory === "software" ? "1" : "0.3"} />
+            <path
+              id="sol-path-2"
+              d="M 450 0 C 450 30, 335 15, 335 50"
+              stroke="#cbd5e1"
+              strokeWidth="1.5"
+              strokeDasharray="3 3"
+            />
+            <path
+              d="M 450 0 C 450 30, 335 15, 335 50"
+              stroke="#2563eb"
+              strokeWidth="2"
+              opacity={activeCategory === "software" ? "1" : "0.3"}
+            />
 
-            <path id="sol-path-3" d="M 450 0 C 450 30, 565 15, 565 50" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-            <path d="M 450 0 C 450 30, 565 15, 565 50" stroke="#2563eb" strokeWidth="2" opacity={activeCategory === "enterprise" ? "1" : "0.3"} />
+            <path
+              id="sol-path-3"
+              d="M 450 0 C 450 30, 565 15, 565 50"
+              stroke="#cbd5e1"
+              strokeWidth="1.5"
+              strokeDasharray="3 3"
+            />
+            <path
+              d="M 450 0 C 450 30, 565 15, 565 50"
+              stroke="#2563eb"
+              strokeWidth="2"
+              opacity={activeCategory === "enterprise" ? "1" : "0.3"}
+            />
 
-            <path id="sol-path-4" d="M 450 0 C 450 30, 790 15, 790 50" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-            <path d="M 450 0 C 450 30, 790 15, 790 50" stroke="#2563eb" strokeWidth="2" opacity={activeCategory === "cloud" ? "1" : "0.3"} />
+            <path
+              id="sol-path-4"
+              d="M 450 0 C 450 30, 790 15, 790 50"
+              stroke="#cbd5e1"
+              strokeWidth="1.5"
+              strokeDasharray="3 3"
+            />
+            <path
+              d="M 450 0 C 450 30, 790 15, 790 50"
+              stroke="#2563eb"
+              strokeWidth="2"
+              opacity={activeCategory === "cloud" ? "1" : "0.3"}
+            />
 
             {/* Signal pulse traveling along vector curve */}
             <circle r="4" fill="#2563eb">
               <animateMotion dur="2.2s" repeatCount="indefinite">
-                <mpath href={
-                  activeCategory === "ai" ? "#sol-path-1" :
-                  activeCategory === "software" ? "#sol-path-2" :
-                  activeCategory === "enterprise" ? "#sol-path-3" : "#sol-path-4"
-                } />
+                <mpath
+                  href={
+                    activeCategory === "ai"
+                      ? "#sol-path-1"
+                      : activeCategory === "software"
+                        ? "#sol-path-2"
+                        : activeCategory === "enterprise"
+                          ? "#sol-path-3"
+                          : "#sol-path-4"
+                  }
+                />
               </animateMotion>
             </circle>
           </svg>
@@ -1203,7 +3295,7 @@ function ServicesSection() {
         <div className="flex flex-wrap items-center justify-start sm:justify-center gap-2.5 mb-6 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm max-w-4xl mx-auto relative z-10">
           {serviceCategories.map((cat) => {
             const CatIcon = cat.icon;
-            const count = services.filter(s => s.category === cat.id).length;
+            const count = services.filter((s) => s.category === cat.id).length;
             const isActive = activeCategory === cat.id;
 
             return (
@@ -1217,11 +3309,20 @@ function ServicesSection() {
                     : "bg-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800"
                 }`}
               >
-                <CatIcon size={16} className={isActive ? "text-white" : "text-blue-600 dark:text-blue-400"} />
+                <CatIcon
+                  size={16}
+                  className={
+                    isActive ? "text-white" : "text-blue-600 dark:text-blue-400"
+                  }
+                />
                 <span>{cat.name}</span>
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
-                  isActive ? "bg-white/20 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
-                }`}>
+                <span
+                  className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
+                    isActive
+                      ? "bg-white/20 text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
+                  }`}
+                >
                   {count}
                 </span>
               </button>
@@ -1231,7 +3332,11 @@ function ServicesSection() {
 
         {/* SVG Vector Connector Lines (Dynamically matches filteredServices count - 0 extra orphan nodes) */}
         <div className="hidden md:block w-full max-w-5xl mx-auto -mt-3 mb-3 relative z-0">
-          <svg className="w-full h-10 overflow-visible" viewBox="0 0 1000 40" fill="none">
+          <svg
+            className="w-full h-10 overflow-visible"
+            viewBox="0 0 1000 40"
+            fill="none"
+          >
             {filteredServices.map((_, idx) => {
               const cardCount = filteredServices.length;
               let targetX = 500;
@@ -1240,12 +3345,20 @@ function ServicesSection() {
               } else if (cardCount === 3) {
                 targetX = idx === 0 ? 166 : idx === 1 ? 500 : 833;
               }
-              const pathD = targetX === 500 ? "M 500 0 L 500 40" : `M 500 0 C 500 20, ${targetX} 10, ${targetX} 40`;
+              const pathD =
+                targetX === 500
+                  ? "M 500 0 L 500 40"
+                  : `M 500 0 C 500 20, ${targetX} 10, ${targetX} 40`;
               const isActiveNode = activeConnectedCardIndex % cardCount === idx;
 
               return (
                 <g key={`dynamic-path-${activeCategory}-${idx}`}>
-                  <path d={pathD} stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <path
+                    d={pathD}
+                    stroke="#cbd5e1"
+                    strokeWidth="1.5"
+                    strokeDasharray="3 3"
+                  />
                   <path
                     d={pathD}
                     stroke="#2563eb"
@@ -1258,28 +3371,37 @@ function ServicesSection() {
             })}
 
             {/* Signal dot flowing synchronously down to the active card */}
-            {filteredServices.length > 0 && (() => {
-              const cardCount = filteredServices.length;
-              const currentActiveIdx = activeConnectedCardIndex % cardCount;
-              let targetX = 500;
-              if (cardCount === 2) {
-                targetX = currentActiveIdx === 0 ? 250 : 750;
-              } else if (cardCount === 3) {
-                targetX = currentActiveIdx === 0 ? 166 : currentActiveIdx === 1 ? 500 : 833;
-              }
-              const activePathD = targetX === 500 ? "M 500 0 L 500 40" : `M 500 0 C 500 20, ${targetX} 10, ${targetX} 40`;
+            {filteredServices.length > 0 &&
+              (() => {
+                const cardCount = filteredServices.length;
+                const currentActiveIdx = activeConnectedCardIndex % cardCount;
+                let targetX = 500;
+                if (cardCount === 2) {
+                  targetX = currentActiveIdx === 0 ? 250 : 750;
+                } else if (cardCount === 3) {
+                  targetX =
+                    currentActiveIdx === 0
+                      ? 166
+                      : currentActiveIdx === 1
+                        ? 500
+                        : 833;
+                }
+                const activePathD =
+                  targetX === 500
+                    ? "M 500 0 L 500 40"
+                    : `M 500 0 C 500 20, ${targetX} 10, ${targetX} 40`;
 
-              return (
-                <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                  <animateMotion
-                    key={`signal-dot-${activeCategory}-${currentActiveIdx}`}
-                    dur="3.8s"
-                    repeatCount="indefinite"
-                    path={activePathD}
-                  />
-                </circle>
-              );
-            })()}
+                return (
+                  <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
+                    <animateMotion
+                      key={`signal-dot-${activeCategory}-${currentActiveIdx}`}
+                      dur="3.8s"
+                      repeatCount="indefinite"
+                      path={activePathD}
+                    />
+                  </circle>
+                );
+              })()}
           </svg>
         </div>
 
@@ -1314,9 +3436,13 @@ function ServicesSection() {
                   )}
 
                   {/* Connected Node Pulse Badge at Card Top Center (Reflects vector line arrival) */}
-                  <div className={`hidden md:flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 shadow-md shadow-blue-500/60 absolute -top-2.5 left-1/2 -translate-x-1/2 z-20 transition-all duration-200 ${
-                    isConnectedNode ? "opacity-100 scale-100" : "opacity-0 scale-75"
-                  }`}>
+                  <div
+                    className={`hidden md:flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 shadow-md shadow-blue-500/60 absolute -top-2.5 left-1/2 -translate-x-1/2 z-20 transition-all duration-200 ${
+                      isConnectedNode
+                        ? "opacity-100 scale-100"
+                        : "opacity-0 scale-75"
+                    }`}
+                  >
                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
                   </div>
                   <div>
@@ -1338,7 +3464,8 @@ function ServicesSection() {
                     <div className="space-y-3 mb-5">
                       <div className="bg-slate-50/80 rounded-xl p-3 border border-slate-100">
                         <div className="text-[11px] font-extrabold uppercase text-slate-400 tracking-wider mb-1 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" /> Challenge
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />{" "}
+                          Challenge
                         </div>
                         <p className="text-xs text-slate-600 leading-relaxed">
                           {svc.problem}
@@ -1347,7 +3474,8 @@ function ServicesSection() {
 
                       <div className="bg-blue-50/40 rounded-xl p-3 border border-blue-100/60">
                         <div className="text-[11px] font-extrabold uppercase text-blue-600 tracking-wider mb-1 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block" /> Our Solution
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block" />{" "}
+                          Our Solution
                         </div>
                         <p className="text-xs text-slate-700 leading-relaxed font-medium">
                           {svc.solution}
@@ -1359,9 +3487,14 @@ function ServicesSection() {
                   <div>
                     {/* Benefit Highlight Badge */}
                     <div className="pt-4 border-t border-slate-100 flex items-start gap-2 mb-5">
-                      <Check size={16} className="text-emerald-600 shrink-0 mt-0.5" />
+                      <Check
+                        size={16}
+                        className="text-emerald-600 shrink-0 mt-0.5"
+                      />
                       <p className="text-xs font-bold text-slate-800 leading-tight">
-                        <span className="text-emerald-600 font-extrabold">Impact: </span>
+                        <span className="text-emerald-600 font-extrabold">
+                          Impact:{" "}
+                        </span>
                         {svc.benefit}
                       </p>
                     </div>
@@ -1373,7 +3506,10 @@ function ServicesSection() {
                       className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 text-xs font-extrabold transition-all flex items-center justify-center gap-2 group/btn"
                     >
                       <span>Explore Tech Stack & Specs</span>
-                      <ArrowUpRight size={14} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                      <ArrowUpRight
+                        size={14}
+                        className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
+                      />
                     </button>
                   </div>
                 </motion.div>
@@ -1389,9 +3525,13 @@ function ServicesSection() {
               <Zap size={24} />
             </div>
             <div>
-              <h4 className="text-lg font-black">Need a custom multi-system solution?</h4>
+              <h4 className="text-lg font-black">
+                Need a custom multi-system solution?
+              </h4>
               <p className="text-xs text-slate-300 mt-1 max-w-xl">
-                We combine AI Automation, custom software, and enterprise ERP into a unified digital ecosystem tailored for your exact business requirements.
+                We combine AI Automation, custom software, and enterprise ERP
+                into a unified digital ecosystem tailored for your exact
+                business requirements.
               </p>
             </div>
           </div>
@@ -1430,7 +3570,9 @@ function ServicesSection() {
                   <span className="text-[10px] font-extrabold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-md uppercase">
                     {selectedService.badge}
                   </span>
-                  <h3 className="text-xl font-black text-slate-900 mt-0.5">{selectedService.title}</h3>
+                  <h3 className="text-xl font-black text-slate-900 mt-0.5">
+                    {selectedService.title}
+                  </h3>
                 </div>
               </div>
 
@@ -1441,12 +3583,17 @@ function ServicesSection() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
                   <div className="text-xs font-bold text-slate-900 mb-2 flex items-center gap-1.5">
-                    <Check size={14} className="text-blue-600" /> Deliverables & Scope
+                    <Check size={14} className="text-blue-600" /> Deliverables &
+                    Scope
                   </div>
                   <ul className="space-y-1.5">
                     {selectedService.highlights.map((h, idx) => (
-                      <li key={idx} className="text-xs text-slate-600 flex items-center gap-1.5">
-                        <span className="w-1 h-1 rounded-full bg-blue-600" /> {h}
+                      <li
+                        key={idx}
+                        className="text-xs text-slate-600 flex items-center gap-1.5"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-blue-600" />{" "}
+                        {h}
                       </li>
                     ))}
                   </ul>
@@ -1454,11 +3601,15 @@ function ServicesSection() {
 
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
                   <div className="text-xs font-bold text-slate-900 mb-2 flex items-center gap-1.5">
-                    <Code2 size={14} className="text-blue-600" /> Technology Stack
+                    <Code2 size={14} className="text-blue-600" /> Technology
+                    Stack
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedService.tech.map((t, idx) => (
-                      <span key={idx} className="text-[11px] font-semibold bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-md">
+                      <span
+                        key={idx}
+                        className="text-[11px] font-semibold bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-md"
+                      >
                         {t}
                       </span>
                     ))}
@@ -1468,7 +3619,10 @@ function ServicesSection() {
 
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-100">
                 <div className="text-xs text-slate-500 text-center sm:text-left">
-                  Guaranteed outcome: <span className="font-bold text-slate-800">{selectedService.benefit}</span>
+                  Guaranteed outcome:{" "}
+                  <span className="font-bold text-slate-800">
+                    {selectedService.benefit}
+                  </span>
                 </div>
                 <a
                   href="#contact"
@@ -1488,12 +3642,14 @@ function ServicesSection() {
 
 /* ─── Main Page ─── */
 function Home() {
+  const heroTextRef = useRef<HTMLDivElement>(null);
   const [activeIndustry, setActiveIndustry] = useState(industries[0].name);
   const [isIndAutoPlaying, setIsIndAutoPlaying] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [formSent, setFormSent] = useState(false);
   const [cookieClosed, setCookieClosed] = useState(false);
   const progress = useScrollProgress();
+  const pastHero = usePastHero();
   useScrollReveal();
 
   useEffect(() => {
@@ -1518,7 +3674,8 @@ function Home() {
     setFormSent(true);
   };
 
-  const currentInd = industries.find((i) => i.name === activeIndustry) || industries[0];
+  const currentInd =
+    industries.find((i) => i.name === activeIndustry) || industries[0];
   const IndIcon = currentInd.icon;
 
   return (
@@ -1528,34 +3685,43 @@ function Home() {
 
       <main>
         {/* ── HERO SECTION (CENTERED & PROPER WITHOUT SECOND IMAGE CARD) ── */}
-        <section className="nv-hero relative overflow-hidden min-h-[75vh] flex items-center justify-center pt-28 pb-16">
+        <section className="nv-hero relative overflow-hidden min-h-screen flex items-center justify-center pt-28 pb-16">
           {/* Animated Robotics Cybernetic HUD & Circuit Background */}
           <RoboticsHeaderAnimation />
 
           <div className="nv-hero-bg" />
+          <div className="nv-hero-bg-left" />
 
-          {/* Cursor-reactive floating bubble particles */}
-          <CursorBubbleField />
+          {/* Cursor-reactive floating bubble particles (kept clear of the text below via heroTextRef) */}
+          <CursorBubbleField excludeRef={heroTextRef} />
           <div className="nv-wrap relative z-10 max-w-4xl mx-auto text-center">
-            <div className="nv-reveal flex flex-col items-center">
-              <div className="nv-hero-badge bg-white/95 backdrop-blur-md shadow-sm border border-blue-200/80 mb-6 inline-flex">
-                <Sparkles size={14} className="text-blue-600" />
-                <span>IT Services & AI Solutions</span>
-              </div>
-
+            <div
+              ref={heroTextRef}
+              className="nv-reveal flex flex-col items-center -mt-8 sm:-mt-10"
+            >
               <h1 className="nv-hero-h1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0a0a0a] tracking-tight leading-[1.08] mb-6">
-                Technology that <span className="nv-blue-word text-blue-600">grows</span> your business.
+                Technology that{" "}
+                <span className="nv-blue-word text-blue-600">grows</span> your
+                business.
               </h1>
 
               <p className="nv-hero-sub text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8">
-                We turn complex technology into simple business outcomes — custom software, AI automation, and cloud solutions engineered to drive measurable growth and ROI.
+                We turn complex technology into simple business outcomes —
+                custom software, AI automation, and cloud solutions engineered
+                to drive measurable growth and ROI.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <a href="#contact" className="nv-cta-primary text-base px-8 py-3.5">
+              <div className="flex flex-wrap items-center justify-center gap-4 mt-6 sm:mt-8">
+                <a
+                  href="#contact"
+                  className="nv-cta-primary text-base px-8 py-3.5"
+                >
                   Book a Free Consultation <ArrowRight size={18} />
                 </a>
-                <a href="#services" className="nv-cta-secondary text-base px-8 py-3.5">
+                <a
+                  href="#services"
+                  className="nv-cta-secondary text-base px-8 py-3.5"
+                >
                   View Our Services
                 </a>
               </div>
@@ -1575,65 +3741,24 @@ function Home() {
               </h3>
             </div>
 
-            {/* Structured 5-Column Feature Card Grid with Staggered Floating Animations */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-7xl mx-auto">
+            {/* Plain hairline-divided logo-wall style grid (no individual cards) */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-t border-l border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden max-w-7xl mx-auto nv-reveal d2">
               {tickerData.map((item, idx) => {
                 const Icon = item.icon;
                 return (
-                  <motion.a
+                  <a
                     key={idx}
                     href="#services"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    animate={{
-                      y: [0, -6, 0],
-                    }}
-                    transition={{
-                      opacity: { duration: 0.4, delay: idx * 0.08 },
-                      y: {
-                        duration: 3.5 + (idx % 3) * 0.5,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut",
-                        delay: idx * 0.25,
-                      },
-                    }}
-                    whileHover={{ scale: 1.03, y: -8 }}
-                    className="group relative bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800/90 hover:border-blue-500 dark:hover:border-blue-500 rounded-2xl p-5 shadow-sm dark:shadow-2xl dark:shadow-black/60 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 flex flex-col justify-between overflow-hidden no-underline"
+                    className="group flex flex-col items-center justify-center text-center gap-2.5 py-8 px-4 border-r border-b border-slate-200 dark:border-slate-800 no-underline hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
                   >
-                    {/* Top Animated Gradient Line Highlight */}
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-500 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    {/* Animated Pulsing Signal Corner Accent */}
-                    <div className="absolute -top-10 -right-10 w-20 h-20 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-xl group-hover:bg-blue-500/30 transition-all duration-300" />
-
-                    <div>
-                      {/* Top Row: Icon + Badge */}
-                      <div className="flex items-center justify-between gap-2 mb-3.5 relative z-10">
-                        <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-slate-700/80 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-blue-600 dark:group-hover:text-white group-hover:rotate-6 transition-all duration-300 shadow-2xs">
-                          <Icon size={18} />
-                        </div>
-                        <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/90 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-800/80 tracking-wider">
-                          {item.badge}
-                        </span>
-                      </div>
-
-                      {/* Title & Description */}
-                      <h4 className="text-sm font-black text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug mb-1.5 relative z-10">
-                        {item.name}
-                      </h4>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-300 leading-relaxed font-medium relative z-10">
-                        {item.desc}
-                      </p>
-                    </div>
-
-                    {/* Bottom Action Hint */}
-                    <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] font-bold text-slate-400 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors relative z-10">
-                      <span>Explore domain</span>
-                      <ArrowUpRight size={13} className="group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
-                    </div>
-                  </motion.a>
+                    <Icon
+                      size={26}
+                      className="text-slate-400 group-hover:text-blue-600 dark:text-slate-500 dark:group-hover:text-blue-400 transition-colors"
+                    />
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                      {item.name}
+                    </span>
+                  </a>
                 );
               })}
             </div>
@@ -1645,19 +3770,19 @@ function Home() {
           <div className="nv-wrap">
             <div className="nv-stats-grid nv-reveal">
               <div className="nv-stat-card">
-                <div className="nv-stat-num">15+</div>
+                <CountUp value="15+" />
                 <div className="nv-stat-label">Projects delivered</div>
               </div>
               <div className="nv-stat-card">
-                <div className="nv-stat-num">100%</div>
+                <CountUp value="100%" />
                 <div className="nv-stat-label">Client satisfaction</div>
               </div>
               <div className="nv-stat-card">
-                <div className="nv-stat-num">6+</div>
+                <CountUp value="6+" />
                 <div className="nv-stat-label">Industries served</div>
               </div>
               <div className="nv-stat-card">
-                <div className="nv-stat-num">35%</div>
+                <CountUp value="35%" />
                 <div className="nv-stat-label">Avg. efficiency gain</div>
               </div>
             </div>
@@ -1667,58 +3792,19 @@ function Home() {
         {/* ── ABOUT SECTION ── */}
         <section id="about" className="nv-section">
           <div className="nv-wrap">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-5 nv-reveal">
-                <div className="nv-eyebrow">ABOUT AMSTURE TECHNOLOGIES</div>
-                <h2 className="nv-section-h2">
-                  A partner in your growth, not just a vendor.
-                </h2>
-                <p className="mt-6 text-[15.5px] leading-relaxed text-[#666]">
-                  Our core values — integrity, craft, clarity and partnership — shape every engagement from first call to long-term support.
-                </p>
-              </div>
+            <div className="max-w-2xl nv-reveal mb-12">
+              <div className="nv-eyebrow">ABOUT AMSTURE TECHNOLOGIES</div>
+              <h2 className="nv-section-h2">
+                A partner in your growth, not just a vendor.
+              </h2>
+              <p className="mt-6 text-[15.5px] leading-relaxed text-[#666]">
+                Our core values — integrity, craft, clarity and partnership —
+                shape every engagement from first call to long-term support.
+              </p>
+            </div>
 
-              <div className="lg:col-span-7 nv-reveal d2">
-                <div className="nv-about-item">
-                  <div className="nv-about-num">01</div>
-                  <div>
-                    <h3 className="nv-about-title">Our Story</h3>
-                    <p className="nv-about-body">
-                      Amsture Technologies began with a simple conviction: technology should serve business outcomes, not the other way around. We've since partnered with growing companies across the globe to turn ambitious ideas into working, revenue-generating systems.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="nv-about-item">
-                  <div className="nv-about-num">02</div>
-                  <div>
-                    <h3 className="nv-about-title">Our Vision</h3>
-                    <p className="nv-about-body">
-                      To be the trusted digital transformation partner for businesses that refuse to settle — making world-class technology accessible, practical and genuinely valuable.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="nv-about-item">
-                  <div className="nv-about-num">03</div>
-                  <div>
-                    <h3 className="nv-about-title">Our Mission</h3>
-                    <p className="nv-about-body">
-                      We design, build and support software that removes friction, unlocks growth and gives every client an unfair advantage in their market.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="nv-about-item">
-                  <div className="nv-about-num">04</div>
-                  <div>
-                    <h3 className="nv-about-title">Why Clients Choose Us</h3>
-                    <p className="nv-about-body">
-                      Because we speak business first and technology second. We're transparent, dependable and relentlessly focused on the results that matter to you.
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="nv-reveal d2">
+              <AboutStoryCarousel />
             </div>
           </div>
         </section>
@@ -1740,13 +3826,17 @@ function Home() {
                 </h2>
               </div>
               <p className="text-[15px] text-[#666] max-w-sm">
-                Meet the founder, co-founder, and CEO building Amsture Technologies' legacy of technology craft and client ROI.
+                Meet the founder, co-founder, and CEO building Amsture
+                Technologies' legacy of technology craft and client ROI.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 nv-reveal d2">
               {executiveTeam.map((exec, idx) => (
-                <div key={idx} className="nv-team-card flex flex-col justify-between group rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-blue-500/60 dark:hover:border-blue-500 shadow-sm hover:shadow-xl hover:shadow-blue-500/15 transition-all duration-300">
+                <div
+                  key={idx}
+                  className="nv-team-card flex flex-col justify-between group rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-blue-500/60 dark:hover:border-blue-500 shadow-sm hover:shadow-xl hover:shadow-blue-500/15 transition-all duration-300"
+                >
                   <div>
                     {/* Animated Circular Avatar Frame */}
                     <div className="relative w-44 h-44 mx-auto mb-6">
@@ -1772,15 +3862,22 @@ function Home() {
                     </div>
 
                     <div className="text-center pt-2">
-                      <h3 className="text-xl font-extrabold text-[#0a0a0a] dark:text-white group-hover:text-blue-600 transition-colors">{exec.name}</h3>
-                      <div className="text-xs font-bold text-blue-600 dark:text-blue-400 mt-1 mb-3 uppercase tracking-wider">{exec.role}</div>
+                      <h3 className="text-xl font-extrabold text-[#0a0a0a] dark:text-white group-hover:text-blue-600 transition-colors">
+                        {exec.name}
+                      </h3>
+                      <div className="text-xs font-bold text-blue-600 dark:text-blue-400 mt-1 mb-3 uppercase tracking-wider">
+                        {exec.role}
+                      </div>
                       <p className="text-xs text-slate-500 dark:text-slate-300 leading-relaxed mb-4">
                         {exec.bio}
                       </p>
 
                       <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4">
                         {exec.highlights.map((h, i) => (
-                          <span key={i} className="text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-full border border-slate-200/60 dark:border-slate-700/60">
+                          <span
+                            key={i}
+                            className="text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-full border border-slate-200/60 dark:border-slate-700/60"
+                          >
                             {h}
                           </span>
                         ))}
@@ -1827,7 +3924,11 @@ function Home() {
                   type="button"
                   onClick={() => setIsIndAutoPlaying(!isIndAutoPlaying)}
                   className="inline-flex items-center gap-2 text-xs font-bold px-3.5 py-1.5 rounded-full border border-blue-200 dark:border-slate-700 bg-blue-50/80 dark:bg-slate-800/80 text-blue-700 dark:text-blue-400 hover:scale-105 transition-all shadow-2xs"
-                  title={isIndAutoPlaying ? "Click to pause auto-rotation" : "Click to play auto-rotation"}
+                  title={
+                    isIndAutoPlaying
+                      ? "Click to pause auto-rotation"
+                      : "Click to play auto-rotation"
+                  }
                 >
                   {isIndAutoPlaying ? (
                     <>
@@ -1866,7 +3967,12 @@ function Home() {
                           : "hover:translate-x-0.5 opacity-80 hover:opacity-100"
                       }`}
                     >
-                      <Icon size={18} className={isActive ? "text-blue-600 dark:text-blue-400" : ""} />
+                      <Icon
+                        size={18}
+                        className={
+                          isActive ? "text-blue-600 dark:text-blue-400" : ""
+                        }
+                      />
                       <span className="flex-1 text-left">{ind.name}</span>
                       {isActive && isIndAutoPlaying && (
                         <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping" />
@@ -1916,8 +4022,12 @@ function Home() {
 
                     <div className="mt-8 pt-8 border-t border-blue-200/60 dark:border-slate-800 flex flex-wrap items-end justify-between gap-6">
                       <div>
-                        <div className="text-4xl font-black text-blue-600 dark:text-blue-400">{currentInd.stat}</div>
-                        <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 mt-1">{currentInd.label}</div>
+                        <div className="text-4xl font-black text-blue-600 dark:text-blue-400">
+                          {currentInd.stat}
+                        </div>
+                        <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 mt-1">
+                          {currentInd.label}
+                        </div>
                       </div>
                       <a href="#contact" className="nv-book-btn">
                         Get in touch <ArrowUpRight size={14} />
@@ -1940,7 +4050,9 @@ function Home() {
                   Practical AI that drives real business efficiency.
                 </h2>
                 <p className="text-[16px] leading-relaxed text-slate-600 mb-8">
-                  AI shouldn't be a gimmick. We build grounded, task-focused automation that removes friction from your operations while keeping your people in full control.
+                  AI shouldn't be a gimmick. We build grounded, task-focused
+                  automation that removes friction from your operations while
+                  keeping your people in full control.
                 </p>
 
                 <div className="space-y-4">
@@ -1949,8 +4061,13 @@ function Home() {
                       <Bot size={20} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 text-[15px]">Document & Data Processing</h4>
-                      <p className="text-xs text-slate-600 mt-1">Extract structured signal from PDFs, emails and invoices automatically.</p>
+                      <h4 className="font-bold text-slate-900 text-[15px]">
+                        Document & Data Processing
+                      </h4>
+                      <p className="text-xs text-slate-600 mt-1">
+                        Extract structured signal from PDFs, emails and invoices
+                        automatically.
+                      </p>
                     </div>
                   </div>
 
@@ -1959,8 +4076,13 @@ function Home() {
                       <BrainCircuit size={20} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 text-[15px]">Intelligent Workflow Copilots</h4>
-                      <p className="text-xs text-slate-600 mt-1">Assist your team with smart recommendations and automated draft generation.</p>
+                      <h4 className="font-bold text-slate-900 text-[15px]">
+                        Intelligent Workflow Copilots
+                      </h4>
+                      <p className="text-xs text-slate-600 mt-1">
+                        Assist your team with smart recommendations and
+                        automated draft generation.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1968,7 +4090,11 @@ function Home() {
                 <div className="mt-6 p-4 rounded-xl bg-blue-50/80 border border-blue-200 flex items-center gap-3">
                   <ShieldCheck size={20} className="text-blue-600 shrink-0" />
                   <p className="text-xs text-slate-800 font-medium">
-                    <strong className="text-slate-900">Human review, designed in:</strong> Every AI workflow includes audit trails and manual override points.
+                    <strong className="text-slate-900">
+                      Human review, designed in:
+                    </strong>{" "}
+                    Every AI workflow includes audit trails and manual override
+                    points.
                   </p>
                 </div>
               </div>
@@ -2006,15 +4132,19 @@ function Home() {
                 <div className="text-3xl font-black text-blue-600 mb-4">01</div>
                 <h3 className="font-bold text-lg mb-2">Discovery</h3>
                 <p className="text-sm text-slate-500 leading-relaxed">
-                  We analyze your processes, pain points and commercial goals to define precise technical requirements.
+                  We analyze your processes, pain points and commercial goals to
+                  define precise technical requirements.
                 </p>
               </div>
 
               <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
                 <div className="text-3xl font-black text-blue-600 mb-4">02</div>
-                <h3 className="font-bold text-lg mb-2">Architecture & Design</h3>
+                <h3 className="font-bold text-lg mb-2">
+                  Architecture & Design
+                </h3>
                 <p className="text-sm text-slate-500 leading-relaxed">
-                  We model clean system architectures and intuitive user interfaces reviewed and approved by your team.
+                  We model clean system architectures and intuitive user
+                  interfaces reviewed and approved by your team.
                 </p>
               </div>
 
@@ -2022,7 +4152,8 @@ function Home() {
                 <div className="text-3xl font-black text-blue-600 mb-4">03</div>
                 <h3 className="font-bold text-lg mb-2">Agile Development</h3>
                 <p className="text-sm text-slate-500 leading-relaxed">
-                  We build in bi-weekly sprints with regular working demos so progress is transparent and verifiable.
+                  We build in bi-weekly sprints with regular working demos so
+                  progress is transparent and verifiable.
                 </p>
               </div>
 
@@ -2030,7 +4161,8 @@ function Home() {
                 <div className="text-3xl font-black text-blue-600 mb-4">04</div>
                 <h3 className="font-bold text-lg mb-2">Deployment & Support</h3>
                 <p className="text-sm text-slate-500 leading-relaxed">
-                  Smooth launch with full team enablement, complete documentation and ongoing proactive optimization.
+                  Smooth launch with full team enablement, complete
+                  documentation and ongoing proactive optimization.
                 </p>
               </div>
             </div>
@@ -2056,12 +4188,22 @@ function Home() {
                       <Star key={i} size={16} fill="currentColor" />
                     ))}
                   </div>
-                  <p className={`text-[15px] leading-relaxed mb-6 ${t.featured ? "text-white" : "text-slate-700"}`}>
+                  <p
+                    className={`text-[15px] leading-relaxed mb-6 ${t.featured ? "text-white" : "text-slate-700"}`}
+                  >
                     "{t.quote}"
                   </p>
                   <div>
-                    <div className={`font-bold text-sm ${t.featured ? "text-white" : "text-slate-900"}`}>{t.name}</div>
-                    <div className={`text-xs ${t.featured ? "text-blue-100" : "text-slate-500"}`}>{t.role}</div>
+                    <div
+                      className={`font-bold text-sm ${t.featured ? "text-white" : "text-slate-900"}`}
+                    >
+                      {t.name}
+                    </div>
+                    <div
+                      className={`text-xs ${t.featured ? "text-blue-100" : "text-slate-500"}`}
+                    >
+                      {t.role}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -2073,8 +4215,12 @@ function Home() {
         <section id="faq" className="nv-section">
           <div className="nv-wrap max-w-4xl">
             <div className="text-center mb-12 nv-reveal">
-              <div className="nv-eyebrow justify-center">FREQUENTLY ASKED QUESTIONS</div>
-              <h2 className="nv-section-h2">Clear answers to common questions.</h2>
+              <div className="nv-eyebrow justify-center">
+                FREQUENTLY ASKED QUESTIONS
+              </div>
+              <h2 className="nv-section-h2">
+                Clear answers to common questions.
+              </h2>
             </div>
 
             <div className="nv-reveal d2">
@@ -2101,7 +4247,10 @@ function Home() {
         </section>
 
         {/* ── CONTACT SECTION ── */}
-        <section id="contact" className="nv-section bg-slate-50 border-t border-slate-200">
+        <section
+          id="contact"
+          className="nv-section bg-slate-50 border-t border-slate-200"
+        >
           <div className="nv-wrap">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-5 nv-reveal">
@@ -2110,17 +4259,28 @@ function Home() {
                   Ready to transform your technology?
                 </h2>
                 <p className="text-slate-600 text-base leading-relaxed mb-8">
-                  Book a free 30-minute consultation with our senior team. We'll review your challenge and outline practical next steps.
+                  Book a free 30-minute consultation with our senior team. We'll
+                  review your challenge and outline practical next steps.
                 </p>
 
                 <div className="space-y-5 text-sm text-slate-700 font-medium">
                   <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
                     <Mail size={20} className="text-blue-600 shrink-0" />
-                    <a href="mailto:support@amsture.com" className="hover:text-blue-600 transition-colors">support@amsture.com</a>
+                    <a
+                      href="mailto:support@amsture.com"
+                      className="hover:text-blue-600 transition-colors"
+                    >
+                      support@amsture.com
+                    </a>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
                     <Phone size={20} className="text-blue-600 shrink-0" />
-                    <a href="tel:+919698681919" className="hover:text-blue-600 transition-colors">+91 9698681919</a>
+                    <a
+                      href="tel:+919698681919"
+                      className="hover:text-blue-600 transition-colors"
+                    >
+                      +91 9698681919
+                    </a>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
                     <MapPin size={20} className="text-blue-600 shrink-0" />
@@ -2136,8 +4296,13 @@ function Home() {
                       <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-4">
                         <Check size={32} />
                       </div>
-                      <h3 className="text-2xl font-bold mb-2 text-slate-900">Thank you!</h3>
-                      <p className="text-slate-600 text-sm">We've received your request and will reach out within 24 hours.</p>
+                      <h3 className="text-2xl font-bold mb-2 text-slate-900">
+                        Thank you!
+                      </h3>
+                      <p className="text-slate-600 text-sm">
+                        We've received your request and will reach out within 24
+                        hours.
+                      </p>
                       <button
                         type="button"
                         onClick={() => setFormSent(false)}
@@ -2150,26 +4315,56 @@ function Home() {
                     <form onSubmit={handleForm} className="space-y-4">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-bold text-slate-800 uppercase mb-1">Your Name</label>
-                          <input required type="text" placeholder="Jane Doe" className="nv-input" />
+                          <label className="block text-xs font-bold text-slate-800 uppercase mb-1">
+                            Your Name
+                          </label>
+                          <input
+                            required
+                            type="text"
+                            placeholder="Jane Doe"
+                            className="nv-input"
+                          />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-slate-800 uppercase mb-1">Work Email</label>
-                          <input required type="email" placeholder="jane@company.com" className="nv-input" />
+                          <label className="block text-xs font-bold text-slate-800 uppercase mb-1">
+                            Work Email
+                          </label>
+                          <input
+                            required
+                            type="email"
+                            placeholder="jane@company.com"
+                            className="nv-input"
+                          />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-800 uppercase mb-1">Company / Organization</label>
-                        <input type="text" placeholder="Acme Inc." className="nv-input" />
+                        <label className="block text-xs font-bold text-slate-800 uppercase mb-1">
+                          Company / Organization
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="Acme Inc."
+                          className="nv-input"
+                        />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-800 uppercase mb-1">How can we help?</label>
-                        <textarea required rows={4} placeholder="Tell us about your project or current technical challenges..." className="nv-input resize-none" />
+                        <label className="block text-xs font-bold text-slate-800 uppercase mb-1">
+                          How can we help?
+                        </label>
+                        <textarea
+                          required
+                          rows={4}
+                          placeholder="Tell us about your project or current technical challenges..."
+                          className="nv-input resize-none"
+                        />
                       </div>
 
-                      <button type="submit" className="nv-cta-primary w-full justify-center py-4 text-base">
+                      <button
+                        type="submit"
+                        className="nv-cta-primary w-full justify-center py-4 text-base"
+                      >
                         Submit Request <ArrowRight size={16} />
                       </button>
                     </form>
@@ -2189,36 +4384,92 @@ function Home() {
             <div className="md:col-span-4 space-y-4">
               <Logo />
               <p className="text-xs text-slate-500 max-w-sm leading-relaxed">
-                Amsture Technologies is a trusted digital transformation partner engineering custom software, AI automation, and cloud infrastructure.
+                Amsture Technologies is a trusted digital transformation partner
+                engineering custom software, AI automation, and cloud
+                infrastructure.
               </p>
             </div>
 
             {/* Navigation Column */}
             <div className="md:col-span-4 space-y-3">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-900">Quick Links</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                Quick Links
+              </div>
               <div className="grid grid-cols-2 gap-2 text-xs font-medium text-slate-600">
-                <a href="#about" className="hover:text-blue-600 transition-colors">About Us</a>
-                <a href="#services" className="hover:text-blue-600 transition-colors">Services</a>
-                <a href="#leadership" className="hover:text-blue-600 transition-colors">Leadership</a>
-                <a href="#industries" className="hover:text-blue-600 transition-colors">Industries</a>
-                <a href="#process" className="hover:text-blue-600 transition-colors">Process</a>
-                <a href="#work" className="hover:text-blue-600 transition-colors">Work</a>
-                <a href="#faq" className="hover:text-blue-600 transition-colors">FAQ</a>
-                <a href="#contact" className="hover:text-blue-600 transition-colors font-bold text-blue-600">Contact Us</a>
+                <a
+                  href="#about"
+                  className="hover:text-blue-600 transition-colors"
+                >
+                  About Us
+                </a>
+                <a
+                  href="#services"
+                  className="hover:text-blue-600 transition-colors"
+                >
+                  Services
+                </a>
+                <a
+                  href="#leadership"
+                  className="hover:text-blue-600 transition-colors"
+                >
+                  Leadership
+                </a>
+                <a
+                  href="#industries"
+                  className="hover:text-blue-600 transition-colors"
+                >
+                  Industries
+                </a>
+                <a
+                  href="#process"
+                  className="hover:text-blue-600 transition-colors"
+                >
+                  Process
+                </a>
+                <a
+                  href="#work"
+                  className="hover:text-blue-600 transition-colors"
+                >
+                  Work
+                </a>
+                <a
+                  href="#faq"
+                  className="hover:text-blue-600 transition-colors"
+                >
+                  FAQ
+                </a>
+                <a
+                  href="#contact"
+                  className="hover:text-blue-600 transition-colors font-bold text-blue-600"
+                >
+                  Contact Us
+                </a>
               </div>
             </div>
 
             {/* Direct Contact Column */}
             <div className="md:col-span-4 space-y-3">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-900">Contact Details</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                Contact Details
+              </div>
               <div className="space-y-2 text-xs text-slate-600">
                 <div className="flex items-center gap-2">
                   <Mail size={14} className="text-blue-600 shrink-0" />
-                  <a href="mailto:support@amsture.com" className="hover:text-blue-600 transition-colors">support@amsture.com</a>
+                  <a
+                    href="mailto:support@amsture.com"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    support@amsture.com
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={14} className="text-blue-600 shrink-0" />
-                  <a href="tel:+919698681919" className="hover:text-blue-600 transition-colors">+91 9698681919</a>
+                  <a
+                    href="tel:+919698681919"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    +91 9698681919
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin size={14} className="text-blue-600 shrink-0" />
@@ -2229,28 +4480,40 @@ function Home() {
           </div>
 
           <div className="pt-2 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>© {new Date().getFullYear()} Amsture Technologies Inc. All rights reserved.</div>
+            <div>
+              © {new Date().getFullYear()} Amsture Technologies Inc. All rights
+              reserved.
+            </div>
             <div className="flex gap-4 font-medium">
-              <a href="#" className="hover:text-slate-800">Privacy Policy</a>
-              <a href="#" className="hover:text-slate-800">Terms of Service</a>
+              <a href="#" className="hover:text-slate-800">
+                Privacy Policy
+              </a>
+              <a href="#" className="hover:text-slate-800">
+                Terms of Service
+              </a>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* ── FLOATING BUTTONS ── */}
+      {/* ── FLOATING BUTTONS (hidden on the hero, shown once scrolled past it) ── */}
       <a
         href="https://wa.me/919698681919"
         target="_blank"
         rel="noreferrer"
-        className="nv-float-whatsapp"
+        className={`nv-float-whatsapp ${pastHero ? "" : "nv-float-hidden"}`}
         aria-label="WhatsApp"
       >
         <MessageCircle size={22} />
       </a>
 
-      <a href="#contact" className="nv-float-consult" aria-label="Book a free consultation">
-        <Calendar size={15} /> <span className="hidden sm:inline">Free Consultation</span>
+      <a
+        href="#contact"
+        className={`nv-float-consult ${pastHero ? "" : "nv-float-hidden"}`}
+        aria-label="Book a free consultation"
+      >
+        <Calendar size={15} />{" "}
+        <span className="hidden sm:inline">Free Consultation</span>
       </a>
 
       {!cookieClosed && (
