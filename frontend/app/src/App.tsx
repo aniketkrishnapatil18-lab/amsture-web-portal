@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import { Route, Switch, Router as WouterRouter } from "wouter";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -50,15 +50,23 @@ import {
   Pause,
   Sun,
   Moon,
+  Palette,
 } from "lucide-react";
 import heroImage from "@assets/generated_images/nexovate-hero.png";
 import aiImage from "@assets/generated_images/nexovate-ai.png";
 import aniketImage from "@assets/generated_images/aniket-patil.jpg";
 import shrutikaImage from "@assets/generated_images/shrutika-salunke.jpg";
 import mayurImage from "@assets/generated_images/Mayur-Deshmukh.png";
-import amstureLogo from "@assets/generated_images/amsture-logo.jpg";
 import atOfficialLogo from "@assets/generated_images/at-official-logo.png";
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +82,7 @@ export interface ServiceItem {
   id: string;
   category: "ai" | "software" | "enterprise" | "cloud";
   icon: any;
+  image: string;
   title: string;
   badge: string;
   problem: string;
@@ -88,6 +97,7 @@ const services: ServiceItem[] = [
     id: "ai-auto",
     category: "ai",
     icon: BrainCircuit,
+    image: "/images/services/ai-auto.jpg",
     title: "AI Automation & Workflows",
     badge: "HIGH ROI",
     problem:
@@ -106,6 +116,7 @@ const services: ServiceItem[] = [
     id: "process",
     category: "ai",
     icon: Settings,
+    image: "/images/services/process.jpg",
     title: "Process Automation & RPA",
     badge: "POPULAR",
     problem:
@@ -125,6 +136,7 @@ const services: ServiceItem[] = [
     id: "dashboards",
     category: "ai",
     icon: BarChart3,
+    image: "/images/services/dashboards.jpg",
     title: "AI Analytics & Dashboards",
     badge: "REAL-TIME",
     problem:
@@ -144,6 +156,7 @@ const services: ServiceItem[] = [
     id: "web",
     category: "software",
     icon: Globe2,
+    image: "/images/services/web.jpg",
     title: "Business Websites & Portals",
     badge: "SEO FIRST",
     problem:
@@ -162,6 +175,7 @@ const services: ServiceItem[] = [
     id: "apps",
     category: "software",
     icon: Code2,
+    image: "/images/services/apps.jpg",
     title: "Custom Business Software",
     badge: "TAILORED",
     problem:
@@ -181,6 +195,7 @@ const services: ServiceItem[] = [
     id: "mobile",
     category: "software",
     icon: Smartphone,
+    image: "/images/services/mobile.jpg",
     title: "Native Mobile Applications",
     badge: "IOS & ANDROID",
     problem:
@@ -199,6 +214,7 @@ const services: ServiceItem[] = [
     id: "erp",
     category: "enterprise",
     icon: Database,
+    image: "/images/services/erp.jpg",
     title: "Enterprise ERP Systems",
     badge: "CORE OPS",
     problem:
@@ -217,6 +233,7 @@ const services: ServiceItem[] = [
     id: "crm",
     category: "enterprise",
     icon: Users,
+    image: "/images/services/crm.jpg",
     title: "Custom CRM Platforms",
     badge: "SALES BOOST",
     problem:
@@ -235,6 +252,7 @@ const services: ServiceItem[] = [
     id: "cloud",
     category: "cloud",
     icon: Cloud,
+    image: "/images/services/cloud.jpg",
     title: "Cloud & DevOps Infrastructure",
     badge: "99.9% UPTIME",
     problem:
@@ -253,6 +271,7 @@ const services: ServiceItem[] = [
     id: "transformation",
     category: "cloud",
     icon: Compass,
+    image: "/images/services/transformation.jpg",
     title: "Digital Transformation & Strategy",
     badge: "STRATEGIC",
     problem:
@@ -477,7 +496,203 @@ const tickerData = [
     badge: "GROWTH",
     desc: "Tech roadmap planning & execution.",
   },
+  {
+    name: "DevOps & CI/CD",
+    icon: Activity,
+    badge: "AUTOMATED",
+    desc: "Continuous integration & deployment pipelines.",
+  },
+  {
+    name: "Security & Compliance",
+    icon: Shield,
+    badge: "HARDENED",
+    desc: "Threat modeling & regulatory compliance.",
+  },
+  {
+    name: "QA & Testing",
+    icon: Target,
+    badge: "VERIFIED",
+    desc: "Automated & manual test coverage.",
+  },
+  {
+    name: "UI/UX Design",
+    icon: Palette,
+    badge: "DESIGN-LED",
+    desc: "Research-driven interfaces & prototypes.",
+  },
 ];
+
+type CapabilityItem = (typeof tickerData)[number];
+
+interface FlipCardHandle {
+  flipTo: (item: CapabilityItem) => Promise<void>;
+}
+
+/* ─── 3D flip tile: swaps its icon/label via a two-phase rotateX flip ─── */
+const FlipCapabilityCard = forwardRef<
+  FlipCardHandle,
+  { initial: CapabilityItem }
+>(function FlipCapabilityCard({ initial }, ref) {
+  const [item, setItem] = useState<CapabilityItem>(initial);
+  const controls = useAnimationControls();
+  const isFlipping = useRef(false);
+
+  useImperativeHandle(ref, () => ({
+    flipTo: async (nextItem: CapabilityItem) => {
+      if (isFlipping.current) return;
+      isFlipping.current = true;
+      try {
+        // Flip up / out — rotate to the invisible vertical edge.
+        await controls.start({
+          rotateX: -90,
+          filter: "blur(8px)",
+          opacity: 0,
+          transition: { duration: 0.1, ease: [0.4, 0, 1, 1] },
+        });
+        // Swap content at the invisible midpoint, then snap to the mirrored edge.
+        setItem(nextItem);
+        await controls.start({
+          rotateX: 90,
+          filter: "blur(8px)",
+          opacity: 0,
+          transition: { duration: 0 },
+        });
+        // Flip down / in — settle into the resting position.
+        await controls.start({
+          rotateX: 0,
+          filter: "blur(0px)",
+          opacity: 1,
+          transition: { duration: 0.32, ease: [0, 0, 0.2, 1] },
+        });
+      } finally {
+        isFlipping.current = false;
+      }
+    },
+  }));
+
+  const Icon = item.icon;
+
+  return (
+    <a
+      href="#services"
+      className="group flex flex-col items-center justify-center text-center gap-2.5 py-8 px-4 border-r border-b border-slate-200 dark:border-slate-800 no-underline hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+      style={{ perspective: 500 }}
+    >
+      <motion.div
+        animate={controls}
+        initial={false}
+        style={{ transformStyle: "preserve-3d" }}
+        className="flex flex-col items-center gap-2.5"
+      >
+        <Icon
+          size={26}
+          className="text-slate-400 group-hover:text-blue-600 dark:text-slate-500 dark:group-hover:text-blue-400 transition-colors"
+        />
+        <span className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+          {item.name}
+        </span>
+      </motion.div>
+    </a>
+  );
+});
+
+const CAPABILITY_SLOT_COUNT = 10;
+
+/* ─── Grid of flip tiles with a background scheduler that subtly rotates
+   in capabilities not currently shown, one flip at a time ─── */
+function CapabilitiesFlipGrid() {
+  const [mounted, setMounted] = useState(false);
+  const slotItemsRef = useRef<CapabilityItem[]>(
+    tickerData.slice(0, CAPABILITY_SLOT_COUNT),
+  );
+  const cardRefs = useRef<(FlipCardHandle | null)[]>([]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    let cancelled = false;
+    let flipping = false;
+
+    async function loop() {
+      while (!cancelled) {
+        const delay = 1600 + Math.random() * 2800;
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        if (cancelled || flipping) continue;
+
+        const visibleNames = new Set(
+          slotItemsRef.current.map((it) => it.name),
+        );
+        const candidates = tickerData.filter(
+          (it) => !visibleNames.has(it.name),
+        );
+        if (candidates.length === 0) continue;
+
+        const slotIdx = Math.floor(Math.random() * CAPABILITY_SLOT_COUNT);
+        const nextItem =
+          candidates[Math.floor(Math.random() * candidates.length)];
+
+        // Claim the slot + item synchronously (no await above) to avoid races.
+        slotItemsRef.current[slotIdx] = nextItem;
+        flipping = true;
+
+        cardRefs.current[slotIdx]?.flipTo(nextItem).finally(() => {
+          flipping = false;
+        });
+      }
+    }
+
+    loop();
+    return () => {
+      cancelled = true;
+    };
+  }, [mounted]);
+
+  const gridClassName =
+    "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-t border-l border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden max-w-7xl mx-auto nv-reveal d2";
+
+  // Static fallback on first paint — avoids animating before the client has mounted.
+  if (!mounted) {
+    return (
+      <div className={gridClassName}>
+        {tickerData.slice(0, CAPABILITY_SLOT_COUNT).map((item, idx) => {
+          const Icon = item.icon;
+          return (
+            <a
+              key={idx}
+              href="#services"
+              className="group flex flex-col items-center justify-center text-center gap-2.5 py-8 px-4 border-r border-b border-slate-200 dark:border-slate-800 no-underline hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+            >
+              <Icon
+                size={26}
+                className="text-slate-400 group-hover:text-blue-600 dark:text-slate-500 dark:group-hover:text-blue-400 transition-colors"
+              />
+              <span className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                {item.name}
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <div className={gridClassName}>
+      {slotItemsRef.current.map((item, idx) => (
+        <FlipCapabilityCard
+          key={idx}
+          ref={(el) => {
+            cardRefs.current[idx] = el;
+          }}
+          initial={item}
+        />
+      ))}
+    </div>
+  );
+}
 
 /* ─── About story panels (used by the animated carousel) ─── */
 const aboutStory = [
@@ -1100,6 +1315,81 @@ function CursorBubbleField({
   );
 }
 
+/* ─── Hero heading: letter-by-letter reveal with a continuous gradient
+   shimmer sweeping across the emphasized phrase. Flashy treatment reserved
+   for the hero only — regular section h2s stay on the badge → h2 → subcopy
+   pattern with subtle fade-up motion. ─── */
+const HERO_HEADING_TEXT = "Technology that grows your business.";
+const HERO_HEADING_HIGHLIGHT = "grows";
+
+const heroCharVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+function AnimatedHeroHeading() {
+  const splitIdx = HERO_HEADING_TEXT.indexOf(HERO_HEADING_HIGHLIGHT);
+  const line1Before = HERO_HEADING_TEXT.slice(0, splitIdx);
+  const line2 = HERO_HEADING_TEXT.slice(
+    splitIdx + HERO_HEADING_HIGHLIGHT.length,
+  ).trimStart();
+
+  return (
+    <motion.h1
+      aria-label={HERO_HEADING_TEXT}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={{
+        visible: {
+          transition: { staggerChildren: 0.04, delayChildren: 0.4 },
+        },
+      }}
+      style={{
+        fontFamily: "var(--font-rubik)",
+        fontSize: "clamp(42px, 6vw, 64px)",
+        fontWeight: 550,
+        transform: "scaleX(0.94)",
+        letterSpacing: "-0.025em",
+        lineHeight: 1.2,
+        color: "#353535",
+      }}
+      className="mb-6"
+    >
+      <span className="block">
+        {Array.from(line1Before).map((char, i) => (
+          <motion.span key={`hero-line1-${i}`} aria-hidden="true" variants={heroCharVariants}>
+            {char}
+          </motion.span>
+        ))}
+        <motion.span aria-hidden="true" variants={heroCharVariants}>
+          <motion.span
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, #0066ff 0%, #0066ff 40%, #7db2ff 46%, #ffffff 50%, #7db2ff 54%, #0066ff 60%, #0066ff 100%)",
+              backgroundSize: "200% 100%",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+            animate={{ backgroundPosition: ["200% 0", "-200% 0"] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "linear" }}
+          >
+            {HERO_HEADING_HIGHLIGHT}
+          </motion.span>
+        </motion.span>
+      </span>
+      <span className="block">
+        {Array.from(line2).map((char, i) => (
+          <motion.span key={`hero-line2-${i}`} aria-hidden="true" variants={heroCharVariants}>
+            {char}
+          </motion.span>
+        ))}
+      </span>
+    </motion.h1>
+  );
+}
+
 /* ─── Hooks ─── */
 function useScrollProgress() {
   const [progress, setProgress] = useState(0);
@@ -1222,22 +1512,22 @@ function useScrollReveal() {
   }, []);
 }
 
-/* ─── Animated Logo ─── */
+/* ─── Animated Logo ───
+   Flat icon + wordmark lockup, no card/border/shadow around the mark —
+   the pattern shared by Vercel, Linear, Stripe and most modern SaaS sites,
+   rather than treating the icon as a separate boxed app-icon. */
 function Logo() {
   return (
     <a
       href="#top"
-      className="flex items-center gap-2.5 no-underline shrink-0 group py-0.5"
+      className="flex items-center gap-2 no-underline shrink-0 group py-0.5"
     >
-      {/* Official Uploaded AT Emblem Logo Mark */}
-      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 border border-slate-200/90 shadow-sm flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
-        <img
-          src={atOfficialLogo}
-          alt="Amsture Technologies AT Logo"
-          className="w-full h-full object-contain"
-        />
-      </div>
-      {/* Brand Text Name - Single crisp presentation. "Technologies" hides on very small screens so the pill nav never overflows. */}
+      <img
+        src={atOfficialLogo}
+        alt="Amsture Technologies"
+        className="h-7 sm:h-8 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+      />
+      {/* Brand Text Name - "Technologies" hides on very small screens so the pill nav never overflows. */}
       <div className="flex items-center gap-1 text-[16px] min-[480px]:text-[18px] sm:text-[19px] font-black tracking-tight text-[#0a0a0a] leading-none min-w-0">
         <span className="font-extrabold text-[#0a0a0a] truncate">Amsture</span>
         <span className="text-blue-600 font-extrabold hidden min-[480px]:inline">
@@ -1363,9 +1653,9 @@ function Header() {
             </button>
             <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
               <img
-                src={amstureLogo}
-                alt="Amsture Technologies Logo"
-                className="w-7 h-7 rounded-md object-contain shrink-0 border border-slate-100 shadow-xs"
+                src={atOfficialLogo}
+                alt="Amsture Technologies"
+                className="h-6 w-auto object-contain shrink-0"
               />
               <Search size={18} className="text-blue-600 shrink-0" />
               <input
@@ -1496,1656 +1786,442 @@ function Header() {
 }
 
 /* ─── PARALLEL, NOT SEQUENTIAL (AI-ORCHESTRATED SDLC) SECTION ─── */
+type SdlcAccent = "blue" | "indigo" | "purple" | "green" | "amber" | "teal";
+
+const SDLC_ACCENTS: Record<
+  SdlcAccent,
+  { solid: string; badgeBg: string; badgeText: string; dot: string; hoverBorder: string }
+> = {
+  blue: {
+    solid: "bg-blue-600",
+    badgeBg: "bg-blue-50 dark:bg-blue-500/10",
+    badgeText: "text-blue-700 dark:text-blue-300",
+    dot: "bg-blue-500",
+    hoverBorder: "hover:border-blue-300 dark:hover:border-blue-500/40",
+  },
+  indigo: {
+    solid: "bg-indigo-600",
+    badgeBg: "bg-indigo-50 dark:bg-indigo-500/10",
+    badgeText: "text-indigo-700 dark:text-indigo-300",
+    dot: "bg-indigo-500",
+    hoverBorder: "hover:border-indigo-300 dark:hover:border-indigo-500/40",
+  },
+  purple: {
+    solid: "bg-purple-600",
+    badgeBg: "bg-purple-50 dark:bg-purple-500/10",
+    badgeText: "text-purple-700 dark:text-purple-300",
+    dot: "bg-purple-500",
+    hoverBorder: "hover:border-purple-300 dark:hover:border-purple-500/40",
+  },
+  green: {
+    solid: "bg-green-600",
+    badgeBg: "bg-green-50 dark:bg-green-500/10",
+    badgeText: "text-green-700 dark:text-green-300",
+    dot: "bg-green-500",
+    hoverBorder: "hover:border-green-300 dark:hover:border-green-500/40",
+  },
+  amber: {
+    solid: "bg-amber-500",
+    badgeBg: "bg-amber-50 dark:bg-amber-500/10",
+    badgeText: "text-amber-700 dark:text-amber-300",
+    dot: "bg-amber-500",
+    hoverBorder: "hover:border-amber-300 dark:hover:border-amber-500/40",
+  },
+  teal: {
+    solid: "bg-teal-600",
+    badgeBg: "bg-teal-50 dark:bg-teal-500/10",
+    badgeText: "text-teal-700 dark:text-teal-300",
+    dot: "bg-teal-500",
+    hoverBorder: "hover:border-teal-300 dark:hover:border-teal-500/40",
+  },
+};
+
+type SdlcStep = {
+  id: number;
+  name: string;
+  desc: string;
+  who: "ai" | "human";
+  tag?: string;
+  accent: SdlcAccent;
+};
+
+// Plain-language, non-technical descriptions — one clear sentence each.
+const sdlcSteps: SdlcStep[] = [
+  {
+    id: 0,
+    name: "Requirement",
+    desc: "You tell us what you need — the goal, the users, and what success looks like.",
+    who: "human",
+    accent: "blue",
+  },
+  {
+    id: 1,
+    name: "Understanding",
+    desc: "AI turns your request into a clear, structured plan everyone can follow.",
+    who: "ai",
+    accent: "blue",
+  },
+  {
+    id: 2,
+    name: "Lock Scope",
+    desc: "That plan is finalized, so nothing gets missed or changed midway.",
+    who: "ai",
+    accent: "blue",
+  },
+  {
+    id: 3,
+    name: "Generate Docs",
+    desc: "AI writes the technical blueprint — the specs, screens, and data it will build from.",
+    who: "ai",
+    accent: "indigo",
+  },
+  {
+    id: 4,
+    name: "Approve Gate",
+    desc: "A human engineer checks the blueprint and signs off before any building starts.",
+    who: "human",
+    tag: "Human checkpoint",
+    accent: "indigo",
+  },
+  {
+    id: 5,
+    name: "Parallel Design",
+    desc: "AI designs the architecture, database, APIs, and screens — all at the same time.",
+    who: "ai",
+    tag: "Runs in parallel",
+    accent: "purple",
+  },
+  {
+    id: 6,
+    name: "Parallel Build",
+    desc: "AI writes the real, working code for every part of the product at once.",
+    who: "ai",
+    tag: "Runs in parallel",
+    accent: "green",
+  },
+  {
+    id: 7,
+    name: "Parallel Validate",
+    desc: "AI tests everything automatically, checking for bugs and security issues.",
+    who: "ai",
+    tag: "Runs in parallel",
+    accent: "amber",
+  },
+  {
+    id: 8,
+    name: "Auto Fix",
+    desc: "Anything that fails gets fixed automatically, without waiting on a person.",
+    who: "ai",
+    accent: "teal",
+  },
+  {
+    id: 9,
+    name: "Deploy Release",
+    desc: "The finished product goes live for real users with a single click.",
+    who: "ai",
+    accent: "teal",
+  },
+  {
+    id: 10,
+    name: "Maintain & Feedback",
+    desc: "We watch it around the clock, and everything we learn feeds back into Step 1.",
+    who: "ai",
+    tag: "Repeats the cycle",
+    accent: "teal",
+  },
+];
+
+const SDLC_COLUMNS: { label: string; sub: string; ids: number[] }[] = [
+  { label: "Discovery", sub: "Capture & structure intent", ids: [0, 1, 2] },
+  { label: "Specification", sub: "Freeze scope & get sign-off", ids: [3, 4] },
+  { label: "Parallel Execution", sub: "Design → Build → Validate", ids: [5, 6, 7] },
+  { label: "Delivery", sub: "Ship, observe, and loop back", ids: [8, 9, 10] },
+];
+
+// Every step connects to the next in one continuous chain (1 → 2 → 3 … → 11),
+// plus a final loop back from the last step to the first.
+const SDLC_CHAIN: [number, number][] = [
+  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5],
+  [5, 6], [6, 7], [7, 8], [8, 9], [9, 10],
+];
+
+type SdlcPath = {
+  id: string;
+  d: string;
+  loop?: boolean;
+  label?: string;
+  labelX: number;
+  labelY: number;
+};
+
+type Rect = { left: number; right: number; top: number; bottom: number; cx: number; cy: number };
+
+// Right-angle "flowchart" connector with softly rounded corners — easier to
+// trace by eye than a diagonal line crossing over unrelated cards.
+function elbowPath(p1: { x: number; y: number }, p2: { x: number; y: number }, orientation: "horizontal" | "vertical") {
+  const r = 12;
+  if (orientation === "horizontal") {
+    const midX = (p1.x + p2.x) / 2;
+    const vDir = p2.y === p1.y ? 0 : p2.y > p1.y ? 1 : -1;
+    if (vDir === 0) return `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`;
+    const rr = Math.min(r, Math.abs(p2.y - p1.y) / 2, Math.abs(midX - p1.x));
+    return `M ${p1.x} ${p1.y} L ${midX - rr} ${p1.y} Q ${midX} ${p1.y} ${midX} ${p1.y + rr * vDir} L ${midX} ${p2.y - rr * vDir} Q ${midX} ${p2.y} ${midX + rr} ${p2.y} L ${p2.x} ${p2.y}`;
+  }
+  const midY = (p1.y + p2.y) / 2;
+  const hDir = p2.x === p1.x ? 0 : p2.x > p1.x ? 1 : -1;
+  if (hDir === 0) return `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`;
+  const rr = Math.min(r, Math.abs(p2.x - p1.x) / 2, Math.abs(midY - p1.y));
+  return `M ${p1.x} ${p1.y} L ${p1.x} ${midY - rr} Q ${p1.x} ${midY} ${p1.x + rr * hDir} ${midY} L ${p2.x - rr * hDir} ${midY} Q ${p2.x} ${midY} ${p2.x} ${midY + rr} L ${p2.x} ${p2.y}`;
+}
+
+// Big rounded "U" beneath the whole diagram for the one connector that runs
+// backwards (last step feeding back into the first).
+function loopPath(p1: { x: number; y: number }, p2: { x: number; y: number }, dropY: number) {
+  const r = 18;
+  const sign = p2.x >= p1.x ? 1 : -1;
+  return `M ${p1.x} ${p1.y} L ${p1.x} ${dropY - r} Q ${p1.x} ${dropY} ${p1.x + r * sign} ${dropY} L ${p2.x - r * sign} ${dropY} Q ${p2.x} ${dropY} ${p2.x} ${dropY - r} L ${p2.x} ${p2.y}`;
+}
+
 function ParallelSDLCSection() {
-  const [currentStep, setCurrentStep] = useState<number>(1); // Default Step 2: Understanding (matches renaissa.ai!)
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const [paths, setPaths] = useState<SdlcPath[]>([]);
 
-  const sdlcSteps = [
-    {
-      id: 0,
-      node: "req",
-      name: "Requirement",
-      phase: "Sequential",
-      desc: "Capture the product need, business intent & goals in plain language",
-    },
-    {
-      id: 1,
-      node: "und",
-      name: "Understanding",
-      phase: "Sequential",
-      desc: "AI structures intent, extracts goals, and maps system constraints",
-    },
-    {
-      id: 2,
-      node: "lock",
-      name: "Lock Scope",
-      phase: "Sequential",
-      desc: "Freeze core specifications and functional boundaries",
-    },
-    {
-      id: 3,
-      node: "docs",
-      name: "Generate Docs",
-      phase: "Sequential",
-      desc: "Auto-generate PRD, system specs, user stories & schema blueprints",
-    },
-    {
-      id: 4,
-      node: "app",
-      name: "Approve Gate",
-      phase: "Sequential",
-      desc: "Human engineering review & milestone approval gate",
-    },
-    {
-      id: 5,
-      node: "design",
-      name: "Parallel Design",
-      phase: "Parallel · Design",
-      desc: "Concurrent synthesis of System Architecture, DB Schemas, API Specs & UI/UX Design",
-    },
-    {
-      id: 6,
-      node: "build",
-      name: "Parallel Build",
-      phase: "Parallel · Build",
-      desc: "Concurrent code generation, API controllers, and environment configuration",
-    },
-    {
-      id: 7,
-      node: "validate",
-      name: "Parallel Validate",
-      phase: "Parallel · Validate",
-      desc: "Autonomous E2E test suites, peer AI code review, and real-time security audit",
-    },
-    {
-      id: 8,
-      node: "fix",
-      name: "Auto Fix",
-      phase: "Sequential",
-      desc: "Autonomous bug resolution, edge-case handling & optimization",
-    },
-    {
-      id: 9,
-      node: "deploy",
-      name: "Deploy Release",
-      phase: "Sequential",
-      desc: "1-Click CI/CD production release with zero downtime",
-    },
-    {
-      id: 10,
-      node: "maintain",
-      name: "Maintain & Feedback",
-      phase: "Feedback Loop",
-      desc: "Live telemetry monitoring & continuous feedback loop back to Requirements",
-    },
-  ];
+  useLayoutEffect(() => {
+    const recompute = () => {
+      const container = containerRef.current;
+      if (!container) return;
+      const cRect = container.getBoundingClientRect();
 
-  useEffect(() => {
-    if (!isPlaying) return;
-    const interval = setInterval(() => {
-      setCurrentStep((prev) => (prev + 1) % sdlcSteps.length);
-    }, 2400);
-    return () => clearInterval(interval);
-  }, [isPlaying, sdlcSteps.length]);
+      const rectOf = (id: number): Rect | null => {
+        const el = nodeRefs.current[id];
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return {
+          left: r.left - cRect.left,
+          right: r.right - cRect.left,
+          top: r.top - cRect.top,
+          bottom: r.bottom - cRect.top,
+          cx: (r.left + r.right) / 2 - cRect.left,
+          cy: (r.top + r.bottom) / 2 - cRect.top,
+        };
+      };
 
-  const activeStepInfo = sdlcSteps[currentStep];
+      const newPaths: SdlcPath[] = [];
 
-  const handleNext = () =>
-    setCurrentStep((prev) => (prev + 1) % sdlcSteps.length);
-  const handlePrev = () =>
-    setCurrentStep((prev) => (prev - 1 + sdlcSteps.length) % sdlcSteps.length);
-  const handleSelectStep = (idx: number) => {
-    setCurrentStep(idx);
-    setIsPlaying(false);
-  };
+      SDLC_CHAIN.forEach(([a, b]) => {
+        const ra = rectOf(a);
+        const rb = rectOf(b);
+        if (!ra || !rb) return;
+        const dx = rb.cx - ra.cx;
+        const dy = rb.cy - ra.cy;
+
+        let p1: { x: number; y: number };
+        let p2: { x: number; y: number };
+        let d: string;
+
+        if (Math.abs(dx) > Math.abs(dy) * 1.15) {
+          p1 = { x: dx >= 0 ? ra.right : ra.left, y: ra.cy };
+          p2 = { x: dx >= 0 ? rb.left : rb.right, y: rb.cy };
+          d = elbowPath(p1, p2, "horizontal");
+        } else {
+          p1 = { x: ra.cx, y: dy >= 0 ? ra.bottom : ra.top };
+          p2 = { x: rb.cx, y: dy >= 0 ? rb.top : rb.bottom };
+          d = elbowPath(p1, p2, "vertical");
+        }
+
+        newPaths.push({
+          id: `${a}-${b}`,
+          d,
+          labelX: (p1.x + p2.x) / 2,
+          labelY: (p1.y + p2.y) / 2,
+        });
+      });
+
+      // Loop back: the last step (Maintain & Feedback) feeds back into the first (Requirement).
+      const rLast = rectOf(10);
+      const rFirst = rectOf(0);
+      if (rLast && rFirst) {
+        // Drop below the tallest card in the grid, not just the first/last
+        // columns, so the loop line and its label never sit under a card
+        // from a taller middle column (e.g. Parallel Validate).
+        const allBottoms = Array.from({ length: 11 }, (_, id) => rectOf(id)?.bottom ?? 0);
+        const dropY = Math.max(...allBottoms) + 60;
+        newPaths.push({
+          id: "loop",
+          d: loopPath({ x: rLast.cx, y: rLast.bottom }, { x: rFirst.cx, y: rFirst.bottom }, dropY),
+          loop: true,
+          label: "Repeats — feeds back into Step 1",
+          labelX: (rLast.cx + rFirst.cx) / 2,
+          labelY: dropY,
+        });
+      }
+
+      setPaths(newPaths);
+    };
+
+    recompute();
+    const ro = new ResizeObserver(() => recompute());
+    if (containerRef.current) ro.observe(containerRef.current);
+    window.addEventListener("resize", recompute);
+    const settleTimeout = setTimeout(recompute, 300);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", recompute);
+      clearTimeout(settleTimeout);
+    };
+  }, []);
 
   return (
     <section
       id="how-it-works"
-      className="py-20 md:py-28 bg-slate-50/60 relative overflow-hidden border-t border-slate-200"
+      className="py-20 md:py-28 relative overflow-hidden border-t border-slate-200 dark:border-slate-800"
     >
-      <div className="nv-wrap relative z-10 max-w-6xl mx-auto px-4">
+      <div className="nv-wrap relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 nv-reveal">
-          <div className="text-[11px] font-extrabold tracking-[0.15em] text-blue-600 uppercase mb-3">
-            HOW IT WORKS · AI-ORCHESTRATED SDLC
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        <div className="max-w-3xl mb-12 nv-reveal">
+          <div className="nv-eyebrow">HOW IT WORKS · AI-ORCHESTRATED SDLC</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
             Parallel, <span className="text-blue-600">not sequential</span>.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Traditional SDLC is a relay race. Ours is four tracks running at
-            once — directed by a central AI orchestrator, supervised by humans.
+          <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+            Traditional software development is a relay race — one step waits
+            for the last. Ours runs four tracks at once, guided by AI and
+            checked by humans at the key moments.
           </p>
         </div>
 
-        {/* Replica White Rounded Card Box Container matching user's image */}
-        <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
-          {/* Top Blue Gradient Accent Line matching site theme */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
+        <div className="mb-10">
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+            How it works, in short
+          </h3>
+          <p className="text-slate-500 dark:text-slate-400 mt-3 max-w-xl text-sm sm:text-base">
+            11 simple steps, grouped into 4 phases. Follow the numbers — every
+            step leads straight into the next.
+          </p>
+        </div>
 
-          {/* Canvas SVG Flow Diagram matching renaissa.ai */}
-          <div className="w-full overflow-x-auto select-none py-4">
-            <div className="min-w-[980px] max-w-[1200px] mx-auto relative">
-              <svg
-                viewBox="0 0 1420 370"
-                className="w-full h-auto min-w-[980px]"
-                preserveAspectRatio="xMidYMid meet"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  <filter
-                    id="blueGlow"
-                    x="-50%"
-                    y="-50%"
-                    width="200%"
-                    height="200%"
-                  >
-                    <feGaussianBlur stdDeviation="3" result="b" />
-                    <feMerge>
-                      <feMergeNode in="b" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-
-                  {/* Sequential Left Path Defs with generous spacing between Understand (150) and Lock (240) */}
-                  <path id="path-req-und" d="M 68 180 L 132 180" />
-                  <path id="path-und-lock" d="M 168 180 L 226 180" />
-                  <path id="path-lock-docs" d="M 254 180 L 316 180" />
-                  <path id="path-docs-app" d="M 344 180 L 432 180" />
-
-                  {/* Approve to Design (4 Parallel Paths) */}
-                  <path
-                    id="path-app-sys"
-                    d="M 464 168 C 510 168, 540 56, 572 56"
-                  />
-                  <path
-                    id="path-app-api"
-                    d="M 464 174 C 520 174, 550 128, 572 128"
-                  />
-                  <path
-                    id="path-app-infra"
-                    d="M 464 186 C 520 186, 550 200, 572 200"
-                  />
-                  <path
-                    id="path-app-ui"
-                    d="M 464 192 C 510 192, 540 272, 572 272"
-                  />
-
-                  {/* Design to Build Paths */}
-                  <path
-                    id="path-sys-code"
-                    d="M 608 56 C 670 56, 710 90, 742 96"
-                  />
-                  <path
-                    id="path-api-code"
-                    d="M 608 128 C 670 128, 710 105, 742 102"
-                  />
-                  <path
-                    id="path-infra-code"
-                    d="M 608 196 C 670 196, 710 130, 742 112"
-                  />
-                  <path
-                    id="path-infra-infra"
-                    d="M 608 206 C 670 206, 710 240, 742 246"
-                  />
-                  <path
-                    id="path-ui-code"
-                    d="M 608 268 C 670 268, 710 140, 742 118"
-                  />
-                  <path
-                    id="path-ui-infra"
-                    d="M 608 276 C 670 276, 710 258, 742 254"
-                  />
-
-                  {/* Build to Validate Paths */}
-                  <path
-                    id="path-code-test"
-                    d="M 778 96 C 830 96, 870 70, 902 70"
-                  />
-                  <path
-                    id="path-code-rev"
-                    d="M 778 108 C 830 108, 870 170, 902 176"
-                  />
-                  <path
-                    id="path-code-sec"
-                    d="M 778 112 C 830 112, 870 260, 902 278"
-                  />
-                  <path
-                    id="path-infra-test"
-                    d="M 778 242 C 830 242, 870 100, 902 80"
-                  />
-                  <path
-                    id="path-infra-rev"
-                    d="M 778 248 C 830 248, 870 200, 902 188"
-                  />
-                  <path
-                    id="path-infra-sec"
-                    d="M 778 256 C 830 256, 870 280, 902 288"
-                  />
-
-                  {/* Validate to Fix Paths */}
-                  <path
-                    id="path-test-fix"
-                    d="M 938 70 C 990 70, 1030 160, 1062 172"
-                  />
-                  <path id="path-rev-fix" d="M 938 180 L 1062 180" />
-                  <path
-                    id="path-sec-fix"
-                    d="M 938 290 C 990 290, 1030 200, 1062 188"
-                  />
-
-                  {/* Sequential Right */}
-                  <path id="path-fix-dep" d="M 1099 180 L 1191 180" />
-                  <path id="path-dep-maint" d="M 1229 180 L 1321 180" />
-
-                  {/* Feedback Loop */}
-                  <path
-                    id="path-maint-loop"
-                    d="M 1340 198 C 1340 340, 48 340, 48 198"
-                  />
-                </defs>
-
-                {/* Zone Cards with Blue Theme Colors */}
-                <rect
-                  x="520"
-                  y="34"
-                  width="140"
-                  height="282"
-                  rx="18"
-                  fill="#eff6ff"
-                  stroke="#bfdbfe"
-                  strokeWidth="1"
-                  opacity="0.8"
-                />
-                <rect
-                  x="700"
-                  y="60"
-                  width="120"
-                  height="230"
-                  rx="16"
-                  fill="#eff6ff"
-                  stroke="#bfdbfe"
-                  strokeWidth="1"
-                  opacity="0.8"
-                />
-                <rect
-                  x="860"
-                  y="36"
-                  width="120"
-                  height="290"
-                  rx="16"
-                  fill="#eff6ff"
-                  stroke="#bfdbfe"
-                  strokeWidth="1"
-                  opacity="0.8"
-                />
-
-                <text
-                  x="248"
-                  y="28"
-                  textAnchor="middle"
-                  fill="#2563eb"
-                  style={{
-                    fontSize: "9px",
-                    fontWeight: 800,
-                    letterSpacing: "0.14em",
-                  }}
-                >
-                  SEQUENTIAL
-                </text>
-                <text
-                  x="590"
-                  y="22"
-                  textAnchor="middle"
-                  fill="#1d4ed8"
-                  style={{
-                    fontSize: "9px",
-                    fontWeight: 800,
-                    letterSpacing: "0.12em",
-                  }}
-                >
-                  PARALLEL · DESIGN
-                </text>
-                <text
-                  x="760"
-                  y="52"
-                  textAnchor="middle"
-                  fill="#1d4ed8"
-                  style={{
-                    fontSize: "9px",
-                    fontWeight: 800,
-                    letterSpacing: "0.12em",
-                  }}
-                >
-                  PARALLEL · BUILD
-                </text>
-                <text
-                  x="920"
-                  y="28"
-                  textAnchor="middle"
-                  fill="#1d4ed8"
-                  style={{
-                    fontSize: "9px",
-                    fontWeight: 800,
-                    letterSpacing: "0.12em",
-                  }}
-                >
-                  PARALLEL · VALIDATE
-                </text>
-                <text
-                  x="1210"
-                  y="28"
-                  textAnchor="middle"
-                  fill="#2563eb"
-                  style={{
-                    fontSize: "9px",
-                    fontWeight: 800,
-                    letterSpacing: "0.14em",
-                  }}
-                >
-                  SEQUENTIAL
-                </text>
-                <text
-                  x="700"
-                  y="358"
-                  textAnchor="middle"
-                  fill="#94a3b8"
-                  style={{
-                    fontSize: "9px",
-                    fontWeight: 800,
-                    letterSpacing: "0.14em",
-                  }}
-                >
-                  FEEDBACK LOOP
-                </text>
-
-                {/* --- RENDER ALL PATHS (Traversed paths stay solid blue as flow progresses) --- */}
-                {/* Left Sequential Paths */}
-                <use
-                  href="#path-req-und"
-                  stroke="#cbd5e1"
-                  strokeWidth="1.5"
-                  strokeDasharray="3 3"
-                />
-                <use
-                  href="#path-req-und"
-                  stroke="#2563eb"
-                  strokeWidth={currentStep >= 1 ? "2.5" : "2"}
-                  opacity={currentStep >= 0 ? "1" : "0.2"}
-                />
-
-                <use
-                  href="#path-und-lock"
-                  stroke="#cbd5e1"
-                  strokeWidth="1.5"
-                  strokeDasharray="3 3"
-                />
-                <use
-                  href="#path-und-lock"
-                  stroke="#2563eb"
-                  strokeWidth={currentStep >= 2 ? "2.5" : "2"}
-                  opacity={currentStep >= 1 ? "1" : "0.2"}
-                />
-
-                <use
-                  href="#path-lock-docs"
-                  stroke="#cbd5e1"
-                  strokeWidth="1.5"
-                  strokeDasharray="3 3"
-                />
-                <use
-                  href="#path-lock-docs"
-                  stroke="#2563eb"
-                  strokeWidth={currentStep >= 3 ? "2.5" : "2"}
-                  opacity={currentStep >= 2 ? "1" : "0.2"}
-                />
-
-                <use
-                  href="#path-docs-app"
-                  stroke="#cbd5e1"
-                  strokeWidth="1.5"
-                  strokeDasharray="3 3"
-                />
-                <use
-                  href="#path-docs-app"
-                  stroke="#2563eb"
-                  strokeWidth={currentStep >= 4 ? "2.5" : "2"}
-                  opacity={currentStep >= 3 ? "1" : "0.2"}
-                />
-
-                {/* Approve to Design Paths (Step 5) */}
-                <use
-                  href="#path-app-sys"
-                  stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 5 ? "2" : "1.4"}
-                  opacity={currentStep >= 5 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-app-api"
-                  stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 5 ? "2" : "1.4"}
-                  opacity={currentStep >= 5 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-app-infra"
-                  stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 5 ? "2" : "1.4"}
-                  opacity={currentStep >= 5 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-app-ui"
-                  stroke={currentStep >= 5 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 5 ? "2" : "1.4"}
-                  opacity={currentStep >= 5 ? "1" : "0.3"}
-                />
-
-                {/* Design to Build Paths (Step 6) */}
-                <use
-                  href="#path-sys-code"
-                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
-                  opacity={currentStep >= 6 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-api-code"
-                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
-                  opacity={currentStep >= 6 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-infra-code"
-                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
-                  opacity={currentStep >= 6 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-infra-infra"
-                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
-                  opacity={currentStep >= 6 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-ui-code"
-                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
-                  opacity={currentStep >= 6 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-ui-infra"
-                  stroke={currentStep >= 6 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 6 ? "2" : "1.4"}
-                  opacity={currentStep >= 6 ? "1" : "0.3"}
-                />
-
-                {/* Build to Validate Paths (Step 7) */}
-                <use
-                  href="#path-code-test"
-                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
-                  opacity={currentStep >= 7 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-code-rev"
-                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
-                  opacity={currentStep >= 7 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-code-sec"
-                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
-                  opacity={currentStep >= 7 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-infra-test"
-                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
-                  opacity={currentStep >= 7 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-infra-rev"
-                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
-                  opacity={currentStep >= 7 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-infra-sec"
-                  stroke={currentStep >= 7 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 7 ? "2" : "1.4"}
-                  opacity={currentStep >= 7 ? "1" : "0.3"}
-                />
-
-                {/* Validate to Fix Paths (Step 8) */}
-                <use
-                  href="#path-test-fix"
-                  stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 8 ? "2" : "1.4"}
-                  opacity={currentStep >= 8 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-rev-fix"
-                  stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 8 ? "2" : "1.4"}
-                  opacity={currentStep >= 8 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-sec-fix"
-                  stroke={currentStep >= 8 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 8 ? "2" : "1.4"}
-                  opacity={currentStep >= 8 ? "1" : "0.3"}
-                />
-
-                {/* Sequential Right Paths (Step 9 & 10) */}
-                <use
-                  href="#path-fix-dep"
-                  stroke={currentStep >= 9 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 9 ? "2.5" : "1.4"}
-                  opacity={currentStep >= 9 ? "1" : "0.3"}
-                />
-                <use
-                  href="#path-dep-maint"
-                  stroke={currentStep >= 10 ? "#2563eb" : "#cbd5e1"}
-                  strokeWidth={currentStep >= 10 ? "2.5" : "1.4"}
-                  opacity={currentStep >= 10 ? "1" : "0.3"}
-                />
-
-                {/* Feedback Loop Path */}
-                <use
-                  href="#path-maint-loop"
-                  stroke="#cbd5e1"
-                  strokeWidth="1.5"
-                  strokeDasharray="6 5"
-                  opacity="0.85"
-                />
-
-                {/* --- SYNCHRONIZED STEP PARTICLES THAT MOVE SEGMENT BY SEGMENT --- */}
-                {currentStep === 0 && (
-                  <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                    <animateMotion dur="1.2s" repeatCount="indefinite">
-                      <mpath href="#path-req-und" />
-                    </animateMotion>
-                  </circle>
-                )}
-
-                {currentStep === 1 && (
-                  <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                    <animateMotion dur="1.2s" repeatCount="indefinite">
-                      <mpath href="#path-und-lock" />
-                    </animateMotion>
-                  </circle>
-                )}
-
-                {currentStep === 2 && (
-                  <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                    <animateMotion dur="1.2s" repeatCount="indefinite">
-                      <mpath href="#path-lock-docs" />
-                    </animateMotion>
-                  </circle>
-                )}
-
-                {(currentStep === 3 || currentStep === 4) && (
-                  <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                    <animateMotion dur="1.2s" repeatCount="indefinite">
-                      <mpath href="#path-docs-app" />
-                    </animateMotion>
-                  </circle>
-                )}
-
-                {/* Parallel Step 5: Design Branching */}
-                {currentStep === 5 && (
-                  <>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-app-sys" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-app-api" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-app-infra" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-app-ui" />
-                      </animateMotion>
-                    </circle>
-                  </>
-                )}
-
-                {/* Parallel Step 6: Build Branching */}
-                {currentStep === 6 && (
-                  <>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-sys-code" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-api-code" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-infra-code" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-ui-code" />
-                      </animateMotion>
-                    </circle>
-                  </>
-                )}
-
-                {/* Parallel Step 7: Validate Branching */}
-                {currentStep === 7 && (
-                  <>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-code-test" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-code-rev" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="3.8" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.4s" repeatCount="indefinite">
-                        <mpath href="#path-infra-sec" />
-                      </animateMotion>
-                    </circle>
-                  </>
-                )}
-
-                {currentStep === 8 && (
-                  <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                    <animateMotion dur="1.2s" repeatCount="indefinite">
-                      <mpath href="#path-rev-fix" />
-                    </animateMotion>
-                  </circle>
-                )}
-
-                {currentStep === 9 && (
-                  <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                    <animateMotion dur="1.2s" repeatCount="indefinite">
-                      <mpath href="#path-fix-dep" />
-                    </animateMotion>
-                  </circle>
-                )}
-
-                {currentStep === 10 && (
-                  <>
-                    <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="1.2s" repeatCount="indefinite">
-                        <mpath href="#path-dep-maint" />
-                      </animateMotion>
-                    </circle>
-                    <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                      <animateMotion dur="2.2s" repeatCount="indefinite">
-                        <mpath href="#path-maint-loop" />
-                      </animateMotion>
-                    </circle>
-                  </>
-                )}
-
-                {/* --- ALL 11 CLICKABLE NODES (Cumulative pipeline progression: Reached nodes stay solid blue) --- */}
-                {/* Node 1: Requirement (48, 180) */}
-                <g
-                  onClick={() => handleSelectStep(0)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="48"
-                    cy="180"
-                    r="20"
-                    fill="#ffffff"
-                    stroke={currentStep >= 0 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 0 ? "3" : currentStep > 0 ? "2.2" : "1.2"
-                    }
-                    opacity={currentStep >= 0 ? "1" : "0.6"}
-                    filter={currentStep === 0 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 0 && (
-                    <>
-                      <circle
-                        cx="48"
-                        cy="180"
-                        r="26"
-                        stroke="#2563eb"
-                        strokeWidth="1.5"
-                        fill="none"
-                        opacity="0.6"
-                        className="animate-ping"
-                      />
-                      <circle
-                        cx="48"
-                        cy="180"
-                        r="30"
-                        stroke="#2563eb"
-                        strokeWidth="1"
-                        fill="none"
-                        opacity="0.25"
-                      />
-                    </>
-                  )}
-                  <FileText
-                    x="39"
-                    y="171"
-                    size={18}
-                    className={`transition-all duration-300 ${currentStep >= 0 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500 group-hover:opacity-100"}`}
-                  />
-                  <text
-                    x="48"
-                    y="218"
-                    textAnchor="middle"
-                    fill={currentStep >= 0 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 0 ? "1" : "0.7"}
-                    style={{
-                      fontSize: currentStep === 0 ? "11.5px" : "10.5px",
-                      fontWeight: currentStep >= 0 ? 800 : 500,
-                    }}
-                    className="transition-all duration-300"
-                  >
-                    Requirement
-                  </text>
-                </g>
-
-                {/* Node 2: Understand (150, 180) */}
-                <g
-                  onClick={() => handleSelectStep(1)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="150"
-                    cy="180"
-                    r="20"
-                    fill="#ffffff"
-                    stroke={currentStep >= 1 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 1 ? "3" : currentStep > 1 ? "2.2" : "1.2"
-                    }
-                    opacity={currentStep >= 1 ? "1" : "0.6"}
-                    filter={currentStep === 1 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 1 && (
-                    <>
-                      <circle
-                        cx="150"
-                        cy="180"
-                        r="26"
-                        stroke="#2563eb"
-                        strokeWidth="1.5"
-                        fill="none"
-                        opacity="0.6"
-                        className="animate-ping"
-                      />
-                      <circle
-                        cx="150"
-                        cy="180"
-                        r="30"
-                        stroke="#2563eb"
-                        strokeWidth="1"
-                        fill="none"
-                        opacity="0.25"
-                      />
-                    </>
-                  )}
-                  <Target
-                    x="141"
-                    y="171"
-                    size={18}
-                    className={`transition-all duration-300 ${currentStep >= 1 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500 group-hover:opacity-100"}`}
-                  />
-                  <text
-                    x="150"
-                    y="218"
-                    textAnchor="middle"
-                    fill={currentStep >= 1 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 1 ? "1" : "0.7"}
-                    style={{
-                      fontSize: currentStep === 1 ? "11.5px" : "10.5px",
-                      fontWeight: currentStep >= 1 ? 800 : 500,
-                    }}
-                    className="transition-all duration-300"
-                  >
-                    Understand
-                  </text>
-                </g>
-
-                {/* Node 3: Lock (240, 180) */}
-                <g
-                  onClick={() => handleSelectStep(2)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="240"
-                    cy="180"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 2 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 2 ? "2.5" : currentStep > 2 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 2 ? "1" : "0.55"}
-                    filter={currentStep === 2 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 2 && (
-                    <circle
-                      cx="240"
-                      cy="180"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <ShieldCheck
-                    x="233"
-                    y="173"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 2 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="240"
-                    y="212"
-                    textAnchor="middle"
-                    fill={currentStep >= 2 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 2 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 2 ? 700 : 500,
-                    }}
-                  >
-                    Lock
-                  </text>
-                </g>
-
-                {/* Node 4: Docs (330, 180) */}
-                <g
-                  onClick={() => handleSelectStep(3)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="330"
-                    cy="180"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 3 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 3 ? "2.5" : currentStep > 3 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 3 ? "1" : "0.55"}
-                    filter={currentStep === 3 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 3 && (
-                    <circle
-                      cx="330"
-                      cy="180"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <FileText
-                    x="323"
-                    y="173"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 3 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="330"
-                    y="212"
-                    textAnchor="middle"
-                    fill={currentStep >= 3 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 3 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 3 ? 700 : 500,
-                    }}
-                  >
-                    Docs
-                  </text>
-                </g>
-
-                {/* Node 5: Approve (448, 180) */}
-                <g
-                  onClick={() => handleSelectStep(4)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="448"
-                    cy="180"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 4 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 4 ? "2.5" : currentStep > 4 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 4 ? "1" : "0.55"}
-                    filter={currentStep === 4 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 4 && (
-                    <circle
-                      cx="448"
-                      cy="180"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Check
-                    x="441"
-                    y="173"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 4 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="448"
-                    y="212"
-                    textAnchor="middle"
-                    fill={currentStep >= 4 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 4 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 4 ? 700 : 500,
-                    }}
-                  >
-                    Approve
-                  </text>
-                </g>
-
-                {/* --- PARALLEL DESIGN NODES (590, y) --- */}
-                <g
-                  onClick={() => handleSelectStep(5)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="590"
-                    cy="56"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 5 ? "2.5" : currentStep > 5 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 5 ? "1" : "0.55"}
-                    filter={currentStep === 5 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 5 && (
-                    <circle
-                      cx="590"
-                      cy="56"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Layers3
-                    x="583"
-                    y="49"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="590"
-                    y="82"
-                    textAnchor="middle"
-                    fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 5 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 5 ? 700 : 500,
-                    }}
-                  >
-                    System
-                  </text>
-                </g>
-                <g
-                  onClick={() => handleSelectStep(5)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="590"
-                    cy="128"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 5 ? "2.5" : currentStep > 5 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 5 ? "1" : "0.55"}
-                    filter={currentStep === 5 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 5 && (
-                    <circle
-                      cx="590"
-                      cy="128"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Database
-                    x="583"
-                    y="121"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="590"
-                    y="154"
-                    textAnchor="middle"
-                    fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 5 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 5 ? 700 : 500,
-                    }}
-                  >
-                    DB
-                  </text>
-                </g>
-                <g
-                  onClick={() => handleSelectStep(5)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="590"
-                    cy="200"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 5 ? "2.5" : currentStep > 5 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 5 ? "1" : "0.55"}
-                    filter={currentStep === 5 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 5 && (
-                    <circle
-                      cx="590"
-                      cy="200"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Cloud
-                    x="583"
-                    y="193"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="590"
-                    y="226"
-                    textAnchor="middle"
-                    fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 5 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 5 ? 700 : 500,
-                    }}
-                  >
-                    API Infra
-                  </text>
-                </g>
-                <g
-                  onClick={() => handleSelectStep(5)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="590"
-                    cy="272"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 5 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 5 ? "2.5" : currentStep > 5 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 5 ? "1" : "0.55"}
-                    filter={currentStep === 5 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 5 && (
-                    <circle
-                      cx="590"
-                      cy="272"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Globe2
-                    x="583"
-                    y="265"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 5 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="590"
-                    y="298"
-                    textAnchor="middle"
-                    fill={currentStep >= 5 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 5 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 5 ? 700 : 500,
-                    }}
-                  >
-                    UI
-                  </text>
-                </g>
-
-                {/* --- PARALLEL BUILD NODES (760, y) --- */}
-                <g
-                  onClick={() => handleSelectStep(6)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="760"
-                    cy="96"
-                    r="16"
-                    fill="#ffffff"
-                    stroke={currentStep >= 6 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 6
-                        ? "2.8"
-                        : currentStep > 6
-                          ? "2.2"
-                          : "1.2"
-                    }
-                    opacity={currentStep >= 6 ? "1" : "0.55"}
-                    filter={currentStep === 6 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 6 && (
-                    <circle
-                      cx="760"
-                      cy="96"
-                      r="22"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Code2
-                    x="751"
-                    y="87"
-                    size={18}
-                    className={`transition-all duration-300 ${currentStep >= 6 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="760"
-                    y="128"
-                    textAnchor="middle"
-                    fill={currentStep >= 6 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 6 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "10px",
-                      fontWeight: currentStep >= 6 ? 700 : 500,
-                    }}
-                  >
-                    Code
-                  </text>
-                </g>
-                <g
-                  onClick={() => handleSelectStep(6)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="760"
-                    cy="254"
-                    r="16"
-                    fill="#ffffff"
-                    stroke={currentStep >= 6 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 6
-                        ? "2.8"
-                        : currentStep > 6
-                          ? "2.2"
-                          : "1.2"
-                    }
-                    opacity={currentStep >= 6 ? "1" : "0.55"}
-                    filter={currentStep === 6 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 6 && (
-                    <circle
-                      cx="760"
-                      cy="254"
-                      r="22"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Settings
-                    x="751"
-                    y="245"
-                    size={18}
-                    className={`transition-all duration-300 ${currentStep >= 6 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="760"
-                    y="286"
-                    textAnchor="middle"
-                    fill={currentStep >= 6 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 6 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "10px",
-                      fontWeight: currentStep >= 6 ? 700 : 500,
-                    }}
-                  >
-                    Setup
-                  </text>
-                </g>
-
-                {/* --- PARALLEL VALIDATE NODES (920, y) --- */}
-                <g
-                  onClick={() => handleSelectStep(7)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="920"
-                    cy="70"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 7 ? "2.5" : currentStep > 7 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 7 ? "1" : "0.55"}
-                    filter={currentStep === 7 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 7 && (
-                    <circle
-                      cx="920"
-                      cy="70"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Check
-                    x="913"
-                    y="63"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="920"
-                    y="96"
-                    textAnchor="middle"
-                    fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 7 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 7 ? 700 : 500,
-                    }}
-                  >
-                    Test
-                  </text>
-                </g>
-                <g
-                  onClick={() => handleSelectStep(7)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="920"
-                    cy="180"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 7 ? "2.5" : currentStep > 7 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 7 ? "1" : "0.55"}
-                    filter={currentStep === 7 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 7 && (
-                    <circle
-                      cx="920"
-                      cy="180"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <FileText
-                    x="913"
-                    y="173"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="920"
-                    y="206"
-                    textAnchor="middle"
-                    fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 7 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 7 ? 700 : 500,
-                    }}
-                  >
-                    Review
-                  </text>
-                </g>
-                <g
-                  onClick={() => handleSelectStep(7)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="920"
-                    cy="288"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 7 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 7 ? "2.5" : currentStep > 7 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 7 ? "1" : "0.55"}
-                    filter={currentStep === 7 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 7 && (
-                    <circle
-                      cx="920"
-                      cy="288"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <ShieldCheck
-                    x="913"
-                    y="281"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 7 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="920"
-                    y="314"
-                    textAnchor="middle"
-                    fill={currentStep >= 7 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 7 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 7 ? 700 : 500,
-                    }}
-                  >
-                    Secure
-                  </text>
-                </g>
-
-                {/* --- SEQUENTIAL DELIVERY NODES (1080, 1210, 1330) --- */}
-                <g
-                  onClick={() => handleSelectStep(8)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="1080"
-                    cy="180"
-                    r="14"
-                    fill="#ffffff"
-                    stroke={currentStep >= 8 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 8 ? "2.5" : currentStep > 8 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 8 ? "1" : "0.55"}
-                    filter={currentStep === 8 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 8 && (
-                    <circle
-                      cx="1080"
-                      cy="180"
-                      r="20"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Zap
-                    x="1073"
-                    y="173"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 8 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="1080"
-                    y="210"
-                    textAnchor="middle"
-                    fill={currentStep >= 8 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 8 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 8 ? 700 : 500,
-                    }}
-                  >
-                    Fix
-                  </text>
-                </g>
-                <g
-                  onClick={() => handleSelectStep(9)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="1210"
-                    cy="180"
-                    r="15"
-                    fill="#ffffff"
-                    stroke={currentStep >= 9 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 9 ? "2.5" : currentStep > 9 ? "2" : "1.2"
-                    }
-                    opacity={currentStep >= 9 ? "1" : "0.55"}
-                    filter={currentStep === 9 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 9 && (
-                    <circle
-                      cx="1210"
-                      cy="180"
-                      r="21"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <ArrowRight
-                    x="1203"
-                    y="173"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 9 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="1210"
-                    y="210"
-                    textAnchor="middle"
-                    fill={currentStep >= 9 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 9 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 9 ? 700 : 500,
-                    }}
-                  >
-                    Deploy
-                  </text>
-                </g>
-                <g
-                  onClick={() => handleSelectStep(10)}
-                  className="cursor-pointer group"
-                >
-                  <circle
-                    cx="1330"
-                    cy="180"
-                    r="15"
-                    fill="#ffffff"
-                    stroke={currentStep >= 10 ? "#2563eb" : "#e2e8f0"}
-                    strokeWidth={
-                      currentStep === 10
-                        ? "2.5"
-                        : currentStep > 10
-                          ? "2"
-                          : "1.2"
-                    }
-                    opacity={currentStep >= 10 ? "1" : "0.55"}
-                    filter={currentStep === 10 ? "url(#blueGlow)" : undefined}
-                    className="transition-all duration-300 group-hover:stroke-blue-400 group-hover:opacity-100"
-                  />
-                  {currentStep === 10 && (
-                    <circle
-                      cx="1330"
-                      cy="180"
-                      r="21"
-                      stroke="#2563eb"
-                      strokeWidth="1.5"
-                      fill="none"
-                      opacity="0.6"
-                      className="animate-ping"
-                    />
-                  )}
-                  <Activity
-                    x="1323"
-                    y="173"
-                    size={14}
-                    className={`transition-all duration-300 ${currentStep >= 10 ? "text-blue-600 opacity-100" : "text-slate-400 opacity-50 group-hover:text-blue-500"}`}
-                  />
-                  <text
-                    x="1330"
-                    y="210"
-                    textAnchor="middle"
-                    fill={currentStep >= 10 ? "#0f172a" : "#94a3b8"}
-                    opacity={currentStep >= 10 ? "1" : "0.65"}
-                    style={{
-                      fontSize: "9.5px",
-                      fontWeight: currentStep >= 10 ? 700 : 500,
-                    }}
-                  >
-                    Maintain
-                  </text>
-                </g>
-              </svg>
-            </div>
-          </div>
-
-          {/* Navigation Arrows, Play/Pause & Interactive Step Text Footer */}
-          <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 mt-2">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handlePrev}
-                className="text-slate-500 hover:text-blue-600 hover:bg-blue-50 p-2.5 rounded-full transition-all border border-slate-200 shadow-sm"
-                aria-label="Previous Step"
-              >
-                <ArrowRight size={18} className="rotate-180" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 p-2.5 rounded-full transition-all border border-slate-200 shadow-sm flex items-center justify-center"
-                aria-label={isPlaying ? "Pause" : "Play"}
-              >
-                {isPlaying ? (
-                  <Pause size={16} />
-                ) : (
-                  <Play size={16} className="ml-0.5" />
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                className="text-slate-500 hover:text-blue-600 hover:bg-blue-50 p-2.5 rounded-full transition-all border border-slate-200 shadow-sm"
-                aria-label="Next Step"
-              >
-                <ArrowRight size={18} />
-              </button>
-            </div>
-
-            <div className="text-center max-w-xl">
-              <div className="inline-block bg-blue-500/10 text-blue-600 border border-blue-500/20 px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-1.5">
-                AMSTURE FLOW · {activeStepInfo.phase} · STEP{" "}
-                {String(currentStep + 1).padStart(2, "0")} OF 11
-              </div>
-              <div className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
-                <span className="text-blue-600 font-extrabold">
-                  {activeStepInfo.name}
-                </span>{" "}
-                — {activeStepInfo.desc}
-              </div>
-            </div>
-
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-              {isPlaying ? (
-                <span className="flex items-center gap-1.5 text-blue-600 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-full text-[11px]">
-                  <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>{" "}
-                  Auto-Playing
+        {/* Plain-language phase overview — the big picture before the detail */}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-3 mb-14">
+          {SDLC_COLUMNS.map((col, i) => (
+            <React.Fragment key={col.label}>
+              <div className="flex items-center gap-2 pl-2 pr-4 py-2 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                <span className="w-6 h-6 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[11px] font-bold flex items-center justify-center shrink-0">
+                  {i + 1}
                 </span>
-              ) : (
-                <span className="flex items-center gap-1.5 text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full text-[11px]">
-                  Paused
+                <span className="text-sm font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap">
+                  {col.label}
                 </span>
+              </div>
+              {i < SDLC_COLUMNS.length - 1 && (
+                <ArrowRight size={16} className="text-slate-300 dark:text-slate-700 shrink-0" />
               )}
-            </div>
+            </React.Fragment>
+          ))}
+        </div>
+
+        {/* Numbered step diagram */}
+        <div ref={containerRef} className="relative max-w-7xl mx-auto">
+          <svg className="absolute inset-0 overflow-visible pointer-events-none" aria-hidden="true">
+            <defs>
+              <marker
+                id="sdlc-arrow"
+                viewBox="0 0 10 10"
+                refX="8"
+                refY="5"
+                markerWidth="6"
+                markerHeight="6"
+                orient="auto-start-reverse"
+              >
+                <path d="M0,0 L10,5 L0,10 z" fill="currentColor" />
+              </marker>
+            </defs>
+            {paths.map((p) => (
+              <g key={p.id} className={p.loop ? "text-blue-400 dark:text-blue-500" : "text-slate-300 dark:text-slate-700"}>
+                <path
+                  d={p.d}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={p.loop ? 1.75 : 1.5}
+                  strokeDasharray={p.loop ? "5 5" : undefined}
+                  strokeLinecap="round"
+                  markerEnd="url(#sdlc-arrow)"
+                />
+                {p.loop && (
+                  <circle r="3.5" className="fill-blue-500 dark:fill-blue-400">
+                    <animateMotion dur="3s" repeatCount="indefinite" path={p.d} rotate="auto" />
+                  </circle>
+                )}
+              </g>
+            ))}
+          </svg>
+
+          {paths
+            .filter((p) => p.label)
+            .map((p) => (
+              <div
+                key={`label-${p.id}`}
+                className="absolute z-20 -translate-x-1/2 -translate-y-1/2 px-3 py-1 rounded-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-[11px] font-semibold tracking-wide shadow-sm whitespace-nowrap"
+                style={{ left: p.labelX, top: p.labelY }}
+              >
+                {p.label}
+              </div>
+            ))}
+
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-start gap-y-14 lg:gap-x-8 pb-24">
+            {SDLC_COLUMNS.map((col, colIdx) => (
+              <div
+                key={col.label}
+                className="flex-1 flex flex-col gap-8 min-w-0 rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 p-5 lg:p-6"
+              >
+                <div>
+                  <span className="text-[11px] font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase">
+                    Phase {colIdx + 1} · {col.label}
+                  </span>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{col.sub}</p>
+                </div>
+
+                {col.ids.map((id) => {
+                  const step = sdlcSteps[id];
+                  const accent = SDLC_ACCENTS[step.accent];
+                  return (
+                    <div
+                      key={step.id}
+                      ref={(el) => {
+                        nodeRefs.current[step.id] = el;
+                      }}
+                      className={`bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow duration-300 p-5 ${accent.hoverBorder}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-9 h-9 rounded-full ${accent.solid} text-white font-bold text-sm flex items-center justify-center shrink-0`}>
+                          {step.id + 1}
+                        </div>
+                        <h4 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
+                          {step.name}
+                        </h4>
+                      </div>
+
+                      {step.tag && (
+                        <span className={`inline-block mt-3 text-[11px] font-bold px-2.5 py-1 rounded-full whitespace-nowrap ${accent.badgeBg} ${accent.badgeText}`}>
+                          {step.tag}
+                        </span>
+                      )}
+
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+                        {step.desc}
+                      </p>
+
+                      <div className="flex items-center gap-1.5 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+                        {step.who === "ai" ? <Bot size={14} className="shrink-0" /> : <Users size={14} className="shrink-0" />}
+                        <span className="text-xs font-medium">
+                          {step.who === "ai" ? "Handled by AI" : "Handled by a person"}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -3166,37 +2242,42 @@ function ServicesSection() {
     (s) => s.category === activeCategory,
   );
 
-  // Dynamic signal node sequence timer to illuminate card borders when signal node arrives (relaxed, smooth pace)
+  const activeIdx = filteredServices.length
+    ? activeConnectedCardIndex % filteredServices.length
+    : 0;
+  const activeSvc = filteredServices[activeIdx];
+
+  // Auto-advance the card stack; once the last card in a category has had
+  // its turn, move on to the next category and start its stack from the top.
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveConnectedCardIndex(
-        (prev) => (prev + 1) % Math.max(1, filteredServices.length),
-      );
+    const timeout = setTimeout(() => {
+      if (activeConnectedCardIndex + 1 >= filteredServices.length) {
+        const catIdx = serviceCategories.findIndex(
+          (c) => c.id === activeCategory,
+        );
+        const nextCat =
+          serviceCategories[(catIdx + 1) % serviceCategories.length].id;
+        setActiveCategory(nextCat);
+        setActiveConnectedCardIndex(0);
+      } else {
+        setActiveConnectedCardIndex((prev) => prev + 1);
+      }
     }, 4200);
-    return () => clearInterval(interval);
-  }, [filteredServices.length]);
+    return () => clearTimeout(timeout);
+  }, [activeCategory, activeConnectedCardIndex, filteredServices.length]);
 
   return (
     <section
       id="services"
-      className="nv-section bg-gradient-to-b from-slate-50/70 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden"
+      className="nv-section bg-white dark:bg-slate-950 relative overflow-hidden"
     >
       {/* Background Decorative Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-400/10 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="nv-wrap relative z-10">
         {/* Central Engine Hub Header */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-6 nv-reveal">
-          <div className="relative mb-3">
-            <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-xl animate-pulse" />
-            <div className="w-13 h-13 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 relative z-10 border-2 border-white dark:border-slate-800">
-              <Cpu size={24} className="animate-spin-slow text-white" />
-            </div>
-          </div>
-
-          <span className="text-[11px] font-extrabold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/60 px-3.5 py-1 rounded-full mb-3">
-            CORE ENGINE · BUSINESS SOLUTIONS
-          </span>
+        <div className="flex flex-col items-start max-w-2xl mb-6 nv-reveal">
+          <div className="nv-eyebrow">CORE ENGINE · BUSINESS SOLUTIONS</div>
 
           <h2 className="nv-section-h2 text-[#0a0a0a] dark:text-white">
             Technology solutions{" "}
@@ -3209,90 +2290,8 @@ function ServicesSection() {
           </p>
         </div>
 
-        {/* SVG Branching Lines (Connecting Central Engine to Domain Pills) */}
-        <div className="hidden md:block w-full max-w-4xl mx-auto -mb-2 relative z-0">
-          <svg
-            className="w-full h-12 overflow-visible"
-            viewBox="0 0 900 50"
-            fill="none"
-          >
-            <path
-              id="sol-path-1"
-              d="M 450 0 C 450 30, 110 15, 110 50"
-              stroke="#cbd5e1"
-              strokeWidth="1.5"
-              strokeDasharray="3 3"
-            />
-            <path
-              d="M 450 0 C 450 30, 110 15, 110 50"
-              stroke="#2563eb"
-              strokeWidth="2"
-              opacity={activeCategory === "ai" ? "1" : "0.3"}
-            />
-
-            <path
-              id="sol-path-2"
-              d="M 450 0 C 450 30, 335 15, 335 50"
-              stroke="#cbd5e1"
-              strokeWidth="1.5"
-              strokeDasharray="3 3"
-            />
-            <path
-              d="M 450 0 C 450 30, 335 15, 335 50"
-              stroke="#2563eb"
-              strokeWidth="2"
-              opacity={activeCategory === "software" ? "1" : "0.3"}
-            />
-
-            <path
-              id="sol-path-3"
-              d="M 450 0 C 450 30, 565 15, 565 50"
-              stroke="#cbd5e1"
-              strokeWidth="1.5"
-              strokeDasharray="3 3"
-            />
-            <path
-              d="M 450 0 C 450 30, 565 15, 565 50"
-              stroke="#2563eb"
-              strokeWidth="2"
-              opacity={activeCategory === "enterprise" ? "1" : "0.3"}
-            />
-
-            <path
-              id="sol-path-4"
-              d="M 450 0 C 450 30, 790 15, 790 50"
-              stroke="#cbd5e1"
-              strokeWidth="1.5"
-              strokeDasharray="3 3"
-            />
-            <path
-              d="M 450 0 C 450 30, 790 15, 790 50"
-              stroke="#2563eb"
-              strokeWidth="2"
-              opacity={activeCategory === "cloud" ? "1" : "0.3"}
-            />
-
-            {/* Signal pulse traveling along vector curve */}
-            <circle r="4" fill="#2563eb">
-              <animateMotion dur="2.2s" repeatCount="indefinite">
-                <mpath
-                  href={
-                    activeCategory === "ai"
-                      ? "#sol-path-1"
-                      : activeCategory === "software"
-                        ? "#sol-path-2"
-                        : activeCategory === "enterprise"
-                          ? "#sol-path-3"
-                          : "#sol-path-4"
-                  }
-                />
-              </animateMotion>
-            </circle>
-          </svg>
-        </div>
-
         {/* Filter Category Pills Bar (Exact pill style from user screenshot) */}
-        <div className="flex flex-wrap items-center justify-start sm:justify-center gap-2.5 mb-6 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm max-w-4xl mx-auto relative z-10">
+        <div className="flex flex-wrap items-center justify-start sm:justify-center gap-2.5 mb-10 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm max-w-4xl mx-auto relative z-10">
           {serviceCategories.map((cat) => {
             const CatIcon = cat.icon;
             const count = services.filter((s) => s.category === cat.id).length;
@@ -3302,7 +2301,10 @@ function ServicesSection() {
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => {
+                  setActiveCategory(cat.id);
+                  setActiveConnectedCardIndex(0);
+                }}
                 className={`flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
                   isActive
                     ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]"
@@ -3330,205 +2332,213 @@ function ServicesSection() {
           })}
         </div>
 
-        {/* SVG Vector Connector Lines (Dynamically matches filteredServices count - 0 extra orphan nodes) */}
-        <div className="hidden md:block w-full max-w-5xl mx-auto -mt-3 mb-3 relative z-0">
-          <svg
-            className="w-full h-10 overflow-visible"
-            viewBox="0 0 1000 40"
-            fill="none"
-          >
-            {filteredServices.map((_, idx) => {
-              const cardCount = filteredServices.length;
-              let targetX = 500;
-              if (cardCount === 2) {
-                targetX = idx === 0 ? 250 : 750;
-              } else if (cardCount === 3) {
-                targetX = idx === 0 ? 166 : idx === 1 ? 500 : 833;
-              }
-              const pathD =
-                targetX === 500
-                  ? "M 500 0 L 500 40"
-                  : `M 500 0 C 500 20, ${targetX} 10, ${targetX} 40`;
-              const isActiveNode = activeConnectedCardIndex % cardCount === idx;
+        {/* Split Layout: Written Content (left) & Animated Stacked Cards (right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.1fr] gap-10 lg:gap-16 items-center relative z-10">
+          {/* LEFT: Written content for the spotlighted service */}
+          <div className="order-2 lg:order-1">
+            <AnimatePresence mode="wait">
+              {activeSvc && (
+                <motion.div
+                  key={activeSvc.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-xs shrink-0">
+                      <activeSvc.icon size={22} />
+                    </div>
+                    <span className="text-[11px] font-extrabold tracking-wider bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60 px-3 py-1 rounded-full uppercase">
+                      {activeSvc.badge}
+                    </span>
+                  </div>
 
-              return (
-                <g key={`dynamic-path-${activeCategory}-${idx}`}>
-                  <path
-                    d={pathD}
-                    stroke="#cbd5e1"
-                    strokeWidth="1.5"
-                    strokeDasharray="3 3"
-                  />
-                  <path
-                    d={pathD}
-                    stroke="#2563eb"
-                    strokeWidth={isActiveNode ? "2.8" : "1.5"}
-                    opacity={isActiveNode ? "1" : "0.2"}
-                    className="transition-all duration-300"
-                  />
-                </g>
-              );
-            })}
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mb-5 leading-tight">
+                    {activeSvc.title}
+                  </h3>
 
-            {/* Signal dot flowing synchronously down to the active card */}
-            {filteredServices.length > 0 &&
-              (() => {
-                const cardCount = filteredServices.length;
-                const currentActiveIdx = activeConnectedCardIndex % cardCount;
-                let targetX = 500;
-                if (cardCount === 2) {
-                  targetX = currentActiveIdx === 0 ? 250 : 750;
-                } else if (cardCount === 3) {
-                  targetX =
-                    currentActiveIdx === 0
-                      ? 166
-                      : currentActiveIdx === 1
-                        ? 500
-                        : 833;
-                }
-                const activePathD =
-                  targetX === 500
-                    ? "M 500 0 L 500 40"
-                    : `M 500 0 C 500 20, ${targetX} 10, ${targetX} 40`;
+                  <div className="space-y-4 mb-6">
+                    <div>
+                      <div className="text-[11px] font-extrabold uppercase text-rose-500 tracking-wider mb-1.5 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />
+                        Challenge
+                      </div>
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        {activeSvc.problem}
+                      </p>
+                    </div>
 
-                return (
-                  <circle r="4" fill="#2563eb" filter="url(#blueGlow)">
-                    <animateMotion
-                      key={`signal-dot-${activeCategory}-${currentActiveIdx}`}
-                      dur="3.8s"
-                      repeatCount="indefinite"
-                      path={activePathD}
+                    <div>
+                      <div className="text-[11px] font-extrabold uppercase text-blue-600 dark:text-blue-400 tracking-wider mb-1.5 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block" />
+                        Our Solution
+                      </div>
+                      <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
+                        {activeSvc.solution}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-5 border-t border-slate-100 dark:border-slate-800 flex items-start gap-2 mb-6">
+                    <Check size={16} className="text-emerald-600 shrink-0 mt-0.5" />
+                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight">
+                      <span className="text-emerald-600 font-extrabold">
+                        Impact:{" "}
+                      </span>
+                      {activeSvc.benefit}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedService(activeSvc)}
+                    className="py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white text-sm font-extrabold transition-all inline-flex items-center gap-2 group/btn"
+                  >
+                    <span>Explore Tech Stack & Specs</span>
+                    <ArrowUpRight
+                      size={16}
+                      className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
                     />
-                  </circle>
-                );
-              })()}
-          </svg>
-        </div>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-        {/* Animated Services Grid with Dynamic Border Illumination on Node Arrival */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10"
-        >
-          <AnimatePresence mode="popLayout">
+            {/* Progress dots synced with the card stack on the right */}
+            {filteredServices.length > 1 && (
+              <div className="flex items-center gap-2 mt-8">
+                {filteredServices.map((svc, idx) => (
+                  <button
+                    key={svc.id}
+                    type="button"
+                    aria-label={`Show ${svc.title}`}
+                    onClick={() => setActiveConnectedCardIndex(idx)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      idx === activeIdx
+                        ? "w-8 bg-blue-600"
+                        : "w-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT: Stacked white-card animation */}
+          <div className="order-1 lg:order-2 relative h-[380px] sm:h-[420px] max-w-sm mx-auto w-full">
             {filteredServices.map((svc, idx) => {
+              const total = filteredServices.length;
+              const offset = (idx - activeIdx + total) % total;
+              if (offset > 2) return null;
               const Icon = svc.icon;
-              const isConnectedNode = activeConnectedCardIndex === idx;
+              const gradient =
+                idx % 4 === 0
+                  ? "from-blue-500 via-indigo-500 to-blue-700"
+                  : idx % 4 === 1
+                    ? "from-purple-500 via-fuchsia-500 to-purple-700"
+                    : idx % 4 === 2
+                      ? "from-emerald-500 via-teal-500 to-emerald-700"
+                      : "from-orange-500 via-amber-500 to-orange-700";
+
+              const isFront = offset === 0;
 
               return (
                 <motion.div
                   key={svc.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95, y: 15 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: 15 }}
-                  transition={{ duration: 0.25 }}
-                  onMouseEnter={() => setActiveConnectedCardIndex(idx)}
-                  className={`group relative bg-white dark:bg-slate-900 border-2 rounded-2xl p-7 shadow-xs transition-all duration-300 flex flex-col justify-between ${
-                    isConnectedNode
-                      ? "nv-flowing-card-border border-blue-600 dark:border-blue-500 shadow-2xl shadow-blue-500/25 ring-4 ring-blue-500/20 scale-[1.015]"
-                      : "border-slate-200/90 dark:border-slate-800 hover:border-blue-500/50"
-                  }`}
+                  className="absolute inset-0 bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-slate-300/40 dark:shadow-black/40 p-5 flex flex-col cursor-pointer"
+                  style={{ zIndex: total - offset }}
+                  animate={{
+                    scale: 1 - offset * 0.055,
+                    x: offset * 26,
+                    y: offset * -22,
+                    rotate: offset * 3.5,
+                    opacity: isFront ? 1 : 0.9 - offset * 0.25,
+                  }}
+                  transition={{ type: "spring", stiffness: 220, damping: 24, mass: 0.9 }}
+                  whileHover={
+                    isFront
+                      ? { y: -10, scale: 1.02, boxShadow: "0 30px 60px -15px rgba(37,99,235,0.35)" }
+                      : undefined
+                  }
+                  onClick={() => setActiveConnectedCardIndex(idx)}
                 >
-                  {/* Top Glowing Blue Connection Line Accent Bar (Illuminates when signal node arrives) */}
-                  {isConnectedNode && (
-                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-500 rounded-t-2xl z-10 animate-in fade-in duration-300" />
-                  )}
-
-                  {/* Connected Node Pulse Badge at Card Top Center (Reflects vector line arrival) */}
-                  <div
-                    className={`hidden md:flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 shadow-md shadow-blue-500/60 absolute -top-2.5 left-1/2 -translate-x-1/2 z-20 transition-all duration-200 ${
-                      isConnectedNode
-                        ? "opacity-100 scale-100"
-                        : "opacity-0 scale-75"
-                    }`}
+                  <motion.div
+                    className="flex flex-col h-full"
+                    animate={isFront ? { y: [0, -6, 0] } : { y: 0 }}
+                    transition={
+                      isFront
+                        ? { duration: 3.4, repeat: Infinity, ease: "easeInOut" }
+                        : { duration: 0.3 }
+                    }
                   >
-                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
-                  </div>
-                  <div>
-                    {/* Top Header Card Info */}
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-xs">
-                        <Icon size={22} />
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                        <Icon size={18} />
                       </div>
-                      <span className="text-[11px] font-extrabold tracking-wider bg-blue-50 text-blue-700 border border-blue-200/60 px-3 py-1 rounded-full uppercase">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedService(svc);
+                        }}
+                        aria-label={`Explore ${svc.title}`}
+                        className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-600 hover:text-white text-slate-600 dark:text-slate-300 flex items-center justify-center transition-colors shrink-0"
+                      >
+                        <ArrowUpRight size={16} />
+                      </button>
+                    </div>
+
+                    <h4 className="text-lg font-black text-slate-900 dark:text-white leading-snug mb-4">
+                      {svc.title}
+                    </h4>
+
+                    <div
+                      className={`relative flex-1 rounded-2xl bg-gradient-to-br ${gradient} overflow-hidden flex items-center justify-center`}
+                    >
+                      {/* Fallback gradient + icon, shown until the real photo (added by you) loads */}
+                      {isFront && (
+                        <div className="absolute w-24 h-24 rounded-full bg-white/25 blur-2xl animate-pulse" />
+                      )}
+                      <Icon
+                        size={72}
+                        className={`relative text-white/20 ${isFront ? "animate-pulse" : ""}`}
+                      />
+                      <img
+                        src={svc.image}
+                        alt={svc.title}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                      <span className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-[10px] font-bold px-3 py-1.5 rounded-full">
                         {svc.badge}
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors mb-4">
-                      {svc.title}
-                    </h3>
-
-                    {/* Problem & Solution Breakdown */}
-                    <div className="space-y-3 mb-5">
-                      <div className="bg-slate-50/80 rounded-xl p-3 border border-slate-100">
-                        <div className="text-[11px] font-extrabold uppercase text-slate-400 tracking-wider mb-1 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />{" "}
-                          Challenge
-                        </div>
-                        <p className="text-xs text-slate-600 leading-relaxed">
-                          {svc.problem}
-                        </p>
-                      </div>
-
-                      <div className="bg-blue-50/40 rounded-xl p-3 border border-blue-100/60">
-                        <div className="text-[11px] font-extrabold uppercase text-blue-600 tracking-wider mb-1 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block" />{" "}
-                          Our Solution
-                        </div>
-                        <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                          {svc.solution}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    {/* Benefit Highlight Badge */}
-                    <div className="pt-4 border-t border-slate-100 flex items-start gap-2 mb-5">
-                      <Check
-                        size={16}
-                        className="text-emerald-600 shrink-0 mt-0.5"
-                      />
-                      <p className="text-xs font-bold text-slate-800 leading-tight">
-                        <span className="text-emerald-600 font-extrabold">
-                          Impact:{" "}
-                        </span>
-                        {svc.benefit}
-                      </p>
-                    </div>
-
-                    {/* Action Trigger Button */}
-                    <button
-                      type="button"
-                      onClick={() => setSelectedService(svc)}
-                      className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 text-xs font-extrabold transition-all flex items-center justify-center gap-2 group/btn"
-                    >
-                      <span>Explore Tech Stack & Specs</span>
-                      <ArrowUpRight
-                        size={14}
-                        className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
-                      />
-                    </button>
-                  </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-4 leading-relaxed line-clamp-2">
+                      {svc.solution}
+                    </p>
+                  </motion.div>
                 </motion.div>
               );
             })}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Integrated Solution Ecosystem Footer Banner */}
-        <div className="mt-12 p-8 rounded-2xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white border border-blue-900/40 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-12 p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-600/30 border border-blue-400/30 flex items-center justify-center text-blue-400 shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
               <Zap size={24} />
             </div>
             <div>
-              <h4 className="text-lg font-black">
+              <h4 className="text-lg font-black text-slate-900 dark:text-white">
                 Need a custom multi-system solution?
               </h4>
-              <p className="text-xs text-slate-300 mt-1 max-w-xl">
+              <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 max-w-xl">
                 We combine AI Automation, custom software, and enterprise ERP
                 into a unified digital ecosystem tailored for your exact
                 business requirements.
@@ -3699,11 +2709,7 @@ function Home() {
               ref={heroTextRef}
               className="nv-reveal flex flex-col items-center -mt-8 sm:-mt-10"
             >
-              <h1 className="nv-hero-h1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0a0a0a] tracking-tight leading-[1.08] mb-6">
-                Technology that{" "}
-                <span className="nv-blue-word text-blue-600">grows</span> your
-                business.
-              </h1>
+              <AnimatedHeroHeading />
 
               <p className="nv-hero-sub text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8">
                 We turn complex technology into simple business outcomes —
@@ -3725,67 +2731,57 @@ function Home() {
                   View Our Services
                 </a>
               </div>
+
+              <div className="nv-stats-grid mt-24 sm:mt-28 w-full">
+                <div className="nv-stat-card">
+                  <CountUp value="15+" />
+                  <div className="nv-stat-label">Projects delivered</div>
+                </div>
+                <div className="nv-stat-card">
+                  <CountUp value="100%" />
+                  <div className="nv-stat-label">Client satisfaction</div>
+                </div>
+                <div className="nv-stat-card">
+                  <CountUp value="6+" />
+                  <div className="nv-stat-label">Industries served</div>
+                </div>
+                <div className="nv-stat-card">
+                  <CountUp value="35%" />
+                  <div className="nv-stat-label">Avg. efficiency gain</div>
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* Scroll-down cue, pinned to the hero's bottom edge regardless of content height */}
+          <a
+            href="#services"
+            aria-label="Scroll down"
+            className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-slate-400 hover:text-blue-600 transition-colors z-10"
+          >
+            <span className="text-[11px] font-semibold tracking-widest uppercase">
+              Scroll
+            </span>
+            <div className="w-6 h-10 rounded-full border-2 border-slate-300 flex items-start justify-center p-1.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" />
+            </div>
+          </a>
         </section>
 
         {/* ── CORE CAPABILITIES & SOLUTIONS BENTO GRID (STRUCTURED, ELEGANT & ANIMATED) ── */}
-        <section className="py-16 bg-slate-50/90 dark:bg-slate-950 border-y border-slate-200/80 dark:border-slate-800/80 relative z-10 overflow-hidden">
+        <section className="py-16 border-y border-slate-200/80 dark:border-slate-800/80 relative z-10 overflow-hidden">
           <div className="nv-wrap">
-            <div className="text-center max-w-2xl mx-auto mb-12 nv-reveal">
-              <span className="text-[11px] font-extrabold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-50 dark:bg-blue-950/80 border border-blue-200/80 dark:border-blue-800/80 px-4 py-1.5 rounded-full inline-block mb-3">
+            <div className="max-w-2xl mb-12 nv-reveal">
+              <div className="nv-eyebrow">
                 CORE CAPABILITIES & ENGINEERING SERVICES
-              </span>
+              </div>
               <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                 Engineered for operational speed & measurable growth
               </h3>
             </div>
 
-            {/* Plain hairline-divided logo-wall style grid (no individual cards) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-t border-l border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden max-w-7xl mx-auto nv-reveal d2">
-              {tickerData.map((item, idx) => {
-                const Icon = item.icon;
-                return (
-                  <a
-                    key={idx}
-                    href="#services"
-                    className="group flex flex-col items-center justify-center text-center gap-2.5 py-8 px-4 border-r border-b border-slate-200 dark:border-slate-800 no-underline hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
-                  >
-                    <Icon
-                      size={26}
-                      className="text-slate-400 group-hover:text-blue-600 dark:text-slate-500 dark:group-hover:text-blue-400 transition-colors"
-                    />
-                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
-                      {item.name}
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* ── STATS SECTION ── */}
-        <section className="nv-section bg-white">
-          <div className="nv-wrap">
-            <div className="nv-stats-grid nv-reveal">
-              <div className="nv-stat-card">
-                <CountUp value="15+" />
-                <div className="nv-stat-label">Projects delivered</div>
-              </div>
-              <div className="nv-stat-card">
-                <CountUp value="100%" />
-                <div className="nv-stat-label">Client satisfaction</div>
-              </div>
-              <div className="nv-stat-card">
-                <CountUp value="6+" />
-                <div className="nv-stat-label">Industries served</div>
-              </div>
-              <div className="nv-stat-card">
-                <CountUp value="35%" />
-                <div className="nv-stat-label">Avg. efficiency gain</div>
-              </div>
-            </div>
+            {/* Hairline-divided logo-wall grid; tiles subtly flip in unseen capabilities over time */}
+            <CapabilitiesFlipGrid />
           </div>
         </section>
 
@@ -4041,7 +3037,7 @@ function Home() {
         </section>
 
         {/* ── AI & AUTOMATION SECTION ── */}
-        <section className="nv-section bg-slate-50 border-y border-slate-200">
+        <section className="nv-section border-y border-slate-200">
           <div className="nv-wrap">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-6 nv-reveal">
@@ -4170,7 +3166,7 @@ function Home() {
         </section>
 
         {/* ── TESTIMONIALS ── */}
-        <section id="work" className="nv-section bg-slate-50/50">
+        <section id="work" className="nv-section">
           <div className="nv-wrap">
             <div className="nv-eyebrow nv-reveal">CLIENT VOICES</div>
             <h2 className="nv-section-h2 mb-12 nv-reveal">
@@ -4213,15 +3209,13 @@ function Home() {
 
         {/* ── FAQ ── */}
         <section id="faq" className="nv-section">
-          <div className="nv-wrap max-w-4xl">
-            <div className="text-center mb-12 nv-reveal">
-              <div className="nv-eyebrow justify-center">
-                FREQUENTLY ASKED QUESTIONS
-              </div>
-              <h2 className="nv-section-h2">
-                Clear answers to common questions.
-              </h2>
+          <div className="nv-wrap">
+            <div className="nv-eyebrow nv-reveal">
+              FREQUENTLY ASKED QUESTIONS
             </div>
+            <h2 className="nv-section-h2 mb-12 nv-reveal">
+              Clear answers to common questions.
+            </h2>
 
             <div className="nv-reveal d2">
               {faqs.map((faq, idx) => {
@@ -4249,7 +3243,7 @@ function Home() {
         {/* ── CONTACT SECTION ── */}
         <section
           id="contact"
-          className="nv-section bg-slate-50 border-t border-slate-200"
+          className="nv-section border-t border-slate-200"
         >
           <div className="nv-wrap">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

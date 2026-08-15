@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800;900&family=Rubik:wght@300..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -60,6 +60,7 @@
   --radius: 0.75rem;
   --app-font-sans: "Manrope", "Inter", system-ui, sans-serif;
   --app-font-mono: "Space Mono", ui-monospace, monospace;
+  --font-rubik: "Rubik", "Manrope", "Inter", system-ui, sans-serif;
 
   /* Amsture Technologies design tokens */
   --nv-blue: #0066ff;
@@ -359,19 +360,20 @@ body {
     font-size: 14.5px;
     font-weight: 600;
     text-decoration: none;
-    border: 1px solid #4a4a4a;
+    border: 1px solid var(--nv-blue);
     cursor: pointer;
     transition:
       color 0.2s,
-      border-color 0.8s;
+      border-color 0.2s,
+      background-color 0.2s;
   }
   .nv-cta-secondary:hover {
     color: var(--nv-blue);
-    border-color: var(--nv-blue);
+    background: rgba(0, 102, 255, 0.06);
   }
   .dark .nv-cta-secondary {
     color: rgba(220, 230, 255, 0.8);
-    border-color: var(--nv-border);
+    border-color: var(--nv-blue);
   }
 
   /* ── Hero image card ── */
@@ -1498,4 +1500,5 @@ body {
     animation: flowingCardBorder 3s linear infinite;
     z-index: -1;
   }
+
 } /* end @layer components */
